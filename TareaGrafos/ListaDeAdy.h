@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,13 +17,17 @@
 
 using namespace std;
 struct Vertice{
+    // faltan las aristas
     string etiqueta;
-    
-    Vertice():etiqueta(""){};
+    Vertice* sgtVertice;
+    Vertice():etiqueta(""), sgtVertice(nullptr){};
+    Vertice(string etiq): etiqueta (etiq), sgtVertice(nullptr){};
 };
 typedef Vertice* vertice;
 class ListaDeAdy {
 public:
+    int cantVert;
+    vertice vertIncial;
 /*
   EFE:
   REQ:
@@ -139,6 +143,8 @@ public:
   MOD:
 */
     int numVerticesAdy(vertice v);
+
+    typedef ListaDeAdy grafo;
 private:
 
 };
