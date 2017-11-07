@@ -29,7 +29,6 @@
       <logicalFolder name="f2" displayName="Modelos Auxiliares" projectFiles="true">
         <itemPath>ColaDePrioridad.cpp</itemPath>
         <itemPath>ConjuntoDeConj.cpp</itemPath>
-        <itemPath>Diccionario.cpp</itemPath>
       </logicalFolder>
       <itemPath>AlgoritmosGrafos.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -70,8 +69,6 @@
       <item path="ConjuntoDeConj.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConjuntoDeConj.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Diccionario.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Diccionario.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -118,8 +115,6 @@
       <item path="ConjuntoDeConj.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConjuntoDeConj.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Diccionario.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Diccionario.h" ex="false" tool="3" flavor2="0">
       </item>
