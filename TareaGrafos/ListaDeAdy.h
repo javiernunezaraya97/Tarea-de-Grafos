@@ -17,6 +17,7 @@
 
 using namespace std;
 struct Vertice{
+    // faltan las aristas
     string etiqueta;
     Vertice* sgtVertice;
     Vertice():etiqueta(""), sgtVertice(nullptr){};
@@ -25,6 +26,8 @@ struct Vertice{
 typedef Vertice* vertice;
 class ListaDeAdy {
 public:
+    int cantVert;
+    vertice vertIncial;
 /*
   EFE:
   REQ:
@@ -140,6 +143,8 @@ public:
   MOD:
 */
     int numVerticesAdy(vertice v);
+
+    typedef ListaDeAdy grafo;
 private:
 
 };

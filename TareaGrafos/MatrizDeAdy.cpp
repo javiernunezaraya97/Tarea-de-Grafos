@@ -16,9 +16,77 @@
 MatrizDeAdy::MatrizDeAdy() {
 }
 
-MatrizDeAdy::MatrizDeAdy(const MatrizDeAdy& orig) {
-}
+//MatrizDeAdy::MatrizDeAdy(const MatrizDeAdy& orig) {
+//}
 
 MatrizDeAdy::~MatrizDeAdy() {
+}
+
+void MatrizDeAdy::vaciar(){
+    
+}
+
+bool MatrizDeAdy::vacio(){
+    
+}
+
+vertice MatrizDeAdy::agregarVertice(string etiq){
+    
+}
+
+void MatrizDeAdy::eliminarVertice(vertice v){
+    
+}
+
+void MatrizDeAdy::modificarEtiqueta(vertice v, string etiq){
+    
+}
+
+string MatrizDeAdy::Etiqueta(vertice v){
+    
+}
+
+void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
+    
+}
+
+void MatrizDeAdy::eliminarArista(vertice v1, vertice v2){
+    
+}
+
+void MatrizDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
+    
+}
+
+int MatrizDeAdy::Peso(vertice v1, vertice v2){
+    
+}
+
+bool MatrizDeAdy::adyacentes(vertice v1, vertice v2){
+    
+}
+
+vertice MatrizDeAdy::primerVertice(){
+    
+}
+
+vertice MatrizDeAdy::sigVertice(vertice v){
+    
+}
+
+vertice MatrizDeAdy::primerVerticeAdy(vertice v){
+    
+}
+
+vertice MatrizDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
+    
+}
+
+int MatrizDeAdy::numVertices(){
+    
+}
+
+int MatrizDeAdy::numVerticesAdy(vertice v){
+    
 }
 
