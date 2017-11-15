@@ -6,7 +6,7 @@
 
 /* 
  * File:   Diccionario.h
- * Author: Javier
+ * Author: Felipe
  *
  * Created on 5 de noviembre de 2017, 11:34 p.m.
  */
