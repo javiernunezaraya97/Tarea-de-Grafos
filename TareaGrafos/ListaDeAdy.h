@@ -28,120 +28,169 @@ class ListaDeAdy {
 public:
     int cantVert;
     vertice vertIncial;
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+ /**
+     * Efecto: Crea un grafo vacio.
+     * Requiere: Grafo sin inicializar.
+     * Modifica: 
+     */
     ListaDeAdy();
 //    ListaDeAdy(const ListaDeAdy& orig);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Efecto: Destruye el grafo.
+     * Requiere: Grafo inicializado.
+     * Modifica: 
+     */
     virtual ~ListaDeAdy();
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Vaciar
+     * Efecto: Vacía el grafo.
+     * Requiere: Grafo inicializado.
+     * Modifica: 
+     */
     void vaciar ();
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Vacia
+     * @return bool
+     * Efecto: Devuelve verdadero si el grafo está vacío, falso en caso contrario.
+     * Requiere: Grafo inicializado.
+     * Modifica: 
+     */
     bool vacio();
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * AgregarVertice
+     * @param string
+     * Efecto: Agrega un nuevo vértice al grafo.
+     * Requiere: Grafo inicializado.
+     * Modifica: Grafo.
+     */
     vertice agregarVertice(string etiq);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+ /**
+     * EliminarVertice
+     * @param vertice
+     * Efecto: Elimina un vertice de el grafo.
+     * Requiere: Vertice válido y aislado.
+     * Modifica: Grafo.
+     */
     void eliminarVertice (vertice v);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * ModificarEtiqueta
+     * @param string
+     * @param vertice
+     * Efecto: Modifica la etiqueca del vertice.
+     * Requiere: Vertice válido.
+     * Modifica: Vertice.
+     */
     void modificarEtiqueta (vertice v, string etiq);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Etiqueta
+     * @param vertice
+     * @return string
+     * Efecto: Devuelve la etiqueta del vertice.
+     * Requiere: Vértice válido.
+     * Modifica: 
+     */
     string Etiqueta(vertice v);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+ /**
+     * AgregarArista
+     * @param vertice
+     * @param vertice
+     * @param int
+     * Efecto: Agrega una arista que conecta a los vértices.
+     * Requiere: Vertices válidos.
+     * Modifica: 
+     */
     void agregarArista(vertice v1, vertice v2, int peso);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * EliminarArista
+     * @param vertice
+     * @param vertice
+     * Efecto: Elimina la arista que conecta a los vértices.
+     * Requiere: Vértices válidos.
+     * Modifica: 
+     */
     void eliminarArista(vertice v1, vertice v2);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * ModificarPeso
+     * @param vertice
+     * @param vertice
+     * @return int
+     * Efecto: Modififica el peso de la arista que conecta a los vertices.
+     * Requiere: Vértices válidos.
+     * Modifica: Peso del arista.
+     */
     void modificarPeso(/*Arista a*/ int pesoN);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Peso
+     * @param vertice
+     * @param vertice
+     * @return int
+     * Efecto: Devuelve el peso del arista que conecta a los vertices.
+     * Requiere: Vértices válidos.
+     * Modifica: 
+     */
     int Peso (/*Arista a*/);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * Adyacentes
+     * @param vertice
+     * @param vertice
+     * @return bool
+     * Efecto: Devuelve verdadero si los vertices son adyacentes, falso en caso contrario.
+     * Requiere: Vértices válidos.
+     * Modifica: 
+     */
     bool adyacentes(vertice v1, vertice v2);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * PrimerVertice
+     * @return vertice
+     * Efecto: Devuelve el primer vértice del grafo, nulo si no existe.
+     * Requiere: Grafo inicializado.
+     * Modifica: 
+     */
     vertice primerVertice ();
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * SiguienteVertice
+     * @param vertice
+     * @return vertice
+     * Efecto: Devuelve el siguiente vértice al que es pasado por parámetro, nulo si no existe.
+     * Requiere: Vértice válido.
+     * Modifica: 
+     */
     vertice sigVertice(vertice v);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * PrimerVerticeAdyacente
+     * @param vertice
+     * @return vertice
+     * Efecto: Devuelve el primer vértice adyacente al que es pasado por parámetro, nulo si no existe.
+     * Requiere: Vértice válido.
+     * Modifica: 
+     */
     vertice primerVerticeAdy (vertice v);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+ /**
+     * SiguienteVerticeAdyacente
+     * @param vertice
+     * @param vertice
+     * @return vertice
+     * Efecto: Devuelve el vértice adyacente a el primero, que está después del segundo, nulo si no existe.
+     * Requiere: Vértices válidos.
+     * Modifica:
+     */
     vertice sigVerticeAdy (vertice v, vertice vAdy);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+/**
+     * NumVertices
+     * @return int
+     * Efecto: Devuelve el némero de vertices del grafo.
+     * Requiere: Grafo inicializado.
+     * Modifica:
+     */
     int numVertices ();
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
+ /**
+     * NumVerticesAdyacentes
+     * @param vertice
+     * @return int
+     * Efecto: Devuelve el número de vertices adyacentes al vértice.
+     * Requiere: Vértice válido.
+     * Modifica:
+     */
     int numVerticesAdy(vertice v);
 
     typedef ListaDeAdy grafo;
