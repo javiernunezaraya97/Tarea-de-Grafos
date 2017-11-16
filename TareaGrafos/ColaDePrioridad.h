@@ -24,6 +24,7 @@ template <class T>
 class ColaDePrioridad {
 public:
     T heap [SIZE];
+    int primero;
     int ultimo;
     int contador;
     /*
@@ -85,6 +86,7 @@ private:
 
 };
 template <typename T> ColaDePrioridad<T>::ColaDePrioridad(){
+    primero = -1;
     ultimo = -1;
     contador = 0;
 }
@@ -114,7 +116,7 @@ template <typename T> ColaDePrioridad<T>::modificarPrioridad(T elemento, int nue
 }
 
 template <typename T> ColaDePrioridad<T>::numElem(){
-    
+    return contador;
 }
 
 template <typename T> ColaDePrioridad<T>::borrar(T elemento){
