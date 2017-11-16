@@ -29,61 +29,96 @@ public:
     /*
   EFE: Crea una Cola vacia 
   REQ: Cola no inicializada
-  MOD:
+  MOD: 
 */
     ColaDePrioridad();
 //    ColaDePrioridad(const ColaDePrioridad& orig);
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Destruye la cola
+  REQ: Cola inicializada
+  MOD: Cola
 */
     virtual ~ColaDePrioridad();
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Vacia la Cola
+  REQ: Cola Inicializada
+  MOD: Cola
 */
     void vaciar();
     /*
-  EFE:
+  EFE: verifica si la cola esta vacia
   REQ:
   MOD:
 */
     bool vacia();
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Agrega un elemento a la cola segun su prioridad
+  REQ: Cola Inicializada
+  MOD: Cola
 */
     void agregar(T elemento,int prioridad);
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Saca el primer elemento de la Cola 
+  REQ: Cola inicializada
+  MOD: Cola
 */
     T sacar();
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Modifica la prioridad de un elemento T
+  REQ: Cola inicializada
+  MOD: Cola
 */
     void modificarPrioridad(T elemento, int nuevaPrioridad);
     /*
-  EFE:
-  REQ:
+  EFE: Devuelve el numero de elementos de la cola
+  REQ: Cola inicializada
   MOD:
 */
     int numElem();
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Borra un elmento de la Cola
+  REQ: Cola Inicializada
+  MOD: Cola
 */
     void borrar(T elemento);
 private:
 
 };
+template <typename T> ColaDePrioridad<T>::ColaDePrioridad(){
+    ultimo = -1;
+    contador = 0;
+}
 
+template <typename T> ColaDePrioridad<T>::~ColaDePrioridad(){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::vaciar(){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::vacia(){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::agregar(T elemento, int prioridad){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::sacar(){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::modificarPrioridad(T elemento, int nuevaPrioridad){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::numElem(){
+    
+}
+
+template <typename T> ColaDePrioridad<T>::borrar(T elemento){
+    
+}
 #endif /* COLADEPRIORIDAD_H */
 
