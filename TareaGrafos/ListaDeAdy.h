@@ -210,10 +210,10 @@ public:
      */
     int numVerticesAdy(vertice v);
 
-    typedef ListaDeAdy grafo;
+    
 private:
     
 };
-
+typedef ListaDeAdy grafo;
 #endif /* LISTADEADY_H */
 
