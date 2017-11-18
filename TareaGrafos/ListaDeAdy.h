@@ -16,18 +16,35 @@
 #include <string>
 
 using namespace std;
+
+struct Vertice;
+
+struct Arista{
+    int peso;
+    Arista* sgtAdy;
+    Vertice* ptrVert;
+    Arista(): peso(-1), sgtAdy(nullptr), ptrVert(nullptr){};
+    Arista(int p): peso(p), sgtAdy(nullptr), ptrVert(nullptr){};
+    Arista(int p, Vertice* v): peso(p), sgtAdy(nullptr), ptrVert(v){};
+    Arista& operator=(const Arista& orig){ peso=orig.peso; sgtAdy=orig.sgtAdy; ptrVert=orig.ptrVert;};
+};
+
 struct Vertice{
     // faltan las aristas
     string etiqueta;
     Vertice* sgtVertice;
-    Vertice():etiqueta(""), sgtVertice(nullptr){};
-    Vertice(string etiq): etiqueta (etiq), sgtVertice(nullptr){};
+    Arista* adyacencia;
+    int cantAdy;
+    Vertice():etiqueta(""), sgtVertice(nullptr), adyacencia(nullptr), cantAdy(0){};
+    Vertice(string etiq): etiqueta (etiq), sgtVertice(nullptr), adyacencia(nullptr),cantAdy(0){};
+    Vertice& operator=(const Vertice& orig){etiqueta=orig.etiqueta; sgtVertice=orig.sgtVertice; adyacencia=orig.adyacencia; cantAdy=orig.cantAdy;};
 };
+typedef Arista* arista;
 typedef Vertice* vertice;
 class ListaDeAdy {
 public:
     int cantVert;
-    vertice vertIncial;
+    vertice vertInicial;
  /**
      * Efecto: Crea un grafo vacio.
      * Requiere: Grafo sin inicializar.
@@ -96,8 +113,8 @@ public:
      * @param vertice
      * @param int
      * Efecto: Agrega una arista que conecta a los vértices.
-     * Requiere: Vertices válidos.
-     * Modifica: 
+     * Requiere: Vertices válidos, y que no exista arista entre ambos vertices.
+     * Modifica: grafo
      */
     void agregarArista(vertice v1, vertice v2, int peso);
 /**
@@ -105,8 +122,8 @@ public:
      * @param vertice
      * @param vertice
      * Efecto: Elimina la arista que conecta a los vértices.
-     * Requiere: Vértices válidos.
-     * Modifica: 
+     * Requiere: Vértices válidos, que exista arista entre v1, v2.
+     * Modifica: grafo
      */
     void eliminarArista(vertice v1, vertice v2);
 /**
@@ -118,7 +135,7 @@ public:
      * Requiere: Vértices válidos.
      * Modifica: Peso del arista.
      */
-    void modificarPeso(/*Arista a*/ int pesoN);
+    void modificarPeso(vertice v1, vertice v2, int pesoN);
 /**
      * Peso
      * @param vertice
@@ -128,7 +145,7 @@ public:
      * Requiere: Vértices válidos.
      * Modifica: 
      */
-    int Peso (/*Arista a*/);
+    int Peso (vertice v1, vertice v2);
 /**
      * Adyacentes
      * @param vertice
@@ -195,7 +212,7 @@ public:
 
     typedef ListaDeAdy grafo;
 private:
-
+    
 };
 
 #endif /* LISTADEADY_H */
