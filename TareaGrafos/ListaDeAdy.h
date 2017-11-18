@@ -187,7 +187,7 @@ public:
      * @param vertice
      * @param vertice
      * @return vertice
-     * Efecto: Devuelve el vértice adyacente a el primero, que está después del segundo, nulo si no existe.
+     * Efecto: Devuelve el vértice adyacente a v, que está después de vAdy, nulo si no existe.
      * Requiere: Vértices válidos.
      * Modifica:
      */
@@ -212,6 +212,12 @@ public:
 
     
 private:
+    
+    void deleteAllEdges (arista v);
+    void deleteAllVertex (vertice v);
+    
+    
+    
     
 };
 typedef ListaDeAdy grafo;

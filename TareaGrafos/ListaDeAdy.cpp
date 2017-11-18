@@ -19,11 +19,30 @@ ListaDeAdy::ListaDeAdy() {
 }
 
 ListaDeAdy::~ListaDeAdy() {
+    vertice v= vertInicial;
     
+    while(v!=nullptr) {
+        deleteAllEdges(v->adyacencia);
+        v->cantAdy=0;
+        v=v->sgtVertice;
+        
+    }
+    deleteAllVertex(vertInicial);
+    cantVert=0;    
 }
 
 void ListaDeAdy::vaciar(){
+    vertice v= vertInicial;
     
+    while(v!=nullptr) {
+        deleteAllEdges(v->adyacencia);
+        v->cantAdy=0;
+        v=v->sgtVertice;
+        
+    }
+    deleteAllVertex(vertInicial);
+    cantVert=0;    
+    vertInicial=new Vertice();
 }
 
 bool ListaDeAdy::vacio(){
@@ -176,11 +195,33 @@ vertice ListaDeAdy::primerVerticeAdy(vertice v){
     return v->adyacencia->ptrVert;
 }
 vertice ListaDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
-    
+    arista AdySgt=v->adyacencia;
+    vertice aux=nullptr;
+    while ((AdySgt->sgtAdy!=nullptr)&&(AdySgt->ptrVert!=vAdy)){
+        AdySgt=AdySgt->sgtAdy;
+    }
+    if ((AdySgt->ptrVert==vAdy)&&(AdySgt->sgtAdy!=nullptr)){
+        aux=AdySgt->sgtAdy->ptrVert;
+    }
+    return aux;
 }
 int ListaDeAdy::numVertices(){
     return cantVert;
 }
 int ListaDeAdy::numVerticesAdy(vertice v){
     return v->cantAdy;
+}
+
+void ListaDeAdy::deleteAllEdges(arista ady){
+    if (ady!=nullptr){
+        deleteAllEdges(ady->sgtAdy);
+        delete(ady);
+    }
+}
+
+void ListaDeAdy::deleteAllVertex(vertice v){
+    if (v!=nullptr){
+        deleteAllVertex(v->sgtVertice);
+        delete(v);
+    }
 }
