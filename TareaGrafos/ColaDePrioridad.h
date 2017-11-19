@@ -21,16 +21,18 @@
 using namespace std;
 
 template <class T>
-struct Caja{
-        T elemento;
-        int prioridad;
-        Caja(T e,int pri){
-                Caja.elemento = e;
-                Caja.prioridad = pri;
-            };
-        };
+struct Caja {
+    T elemento;
+    int prioridad;
+
+    Caja(T e, int pri) {
+        Caja.elemento = e;
+        Caja.prioridad = pri;
+    };
+};
+
 class ColaDePrioridad {
-public:   
+public:
     Caja heap [SIZE];
     int primero;
     int ultimo;
@@ -90,15 +92,15 @@ public:
   MOD: Cola
      */
     void borrar(T elemento);
-    
+
     void ordenarEntrada();
-    
+
     void ordenarSalida();
-    
+
     Caja padre(int hijo);
-    
+
     Caja hijoDerecho(int padre);
-    
+
     Caja hijoIzquierdo(int padre);
 private:
 
@@ -125,11 +127,27 @@ template <class T> bool ColaDePrioridad<T>::vacia() {
 }
 
 template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
-
+    Caja nuevo = new Caja(elemento, prioridad);
+    if ((primero == -1)&&(ultimo == -1)) {
+        primero++;
+        ultimo++;
+        heap[primero] = nuevo;
+        contador++;
+    } else {
+        ultimo++;
+        heap[ultimo] = nuevo;
+        contador++;
+    }
+    ordenarEntrada();
 }
 
 template <class T> Caja ColaDePrioridad<T>::sacar() {
-    //T aux = heap[primero];
+    Caja auxiliar = heap[primero];
+    heap[primero] = heap[ultimo];
+    ultimo--;
+    contador--;
+    ordenarSalida();
+    return auxiliar;
 }
 
 template <class T> void ColaDePrioridad<T>::modificarPrioridad(T elemento, int nuevaPrioridad) {
@@ -144,24 +162,64 @@ template <class T> void ColaDePrioridad<T>::borrar(T elemento) {
 
 }
 
-template <class T> void ColaDePrioridad<T>::ordenarEntrada(){
-    
+template <class T> void ColaDePrioridad<T>::ordenarEntrada() {
+    int hijo = ultimo;
+    int padre = padre(hijo);
+    while (heap[hijo].prioridad > heap[padre].prioridad && hijo >= 0 && padre >= 0) {
+        //Cambiar hijo y padre por orden de prioridad
+        Caja auxiliar;
+        auxiliar = heap[hijo];
+        heap[hijo] = heap[padre];
+        heap[padre] = auxiliar;
+        //
+        hijo = padre;
+        padre = padre(hijo);
+    }
 }
 
-template <class T> void ColaDePrioridad<T>::ordenarSalida(){
-    
+template <class T> void ColaDePrioridad<T>::ordenarSalida() {
+    int padre = primero;
+    bool terminado = false;
+    while (!terminado) {
+        int hijoDerecho = hijoDerecho(padre);
+        int hijoIzquierdo = hijoIzquierdo(padre);
+        int auxiliar = padre;
+
+        if (hijoIzquierdo < contador && heap[hijoIzquierdo].prioridad > heap[auxiliar].prioridad) {
+            auxiliar = hijoIzquierdo;
+        }
+        if (hijoDerecho < contador && heap[hijoDerecho].prioridad > heap[auxiliar].prioridad){
+            auxiliar = hijoDerecho;
+        }
+        if (auxiliar != padre) {
+            //
+            Caja caja;
+            caja = heap[padre];
+            heap[padre] = heap[auxiliar];
+            heap[auxiliar] = caja;
+            //
+            padre = auxiliar;
+        } else{
+            terminado = true;
+        }
+    }
 }
 
-template <class T> Caja ColaDePrioridad<T>::padre(int hijo){
-    
+
+template <class T> int ColaDePrioridad<T>::padre(int hijo) {
+    if(hijo % 2 == 0){
+        return (hijo/2)-1;
+    }else{
+        return hijo/2;
+    }
 }
 
-template <class T> Caja ColaDePrioridad<T>::hijoDerecho(int padre){
-    
+template <class T> int ColaDePrioridad<T>::hijoDerecho(int padre) {
+    return padre * 2 + 2;
 }
 
-template <class T> Caja ColaDePrioridad<T>::hijoIzquierdo(int padre){
-    
+template <class T> int ColaDePrioridad<T>::hijoIzquierdo(int padre) {
+    return padre * 2 + 1;
 }
 #endif /* COLADEPRIORIDAD_H */
 
