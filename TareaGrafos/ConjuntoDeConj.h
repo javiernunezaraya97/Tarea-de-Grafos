@@ -85,11 +85,30 @@ private:
     }
     template <typename T>
     void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
-        ElemList* nConj= new ElemList( elemento);
+        ConjuntosList<T> nConj= new ConjuntosList<T>(Identificador, elemento);
+        nConj.sig=primero;
+        primero=nConj;
     }
     template <typename T>
     string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem){
-        
+        bool encontrado=false;
+        ElemList auxElem=primero->conjuntos;
+        ConjuntosList auxConj=primero;
+        string buscado= "";
+        while ((auxConj==nullptr)&&(!encontrado)){
+            while ((auxElem==nullptr)&&(!encontrado)){
+                if (auxElem.elemento==elem){
+                    encontrado=true;
+                }
+                else 
+                    auxElem=auxElem.sig;
+            }
+            if (!encontrado)
+                auxConj=auxConj.sig;
+        }
+        if (encontrado)
+            buscado= auxConj.identificador;
+        return buscado;
     }
     template <typename T>
     void ConjuntoDeConj<T>::unirConjuntos(T conj1, T conj2){
