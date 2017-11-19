@@ -51,42 +51,51 @@ public:
     void unirConjuntos(T conj1, T conj2);
 private:
     template <typename C>
-    struct ConjuntoDeConjuntos{
-        struct Conjunto{
+            struct ElemList{
         C elemento;    
-        Conjunto *sig;
-        Conjunto(C e){
-                Conjunto.elemento = e;
-                Conjunto.sig = nullptr;
+        ElemList *sig;
+        ElemList(C e){
+               elemento = e;
+                sig = nullptr;
             };
-        }
+        ElemList(){};
+        };
+    template <typename C>
+    struct ConjuntosList{
+
         string identificador;
-        ConjuntoDeConjuntos *sig;
-        Conjunto *conjuntos;
-        ConjuntoDeConjuntos(string id, C e){
+        ConjuntosList *sig;
+        ElemList *conjuntos;
+        ConjuntosList(string id, C e){
             identificador = id;
-            conjuntos = new Conjunto(elemento);
+            conjuntos = new ElemList(e);
             sig = nullptr;
         }
+        ConjuntosList(){identificador="";conjuntos=new ElemList; sig=nullptr;};
     };
-    ConjuntoDeConjuntos *primero;
+    ConjuntosList<T>* primero;
+};
     template <typename T>
     ConjuntoDeConj<T>::ConjuntoDeConj(){
-        
+        primero= new ConjuntosList<T>;
     }
+    template <typename T>
     ConjuntoDeConj<T>::~ConjuntoDeConj(){
         
     }
+    template <typename T>
     void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
+        ElemList* nConj= new ElemList( elemento);
+    }
+    template <typename T>
+    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem){
         
     }
-    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(){
-        
-    }
+    template <typename T>
     void ConjuntoDeConj<T>::unirConjuntos(T conj1, T conj2){
         
     }
-};
+//};
 
 #endif /* CONJUNTODECONJ_H */
 

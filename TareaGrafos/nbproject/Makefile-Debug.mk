@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/AlgoritmosGrafos.o \
-	${OBJECTDIR}/ConjuntoDeConj.o \
 	${OBJECTDIR}/ListaDeAdy.o \
 	${OBJECTDIR}/MatrizDeAdy.o \
 	${OBJECTDIR}/main.o
@@ -70,11 +69,6 @@ ${OBJECTDIR}/AlgoritmosGrafos.o: AlgoritmosGrafos.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AlgoritmosGrafos.o AlgoritmosGrafos.cpp
-
-${OBJECTDIR}/ConjuntoDeConj.o: ConjuntoDeConj.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ConjuntoDeConj.o ConjuntoDeConj.cpp
 
 ${OBJECTDIR}/ListaDeAdy.o: ListaDeAdy.cpp
 	${MKDIR} -p ${OBJECTDIR}
