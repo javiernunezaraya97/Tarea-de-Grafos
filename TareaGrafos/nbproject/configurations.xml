@@ -27,7 +27,6 @@
         <itemPath>MatrizDeAdy.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Modelos Auxiliares" projectFiles="true">
-        <itemPath>ConjuntoDeConj.cpp</itemPath>
       </logicalFolder>
       <itemPath>AlgoritmosGrafos.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -62,8 +61,6 @@
       <item path="AlgoritmosGrafos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ColaDePrioridad.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ConjuntoDeConj.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConjuntoDeConj.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -106,8 +103,6 @@
       <item path="AlgoritmosGrafos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ColaDePrioridad.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ConjuntoDeConj.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConjuntoDeConj.h" ex="false" tool="3" flavor2="0">
       </item>
