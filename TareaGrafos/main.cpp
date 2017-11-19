@@ -36,7 +36,11 @@ int main(int argc, char** argv) {
         v2= g->agregarVertice("ka fea");
         g->agregarArista(v1,v2,6);
         esAdy=g->adyacentes(v1,v2);
-                        cout<<"peso: "<< g->Peso(v1,v2)<<"\n";
+        cout<<"peso: "<< g->Peso(v1,v2)<<"\n";
+        g->modificarPeso(v1,v2,22);
+        
+        cout<<"peso nuevo: "<< g->Peso(v1,v2)<<"\n";
+        cout<<"peso nuevo: "<< g->Peso(v2,v1)<<"\n";
         cout<< v1->etiqueta<<"\n"<< esAdy<<"\n";
         cout<< v2->etiqueta<<"\n";
     cout<< g->numVertices()<<"\n";
@@ -51,6 +55,9 @@ int main(int argc, char** argv) {
     cout<< g->Etiqueta(v2)<<"\n";
 
 
+    g->vaciar();
+    bool vacio=g->vacio();
+    
     return 0;
 }
 

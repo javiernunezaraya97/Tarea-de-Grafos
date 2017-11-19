@@ -41,7 +41,7 @@ void ListaDeAdy::vaciar(){
         
     }
     deleteAllVertex(vertInicial);
-    cantVert=0;    
+    //cantVert=0;    
     vertInicial=new Vertice();
 }
 
@@ -154,8 +154,16 @@ void ListaDeAdy::eliminarArista(vertice v1, vertice v2){
     
 }
 void ListaDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
-    
-    
+    arista ady= v1->adyacencia;
+    while (ady->ptrVert!=v2){
+        ady=ady->sgtAdy;
+    } 
+    ady->peso=pesoN;
+    ady=v2->adyacencia;
+    while (ady->ptrVert!=v1){
+        ady=ady->sgtAdy;
+    }
+    ady->peso=pesoN;
     
 }
 int ListaDeAdy::Peso(vertice v1, vertice v2){
@@ -222,6 +230,7 @@ void ListaDeAdy::deleteAllEdges(arista ady){
 void ListaDeAdy::deleteAllVertex(vertice v){
     if (v!=nullptr){
         deleteAllVertex(v->sgtVertice);
+        cantVert--;
         delete(v);
     }
 }
