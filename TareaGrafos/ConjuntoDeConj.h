@@ -25,30 +25,30 @@ public:
     //REQ:---
     //MOD:
     ConjuntoDeConj();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: Destruye el conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicialiado
+    //MOD: conjunto de conjuntos
     virtual ~ConjuntoDeConj();
-    //EFE:
-    //REQ:
+    //EFE:vacia el conjunto de conjuntos 
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     void vaciar();
-    //EFE:
-    //REQ:
+    //EFE: retorna un true si el conjunto de conjuntos esta vacio y un false si no.
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     bool vacio();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: retorna el identificador del conjunto que pertenece elemento
+    //REQ: conjunto de conjuntos inicializado.
+    //MOD:---
     string conjuntoAlQuePertenece(T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: agrega un conjunto con un elemento al conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicializado. elemento no pertenezca a otro conjunto.
+    //MOD: conjunto de conjuntos..
     void agregarConjunto(string Identificador, T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
-    void unirConjuntos(T conj1, T conj2);
+    //EFE: une los elementos del conjunto 1 con los del conjunto 2.
+    //REQ: conjunto de conjuntos inicializado. ambos conjuntos existan.
+    //MOD: conjunto de conjuntos.
+    void unirConjuntos(ElemList conj1, ElemList conj2);
 private:
     template <typename C>
             struct ElemList{
@@ -83,6 +83,17 @@ private:
     ConjuntoDeConj<T>::~ConjuntoDeConj(){
         
     }
+    
+    template <typename T>
+    void ConjuntoDeConj<T>::vaciar(){
+    
+    }
+
+    template <typename T>
+    bool ConjuntoDeConj<T>::vacio(){
+    
+    }
+    
     template <typename T>
     void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
         ConjuntosList<T> nConj= new ConjuntosList<T>(Identificador, elemento);
