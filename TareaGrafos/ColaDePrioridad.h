@@ -24,7 +24,7 @@ template <class T>
 struct Caja {
     T elemento;
     int prioridad;
-
+    
     Caja(T e, int pri) {
         Caja.elemento = e;
         Caja.prioridad = pri;
@@ -93,9 +93,9 @@ public:
      */
     void borrar(T elemento);
 
-    void ordenarEntrada();
+    void ordenarEntrada(int posHijo);
 
-    void ordenarSalida();
+    void ordenarSalida(int posPadre);
 
     Caja padre(int hijo);
 
@@ -138,7 +138,7 @@ template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
         heap[ultimo] = nuevo;
         contador++;
     }
-    ordenarEntrada();
+    ordenarEntrada(ultimo);
 }
 
 template <class T> Caja ColaDePrioridad<T>::sacar() {
@@ -146,12 +146,27 @@ template <class T> Caja ColaDePrioridad<T>::sacar() {
     heap[primero] = heap[ultimo];
     ultimo--;
     contador--;
-    ordenarSalida();
+    ordenarSalida(primero);
     return auxiliar;
 }
 
 template <class T> void ColaDePrioridad<T>::modificarPrioridad(T elemento, int nuevaPrioridad) {
+    int auxiliar = 0;
+    bool encontrado = false;
+    while ((auxiliar <= ultimo)&& !encontrado) {
+        if (heap[auxiliar].elemento == elemento) {
+            if (heap[auxiliar].prioridad < nuevaPrioridad) {
+                heap[auxiliar].prioridad = nuevaPrioridad;
+                ordenarEntrada(auxiliar);
+            } else {
+                heap[auxiliar].prioridad = nuevaPrioridad;
+                ordenarSalida(auxiliar);
+            }
 
+            encontrado = true;
+        }
+        auxiliar++;
+    }
 }
 
 template <class T> int ColaDePrioridad<T>::numElem() {
@@ -159,11 +174,30 @@ template <class T> int ColaDePrioridad<T>::numElem() {
 }
 
 template <class T> void ColaDePrioridad<T>::borrar(T elemento) {
-
+    int auxiliar = 0;
+    bool encontrado = false;
+    //Caja caja = new Caja(elemento,0);
+    while ((auxiliar <= ultimo)&& !encontrado) {
+        if (heap[auxiliar].elemento == elemento) {
+            if (heap[auxiliar].elemento==heap[ultimo].elemento) {
+                ultimo--;
+                contador--;
+            } else {
+                //caja = heap[auxiliar];
+                heap[auxiliar]=heap[ultimo];
+                //heap[ultimo]=caja;
+                ultimo--;
+                contador--;
+                ordenarSalida(auxiliar);
+            }
+            encontrado = true;
+        }
+        auxiliar++;
+    }
 }
 
-template <class T> void ColaDePrioridad<T>::ordenarEntrada() {
-    int hijo = ultimo;
+template <class T> void ColaDePrioridad<T>::ordenarEntrada(int posHijo) {
+    int hijo = posHijo;
     int padre = padre(hijo);
     while (heap[hijo].prioridad > heap[padre].prioridad && hijo >= 0 && padre >= 0) {
         //Cambiar hijo y padre por orden de prioridad
@@ -177,8 +211,8 @@ template <class T> void ColaDePrioridad<T>::ordenarEntrada() {
     }
 }
 
-template <class T> void ColaDePrioridad<T>::ordenarSalida() {
-    int padre = primero;
+template <class T> void ColaDePrioridad<T>::ordenarSalida(int posPadre) {
+    int padre = posPadre;
     bool terminado = false;
     while (!terminado) {
         int hijoDerecho = hijoDerecho(padre);
@@ -188,7 +222,7 @@ template <class T> void ColaDePrioridad<T>::ordenarSalida() {
         if (hijoIzquierdo < contador && heap[hijoIzquierdo].prioridad > heap[auxiliar].prioridad) {
             auxiliar = hijoIzquierdo;
         }
-        if (hijoDerecho < contador && heap[hijoDerecho].prioridad > heap[auxiliar].prioridad){
+        if (hijoDerecho < contador && heap[hijoDerecho].prioridad > heap[auxiliar].prioridad) {
             auxiliar = hijoDerecho;
         }
         if (auxiliar != padre) {
@@ -199,18 +233,17 @@ template <class T> void ColaDePrioridad<T>::ordenarSalida() {
             heap[auxiliar] = caja;
             //
             padre = auxiliar;
-        } else{
+        } else {
             terminado = true;
         }
     }
 }
 
-
 template <class T> int ColaDePrioridad<T>::padre(int hijo) {
-    if(hijo % 2 == 0){
-        return (hijo/2)-1;
-    }else{
-        return hijo/2;
+    if (hijo % 2 == 0) {
+        return (hijo / 2) - 1;
+    } else {
+        return hijo / 2;
     }
 }
 
