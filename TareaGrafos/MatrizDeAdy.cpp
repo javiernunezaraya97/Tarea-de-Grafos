@@ -104,7 +104,26 @@ void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
 }
 
 void MatrizDeAdy::eliminarArista(vertice v1, vertice v2){
-    
+    int i = 0;
+    bool iguales = false;
+    while (!iguales) {
+        if (vertices[i].etiqueta == v1.etiqueta) {
+            iguales = true;
+        } else {
+            i++;
+        }
+    }
+    iguales = false;
+    int j = 0;
+    while (!iguales) {
+        if (vertices[j].etiqueta == v2.etiqueta) {
+            iguales = true;
+        } else {
+            j++;
+        }
+    }
+    matrizAdyacencia[i][j] = -1;
+    matrizAdyacencia[j][i] = -1;
 }
 
 void MatrizDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
@@ -153,7 +172,29 @@ int MatrizDeAdy::Peso(vertice v1, vertice v2){
 }
 
 bool MatrizDeAdy::adyacentes(vertice v1, vertice v2){
-    
+    int i = 0;
+    bool iguales = false;
+    while (!iguales) {
+        if (vertices[i].etiqueta == v1.etiqueta) {
+            iguales = true;
+        } else {
+            i++;
+        }
+    }
+    iguales = false;
+    int j = 0;
+    while (!iguales) {
+        if (vertices[j].etiqueta == v2.etiqueta) {
+            iguales = true;
+        } else {
+            j++;
+        }
+    }
+    if(matrizAdyacencia[i][j] != -1){
+        return true;
+    }
+    else
+        return false;
 }
 
 vertice MatrizDeAdy::primerVertice(){
@@ -186,6 +227,6 @@ int MatrizDeAdy::numVertices(){
 }
 
 int MatrizDeAdy::numVerticesAdy(vertice v){
-    
+    return v->numAdy;
 }
 
