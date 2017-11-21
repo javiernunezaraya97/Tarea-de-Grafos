@@ -24,7 +24,7 @@ template <class T>
 struct Caja {
     T elemento;
     int prioridad;
-    
+
     Caja(T e, int pri) {
         Caja.elemento = e;
         Caja.prioridad = pri;
@@ -34,7 +34,6 @@ struct Caja {
 class ColaDePrioridad {
 public:
     Caja heap [SIZE];
-    int primero;
     int ultimo;
     int contador;
     /*
@@ -92,23 +91,12 @@ public:
   MOD: Cola
      */
     void borrar(T elemento);
-
-    void ordenarEntrada(int posHijo);
-
-    void ordenarSalida(int posPadre);
-
-    Caja padre(int hijo);
-
-    Caja hijoDerecho(int padre);
-
-    Caja hijoIzquierdo(int padre);
 private:
 
 };
 
 template <typename T> ColaDePrioridad<T>::ColaDePrioridad() {
-    primero = -1;
-    ultimo = -1;
+    ultimo = 0;
     contador = 0;
 }
 
@@ -117,36 +105,56 @@ template <class T> ColaDePrioridad<T>::~ColaDePrioridad() {
 }
 
 template <class T> void ColaDePrioridad<T>::vaciar() {
-    primero = -1;
-    ultimo = -1;
+    ultimo = 0;
     contador = 0;
 }
 
 template <class T> bool ColaDePrioridad<T>::vacia() {
-    return ((primero == -1) && (ultimo == -1));
+    return (ultimo == 0);
 }
 
 template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
     Caja nuevo = new Caja(elemento, prioridad);
-    if ((primero == -1)&&(ultimo == -1)) {
-        primero++;
-        ultimo++;
-        heap[primero] = nuevo;
-        contador++;
-    } else {
-        ultimo++;
-        heap[ultimo] = nuevo;
-        contador++;
+    Caja padre = new Caja(elemento, prioridad);
+    ultimo++;
+    contador++;
+    heap[ultimo] = nuevo;
+    int iterador = ultimo;
+    while ((iterador > 1) && (heap[iterador].prioridad > heap[iterador / 2].prioridad)) {
+        padre = heap[iterador / 2];
+        heap[iterador / 2] = heap[iterador];
+        iterador = iterador / 2;
     }
-    ordenarEntrada(ultimo);
 }
 
 template <class T> Caja ColaDePrioridad<T>::sacar() {
-    Caja auxiliar = heap[primero];
-    heap[primero] = heap[ultimo];
+    Caja auxiliar = heap[1];
+    Caja padre = heap[1];
+    bool terminado = false;
+    int iterador = 1;
+    int minimo = 0;
+    heap[1] = heap[ultimo];
     ultimo--;
     contador--;
-    ordenarSalida(primero);
+    while (!terminado) {
+        if (iterador * 2 > ultimo) {
+            if (heap[iterador * 2].prioridad > heap[ultimo].prioridad) {
+                minimo = iterador * 2;
+            } else if ((heap[iterador * 2 + 1].prioridad > heap[minimo].prioridad)) {
+                minimo = iterador * 2 + 1;
+            }
+            if (iterador != minimo) {
+                padre = heap[iterador];
+                heap[iterador] = heap[minimo];
+                heap[minimo] = padre;
+                iterador = minimo;
+            } else {
+                terminado = true;
+            }
+        } else {
+            terminado = true;
+        }
+    }
     return auxiliar;
 }
 
@@ -179,12 +187,12 @@ template <class T> void ColaDePrioridad<T>::borrar(T elemento) {
     //Caja caja = new Caja(elemento,0);
     while ((auxiliar <= ultimo)&& !encontrado) {
         if (heap[auxiliar].elemento == elemento) {
-            if (heap[auxiliar].elemento==heap[ultimo].elemento) {
+            if (heap[auxiliar].elemento == heap[ultimo].elemento) {
                 ultimo--;
                 contador--;
             } else {
                 //caja = heap[auxiliar];
-                heap[auxiliar]=heap[ultimo];
+                heap[auxiliar] = heap[ultimo];
                 //heap[ultimo]=caja;
                 ultimo--;
                 contador--;
