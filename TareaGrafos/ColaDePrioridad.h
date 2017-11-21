@@ -21,21 +21,8 @@
 using namespace std;
 
 template <class T>
-struct Caja {
-    T elemento;
-    int prioridad;
-
-    Caja(T e, int pri) {
-        Caja.elemento = e;
-        Caja.prioridad = pri;
-    };
-};
-
 class ColaDePrioridad {
 public:
-    Caja heap [SIZE];
-    int ultimo;
-    int contador;
     /*
   EFE: Crea una Cola vacia 
   REQ: Cola no inicializada
@@ -73,26 +60,39 @@ public:
   MOD: Cola
      */
     T sacar();
-//    /*
-//  EFE: Modifica la prioridad de un elemento T
-//  REQ: Cola inicializada
-//  MOD: Cola
-//     */
-//    void modificarPrioridad(T elemento, int nuevaPrioridad);
+    //    /*
+    //  EFE: Modifica la prioridad de un elemento T
+    //  REQ: Cola inicializada
+    //  MOD: Cola
+    //     */
+    //    void modificarPrioridad(T elemento, int nuevaPrioridad);
     /*
   EFE: Devuelve el numero de elementos de la cola
   REQ: Cola inicializada
   MOD:
      */
     int numElem();
-//    /*
-//  EFE: Borra un elmento de la Cola
-//  REQ: Cola Inicializada
-//  MOD: Cola
-//     */
-//    void borrar(T elemento);
+    //    /*
+    //  EFE: Borra un elmento de la Cola
+    //  REQ: Cola Inicializada
+    //  MOD: Cola
+    //     */
+    //    void borrar(T elemento);
 private:
 
+    struct Caja {
+        T elemento;
+        int prioridad;
+
+        Caja(T e, int pri) {
+            Caja.elemento = e;
+            Caja.prioridad = pri;
+        }
+    };
+
+Caja heap [SIZE];
+int ultimo;
+int contador;
 };
 
 template <typename T> ColaDePrioridad<T>::ColaDePrioridad() {

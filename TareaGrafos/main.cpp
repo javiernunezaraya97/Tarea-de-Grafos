@@ -14,11 +14,20 @@
 #include <iostream>
 using namespace std;
 #include "ListaDeAdy.h"
+#include "ColaDePrioridad.h"
 /*
  * 
  */
 int main(int argc, char** argv) {
-
+    ColaDePrioridad<string> cola = new ColaDePrioridad();
+    cola.agregar("Hola",1);
+    cola.agregar("Kikut",8);
+    cola.agregar("Sandra",7);
+    cola.agregar("Guapa",2);
+    for(int i=0;i<cola.numElem();i++){
+        cout<<"Elemento: "<<cola.sacar().elemento<<"\n";
+    }
+    
     grafo *g=new grafo;
     
     vertice v1=g->agregarVertice("prueba");
