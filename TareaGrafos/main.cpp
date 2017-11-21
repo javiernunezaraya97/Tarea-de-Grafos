@@ -19,7 +19,7 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    ColaDePrioridad<string> cola = new ColaDePrioridad();
+    ColaDePrioridad<string> cola = new ColaDePrioridad<string>();
     cola.agregar("Hola",1);
     cola.agregar("Kikut",8);
     cola.agregar("Sandra",7);

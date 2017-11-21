@@ -19,7 +19,6 @@
 #include <memory>
 #include <sstream>
 using namespace std;
-
 template <class T>
 class ColaDePrioridad {
 public:
@@ -80,6 +79,7 @@ public:
     //    void borrar(T elemento);
 private:
 
+    template <typename T>
     struct Caja {
         T elemento;
         int prioridad;
@@ -89,31 +89,35 @@ private:
             Caja.prioridad = pri;
         }
     };
-
-Caja heap [SIZE];
-int ultimo;
-int contador;
+    Caja heap[SIZE];
+    int ultimo;
+    int contador;
 };
 
-template <typename T> ColaDePrioridad<T>::ColaDePrioridad() {
+template <typename T> 
+ColaDePrioridad<T>::ColaDePrioridad() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class T> ColaDePrioridad<T>::~ColaDePrioridad() {
+template <class T> 
+ColaDePrioridad<T>::~ColaDePrioridad() {
 
 }
 
-template <class T> void ColaDePrioridad<T>::vaciar() {
+template <class T> 
+void ColaDePrioridad<T>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class T> bool ColaDePrioridad<T>::vacia() {
+template <class T> 
+bool ColaDePrioridad<T>::vacia() {
     return (ultimo == 0);
 }
 
-template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
+template <class T> 
+void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
     Caja nuevo = new Caja(elemento, prioridad);
     Caja padre = new Caja(elemento, prioridad);
     ultimo++;
@@ -127,7 +131,8 @@ template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
     }
 }
 
-template <class T> Caja ColaDePrioridad<T>::sacar() {
+template <class T> 
+T ColaDePrioridad<T>::sacar() {
     Caja auxiliar = heap[1];
     Caja padre = heap[1];
     bool terminado = false;
@@ -156,7 +161,7 @@ template <class T> Caja ColaDePrioridad<T>::sacar() {
             terminado = true;
         }
     }
-    return auxiliar;
+    return auxiliar.elemento;
 }
 
 //template <class T> void ColaDePrioridad<T>::modificarPrioridad(T elemento, int nuevaPrioridad) {
