@@ -21,6 +21,25 @@ using namespace std;
 template <class T>
 class ConjuntoDeConj {
 public:
+    template <typename C>
+    struct ConjuntoDeConjuntos{
+        struct Conjunto{
+        C elemento;    
+        Conjunto *sig;
+        Conjunto(C e){
+                Conjunto.elemento = e;
+                Conjunto.sig = nullptr;
+            };
+        }
+        string identificador;
+        ConjuntoDeConjuntos *sig;
+        Conjunto *conjuntos;
+        ConjuntoDeConjuntos(string id, C e){
+            identificador = id;
+            conjuntos = new Conjunto(e);
+            sig = nullptr;
+        }
+    };
     //EFE:Constructuye el conjunto de conjunto disjutnos
     //REQ:---
     //MOD:
@@ -50,25 +69,7 @@ public:
     //MOD:
     void unirConjuntos(T conj1, T conj2);
 private:
-    template <typename C>
-    struct ConjuntoDeConjuntos{
-        struct Conjunto{
-        C elemento;    
-        Conjunto *sig;
-        Conjunto(C e){
-                Conjunto.elemento = e;
-                Conjunto.sig = nullptr;
-            };
-        }
-        string identificador;
-        ConjuntoDeConjuntos *sig;
-        Conjunto *conjuntos;
-        ConjuntoDeConjuntos(string id, C e){
-            identificador = id;
-            conjuntos = new Conjunto(elemento);
-            sig = nullptr;
-        }
-    };
+    
     ConjuntoDeConjuntos *primero;
     template <typename T>
     ConjuntoDeConj<T>::ConjuntoDeConj(){
