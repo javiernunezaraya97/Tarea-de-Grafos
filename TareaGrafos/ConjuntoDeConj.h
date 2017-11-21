@@ -48,30 +48,30 @@ public:
     //EFE: une los elementos del conjunto 1 con los del conjunto 2.
     //REQ: conjunto de conjuntos inicializado. ambos conjuntos existan.
     //MOD: conjunto de conjuntos.
-    void unirConjuntos(ElemList conj1, ElemList conj2);
+    void unirConjuntos(Conjunto conj1, Conjunto conj2);
 private:
     template <typename C>
-            struct ElemList{
+            struct Conjunto{
         C elemento;    
-        ElemList *sig;
-        ElemList(C e){
+        Conjunto *sig;
+        Conjunto(C e){
                elemento = e;
                 sig = nullptr;
             };
-        ElemList(){};
+        Conjunto(){};
         };
     template <typename C>
     struct ConjuntosList{
 
         string identificador;
         ConjuntosList *sig;
-        ElemList *conjuntos;
+        Conjunto *ConjPtr;
         ConjuntosList(string id, C e){
             identificador = id;
-            conjuntos = new ElemList(e);
+            ConjPtr = new Conjunto(e);
             sig = nullptr;
         }
-        ConjuntosList(){identificador="";conjuntos=new ElemList; sig=nullptr;};
+        ConjuntosList(){identificador="";ConjPtr=new Conjunto; sig=nullptr;};
     };
     ConjuntosList<T>* primero;
 };
@@ -100,10 +100,10 @@ private:
         nConj.sig=primero;
         primero=nConj;
     }
-    template <typename T>
+    template <typename T> 
     string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem){
         bool encontrado=false;
-        ElemList auxElem=primero->conjuntos;
+        Conjunto auxElem=primero->ConjPtr;
         ConjuntosList auxConj=primero;
         string buscado= "";
         while ((auxConj==nullptr)&&(!encontrado)){
@@ -122,7 +122,7 @@ private:
         return buscado;
     }
     template <typename T>
-    void ConjuntoDeConj<T>::unirConjuntos(T conj1, T conj2){
+    void ConjuntoDeConj<T>::unirConjuntos(Conjunto conj1, Conjunto conj2){
         
     }
 //};
