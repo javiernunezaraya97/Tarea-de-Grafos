@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   ColaDePrioridad.h
  * Author: Javier
@@ -20,22 +14,9 @@
 #include <sstream>
 using namespace std;
 
-template <class T>
-struct Caja {
-    T elemento;
-    int prioridad;
-
-    Caja(T e, int pri) {
-        Caja.elemento = e;
-        Caja.prioridad = pri;
-    };
-};
-
-class ColaDePrioridad {
+template <class A> 
+class ColaDePrioridad{
 public:
-    Caja heap [SIZE];
-    int ultimo;
-    int contador;
     /*
   EFE: Crea una Cola vacia 
   REQ: Cola no inicializada
@@ -66,54 +47,73 @@ public:
   REQ: Cola Inicializada
   MOD: Cola
      */
-    void agregar(T elemento, int prioridad);
+    void agregar(A elemento, int prioridad);
     /*
   EFE: Saca el primer elemento de la Cola 
   REQ: Cola inicializada
   MOD: Cola
      */
-    T sacar();
-//    /*
-//  EFE: Modifica la prioridad de un elemento T
-//  REQ: Cola inicializada
-//  MOD: Cola
-//     */
-//    void modificarPrioridad(T elemento, int nuevaPrioridad);
+    A sacar();
+    //    /*
+    //  EFE: Modifica la prioridad de un elemento A
+    //  REQ: Cola inicializada
+    //  MOD: Cola
+    //     */
+    //    void modificarPrioridad(A elemento, int nuevaPrioridad);
     /*
   EFE: Devuelve el numero de elementos de la cola
   REQ: Cola inicializada
   MOD:
      */
     int numElem();
-//    /*
-//  EFE: Borra un elmento de la Cola
-//  REQ: Cola Inicializada
-//  MOD: Cola
-//     */
-//    void borrar(T elemento);
+    //    /*
+    //  EFE: Borra un elmento de la Cola
+    //  REQ: Cola Inicializada
+    //  MOD: Cola
+    //     */
+    //    void borrar(A elemento);
 private:
+    
+//template <typename A>
 
+struct Caja {
+        A elemento;
+        int prioridad;
+        Caja(A e, int pri) {
+            elemento=e;
+            prioridad=pri;
+        }
+    };
+    
+    Caja heap[SIZE];
+    int ultimo;
+    int contador;
 };
 
-template <typename T> ColaDePrioridad<T>::ColaDePrioridad() {
+template <typename A>  
+ColaDePrioridad<A>::ColaDePrioridad() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class T> ColaDePrioridad<T>::~ColaDePrioridad() {
+template <class A> 
+ColaDePrioridad<A>::~ColaDePrioridad() {
 
 }
 
-template <class T> void ColaDePrioridad<T>::vaciar() {
+template <class A> 
+void ColaDePrioridad<A>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class T> bool ColaDePrioridad<T>::vacia() {
+template <class A> 
+bool ColaDePrioridad<A>::vacia() {
     return (ultimo == 0);
 }
 
-template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
+template <class A> 
+void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     Caja nuevo = new Caja(elemento, prioridad);
     Caja padre = new Caja(elemento, prioridad);
     ultimo++;
@@ -127,7 +127,8 @@ template <class T> void ColaDePrioridad<T>::agregar(T elemento, int prioridad) {
     }
 }
 
-template <class T> Caja ColaDePrioridad<T>::sacar() {
+template <class A> 
+A ColaDePrioridad<A>::sacar() {
     Caja auxiliar = heap[1];
     Caja padre = heap[1];
     bool terminado = false;
@@ -156,10 +157,10 @@ template <class T> Caja ColaDePrioridad<T>::sacar() {
             terminado = true;
         }
     }
-    return auxiliar;
+    return auxiliar.elemento;
 }
 
-//template <class T> void ColaDePrioridad<T>::modificarPrioridad(T elemento, int nuevaPrioridad) {
+//template <class A> void ColaDePrioridad<A>::modificarPrioridad(A elemento, int nuevaPrioridad) {
 //    int auxiliar = 0;
 //    bool encontrado = false;
 //    while ((auxiliar <= ultimo)&& !encontrado) {
@@ -178,11 +179,12 @@ template <class T> Caja ColaDePrioridad<T>::sacar() {
 //    }
 //}
 
-template <class T> int ColaDePrioridad<T>::numElem() {
+template <class A> 
+int ColaDePrioridad<A>::numElem() {
     return contador;
 }
 //
-//template <class T> void ColaDePrioridad<T>::borrar(T elemento) {
+//template <class A> void ColaDePrioridad<A>::borrar(A elemento) {
 //    //    int auxiliar = 1;
 //    int iterador = 1;
 //    int minimo = 0;
@@ -226,4 +228,3 @@ template <class T> int ColaDePrioridad<T>::numElem() {
 //}
 
 #endif /* COLADEPRIORIDAD_H */
-
