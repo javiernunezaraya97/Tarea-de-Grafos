@@ -25,68 +25,107 @@ public:
     //REQ:---
     //MOD:
     ConjuntoDeConj();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: Destruye el conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicialiado
+    //MOD: conjunto de conjuntos
     virtual ~ConjuntoDeConj();
-    //EFE:
-    //REQ:
+    //EFE:vacia el conjunto de conjuntos 
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     void vaciar();
-    //EFE:
-    //REQ:
+    //EFE: retorna un true si el conjunto de conjuntos esta vacio y un false si no.
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     bool vacio();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: retorna el identificador del conjunto que pertenece elemento
+    //REQ: conjunto de conjuntos inicializado.
+    //MOD:---
     string conjuntoAlQuePertenece(T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: agrega un conjunto con un elemento al conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicializado. elemento no pertenezca a otro conjunto.
+    //MOD: conjunto de conjuntos..
     void agregarConjunto(string Identificador, T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
-    void unirConjuntos(T conj1, T conj2);
+    //EFE: une los elementos del conjunto 1 con los del conjunto 2.
+    //REQ: conjunto de conjuntos inicializado. ambos conjuntos existan.
+    //MOD: conjunto de conjuntos.
+    void unirConjuntos(Conjunto conj1, Conjunto conj2);
 private:
     template <typename C>
-    struct ConjuntoDeConjuntos{
-        struct Conjunto{
+            struct Conjunto{
         C elemento;    
         Conjunto *sig;
         Conjunto(C e){
-                Conjunto.elemento = e;
-                Conjunto.sig = nullptr;
+               elemento = e;
+                sig = nullptr;
             };
-        }
+        Conjunto(){};
+        };
+    template <typename C>
+    struct ConjuntosList{
+
         string identificador;
-        ConjuntoDeConjuntos *sig;
-        Conjunto *conjuntos;
-        ConjuntoDeConjuntos(string id, C e){
+        ConjuntosList *sig;
+        Conjunto *ConjPtr;
+        ConjuntosList(string id, C e){
             identificador = id;
-            conjuntos = new Conjunto(elemento);
+            ConjPtr = new Conjunto(e);
             sig = nullptr;
         }
+        ConjuntosList(){identificador="";ConjPtr=new Conjunto; sig=nullptr;};
     };
-    ConjuntoDeConjuntos *primero;
+    ConjuntosList<T>* primero;
+};
     template <typename T>
     ConjuntoDeConj<T>::ConjuntoDeConj(){
-        
+        primero= new ConjuntosList<T>;
     }
+    template <typename T>
     ConjuntoDeConj<T>::~ConjuntoDeConj(){
         
     }
+    
+    template <typename T>
+    void ConjuntoDeConj<T>::vaciar(){
+    
+    }
+
+    template <typename T>
+    bool ConjuntoDeConj<T>::vacio(){
+    
+    }
+    
+    template <typename T>
     void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
+        ConjuntosList<T> nConj= new ConjuntosList<T>(Identificador, elemento);
+        nConj.sig=primero;
+        primero=nConj;
+    }
+    template <typename T> 
+    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem){
+        bool encontrado=false;
+        Conjunto auxElem=primero->ConjPtr;
+        ConjuntosList auxConj=primero;
+        string buscado= "";
+        while ((auxConj==nullptr)&&(!encontrado)){
+            while ((auxElem==nullptr)&&(!encontrado)){
+                if (auxElem.elemento==elem){
+                    encontrado=true;
+                }
+                else 
+                    auxElem=auxElem.sig;
+            }
+            if (!encontrado)
+                auxConj=auxConj.sig;
+        }
+        if (encontrado)
+            buscado= auxConj.identificador;
+        return buscado;
+    }
+    template <typename T>
+    void ConjuntoDeConj<T>::unirConjuntos(Conjunto conj1, Conjunto conj2){
         
     }
-    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(){
-        
-    }
-    void ConjuntoDeConj<T>::unirConjuntos(T conj1, T conj2){
-        
-    }
-};
+//};
 
 #endif /* CONJUNTODECONJ_H */
 

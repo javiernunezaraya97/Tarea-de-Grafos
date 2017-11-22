@@ -19,14 +19,14 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    ColaDePrioridad<string> cola = new ColaDePrioridad<string>();
-    cola.agregar("Hola",1);
-    cola.agregar("Kikut",8);
-    cola.agregar("Sandra",7);
-    cola.agregar("Guapa",2);
-    for(int i=0;i<cola.numElem();i++){
-        cout<<"Elemento: "<<cola.sacar().elemento<<"\n";
-    }
+//    ColaDePrioridad<string> cola = new ColaDePrioridad<string>();
+//    cola.agregar("Hola",1);
+//    cola.agregar("Kikut",8);
+//    cola.agregar("Sandra",7);
+//    cola.agregar("Guapa",2);
+//    for(int i=0;i<cola.numElem();i++){
+//        cout<<"Elemento: "<<cola.sacar().elemento<<"\n";
+//    }
     
     grafo *g=new grafo;
     
@@ -68,5 +68,6 @@ int main(int argc, char** argv) {
     bool vacio=g->vacio();
     
     return 0;
+
 }
 
