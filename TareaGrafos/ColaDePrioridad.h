@@ -7,14 +7,14 @@
 
 #ifndef COLADEPRIORIDAD_H
 #define COLADEPRIORIDAD_H
-#define SIZE 10
+//#define SIZE 10
 #include <iostream>
 #include <string>
 #include <memory>
 #include <sstream>
 using namespace std;
 
-template <class A> 
+template <class A,int tam> 
 class ColaDePrioridad{
 public:
     /*
@@ -74,48 +74,49 @@ public:
     //    void borrar(A elemento);
 private:
     
-//template <typename A>
-
+//template <A,tam>
 struct Caja {
         A elemento;
         int prioridad;
-        Caja(A e, int pri) {
+        *Caja(A e, int pri) {
             elemento=e;
             prioridad=pri;
         }
     };
     
-    Caja heap[SIZE];
+    Caja* heap[tam];
     int ultimo;
     int contador;
 };
 
-template <typename A>  
-ColaDePrioridad<A>::ColaDePrioridad() {
+template <typename A,int tam>  
+ColaDePrioridad<A,tam>::ColaDePrioridad() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class A> 
-ColaDePrioridad<A>::~ColaDePrioridad() {
+template <class A,int tam> 
+ColaDePrioridad<A,tam>::~ColaDePrioridad() {
 
 }
 
-template <class A> 
-void ColaDePrioridad<A>::vaciar() {
+template <class A,int tam> 
+void ColaDePrioridad<A,tam>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class A> 
-bool ColaDePrioridad<A>::vacia() {
+template <class A,int tam> 
+bool ColaDePrioridad<A,tam>::vacia() {
     return (ultimo == 0);
 }
 
-template <class A> 
-void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
-    Caja nuevo = new Caja(elemento, prioridad);
-    Caja padre = new Caja(elemento, prioridad);
+template <class A,int tam> 
+void ColaDePrioridad<A,tam>::agregar(A elemento, int prioridad) {
+    Caja nuevo = Caja ;
+    nuevo.elemento=elemento;
+    nuevo.prioridad=prioridad;
+    Caja padre;
     ultimo++;
     contador++;
     heap[ultimo] = nuevo;
@@ -127,8 +128,8 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     }
 }
 
-template <class A> 
-A ColaDePrioridad<A>::sacar() {
+template <class A,int tam> 
+A ColaDePrioridad<A,tam>::sacar() {
     Caja auxiliar = heap[1];
     Caja padre = heap[1];
     bool terminado = false;
@@ -160,71 +161,8 @@ A ColaDePrioridad<A>::sacar() {
     return auxiliar.elemento;
 }
 
-//template <class A> void ColaDePrioridad<A>::modificarPrioridad(A elemento, int nuevaPrioridad) {
-//    int auxiliar = 0;
-//    bool encontrado = false;
-//    while ((auxiliar <= ultimo)&& !encontrado) {
-//        if (heap[auxiliar].elemento == elemento) {
-//            if (heap[auxiliar].prioridad < nuevaPrioridad) {
-//                heap[auxiliar].prioridad = nuevaPrioridad;
-//                ordenarEntrada(auxiliar);
-//            } else {
-//                heap[auxiliar].prioridad = nuevaPrioridad;
-//                ordenarSalida(auxiliar);
-//            }
-//
-//            encontrado = true;
-//        }
-//        auxiliar++;
-//    }
-//}
-
-template <class A> 
-int ColaDePrioridad<A>::numElem() {
+template <class A,int tam> 
+int ColaDePrioridad<A,tam>::numElem() {
     return contador;
 }
-//
-//template <class A> void ColaDePrioridad<A>::borrar(A elemento) {
-//    //    int auxiliar = 1;
-//    int iterador = 1;
-//    int minimo = 0;
-//    Caja padre = new Caja(elemento, 0);
-//    bool encontrado = false;
-//    bool terminado = false;
-//    while ((iterador <= ultimo)&& !encontrado) {
-//        if (heap[iterador].elemento == elemento) {
-//            if (heap[iterador].elemento == heap[ultimo].elemento) {
-//                ultimo--;
-//                contador--;
-//            } else {
-//                heap[iterador] = heap[ultimo];
-//                ultimo--;
-//                contador--;
-//                while (!terminado) {
-//                    if (iterador * 2 > ultimo) {
-//                        if (heap[iterador * 2].prioridad > heap[iterador].prioridad) {
-//                            minimo = iterador * 2;
-//                        }
-//                        if ((heap[iterador * 2 + 1].prioridad > heap[iterador].prioridad)) {
-//                            minimo = iterador * 2 + 1;
-//                        }
-//                        if (iterador != minimo) {
-//                            padre = heap[iterador];
-//                            heap[iterador] = heap[minimo];
-//                            heap[minimo] = padre;
-//                            iterador = minimo;
-//                        } else {
-//                            terminado = true;
-//                        }
-//                    } else {
-//                        terminado = true;
-//                    }
-//                }
-//            }
-//            encontrado = true;
-//        }
-//        auxiliar++;
-//    }
-//}
-
 #endif /* COLADEPRIORIDAD_H */
