@@ -18,6 +18,7 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
+
 template <class T>
 class ConjuntoDeConj {
 public:
@@ -50,81 +51,94 @@ public:
     //MOD: conjunto de conjuntos.
     void unirConjuntos(Conjunto conj1, Conjunto conj2);
 private:
-    template <typename C>
-            struct Conjunto{
-        C elemento;    
-        Conjunto *sig;
-        Conjunto(C e){
-               elemento = e;
-                sig = nullptr;
-            };
-        Conjunto(){};
-        };
-    template <typename C>
-    struct ConjuntosList{
 
+    template <typename C>
+    struct Conjunto {
+        C elemento;
+        Conjunto *sig;
+
+        Conjunto(C e) {
+            elemento = e;
+            sig = nullptr;
+        };
+
+        Conjunto() {
+        };
+    };
+
+    template <typename C>
+    struct ConjuntosList {
         string identificador;
         ConjuntosList *sig;
         Conjunto *ConjPtr;
-        ConjuntosList(string id, C e){
+
+        ConjuntosList(string id, C e) {
             identificador = id;
             ConjPtr = new Conjunto(e);
             sig = nullptr;
         }
-        ConjuntosList(){identificador="";ConjPtr=new Conjunto; sig=nullptr;};
+
+        ConjuntosList() {
+            identificador = "";
+            ConjPtr = new Conjunto;
+            sig = nullptr;
+        };
     };
     ConjuntosList<T>* primero;
 };
-    template <typename T>
-    ConjuntoDeConj<T>::ConjuntoDeConj(){
-        primero= new ConjuntosList<T>;
-    }
-    template <typename T>
-    ConjuntoDeConj<T>::~ConjuntoDeConj(){
-        
-    }
-    
-    template <typename T>
-    void ConjuntoDeConj<T>::vaciar(){
-    
-    }
 
-    template <typename T>
-    bool ConjuntoDeConj<T>::vacio(){
-    
-    }
-    
-    template <typename T>
-    void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
-        ConjuntosList<T> nConj= new ConjuntosList<T>(Identificador, elemento);
-        nConj.sig=primero;
-        primero=nConj;
-    }
-    template <typename T> 
-    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem){
-        bool encontrado=false;
-        Conjunto auxElem=primero->ConjPtr;
-        ConjuntosList auxConj=primero;
-        string buscado= "";
-        while ((auxConj==nullptr)&&(!encontrado)){
-            while ((auxElem==nullptr)&&(!encontrado)){
-                if (auxElem.elemento==elem){
-                    encontrado=true;
-                }
-                else 
-                    auxElem=auxElem.sig;
-            }
-            if (!encontrado)
-                auxConj=auxConj.sig;
+template <typename T>
+ConjuntoDeConj<T>::ConjuntoDeConj() {
+    primero = new ConjuntosList<T>;
+}
+
+template <typename T>
+ConjuntoDeConj<T>::~ConjuntoDeConj() {
+
+}
+
+template <typename T>
+void ConjuntoDeConj<T>::vaciar() {
+
+}
+
+template <typename T>
+bool ConjuntoDeConj<T>::vacio() {
+
+}
+
+template <typename T>
+void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento) {
+    ConjuntosList<T> nConj = new ConjuntosList<T>(Identificador, elemento);
+    nConj.sig = primero;
+    primero = nConj;
+}
+
+template <typename T>
+string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem) {
+    bool encontrado = false;
+    Conjunto auxElem = primero->ConjPtr;
+    ConjuntosList auxConj = primero;
+    string buscado = "";
+    while ((auxConj == nullptr)&&(!encontrado)) {
+        while ((auxElem == nullptr)&&(!encontrado)) {
+            if (auxElem.elemento == elem) {
+                encontrado = true;
+            } else
+                auxElem = auxElem.sig;
         }
-        if (encontrado)
-            buscado= auxConj.identificador;
-        return buscado;
+        if (!encontrado)
+            auxConj = auxConj.sig;
     }
-    template <typename T>
-    void ConjuntoDeConj<T>::unirConjuntos(Conjunto conj1, Conjunto conj2){
-        
-    }
+    if (encontrado)
+        buscado = auxConj.identificador;
+    return buscado;
+}
+
+template <typename T>
+void ConjuntoDeConj<T>::unirConjuntos(Conjunto conj1, Conjunto conj2) {
+
+}
 //};
 
 #endif /* CONJUNTODECONJ_H */

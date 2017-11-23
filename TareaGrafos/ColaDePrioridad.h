@@ -1,26 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /* 
  * File:   ColaDePrioridad.h
- * Author: Javier
+ * Author: Luis
  *
- * Created on 5 de noviembre de 2017, 11:24 p.m.
+ * Created on November 22, 2017, 7:35 PM
  */
 
 #ifndef COLADEPRIORIDAD_H
 #define COLADEPRIORIDAD_H
-//#define SIZE 10
-#include <iostream>
+#define SIZE 10
+#include <string.h>
 #include <string>
-#include <memory>
 #include <sstream>
+#include <iostream>
 using namespace std;
 
-template <class A,int tam> 
-class ColaDePrioridad{
+template <class A>
+class ColaDePrioridad {
 public:
     /*
-  EFE: Crea una Cola vacia 
-  REQ: Cola no inicializada
-  MOD: 
+   EFE: Crea una Cola vacia 
+   REQ: Cola no inicializada
+   MOD: 
      */
     ColaDePrioridad();
     //    ColaDePrioridad(const ColaDePrioridad& orig);
@@ -70,86 +76,79 @@ public:
     //  EFE: Borra un elmento de la Cola
     //  REQ: Cola Inicializada
     //  MOD: Cola
-    //     */
-    //    void borrar(A elemento);
+    //     */   
 private:
-    
-//template <A,tam>
-struct Caja {
-        A elemento;
+    template <typename B>
+    struct Caja {
+        B elemento;
         int prioridad;
-        *Caja(A e, int pri) {
-            elemento=e;
-            prioridad=pri;
+        Caja(B elementoNuevo, int nuevaPrioridad) {
+            elemento = elementoNuevo;
+            prioridad = nuevaPrioridad;
         }
     };
-    
-    Caja* heap[tam];
+    Caja<A> arreglo[10];
     int ultimo;
     int contador;
 };
+    template <typename A>
+    ColaDePrioridad<A>::ColaDePrioridad(){
+        ultimo = 0;
+        contador = 0;
+    }
+  template <class A> 
+ColaDePrioridad<A>::~ColaDePrioridad() {
 
-template <typename A,int tam>  
-ColaDePrioridad<A,tam>::ColaDePrioridad() {
+}
+
+template <class A> 
+void ColaDePrioridad<A>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class A,int tam> 
-ColaDePrioridad<A,tam>::~ColaDePrioridad() {
-
-}
-
-template <class A,int tam> 
-void ColaDePrioridad<A,tam>::vaciar() {
-    ultimo = 0;
-    contador = 0;
-}
-
-template <class A,int tam> 
-bool ColaDePrioridad<A,tam>::vacia() {
+template <class A> 
+bool ColaDePrioridad<A>::vacia() {
     return (ultimo == 0);
 }
 
-template <class A,int tam> 
-void ColaDePrioridad<A,tam>::agregar(A elemento, int prioridad) {
-    Caja nuevo = Caja ;
-    nuevo.elemento=elemento;
-    nuevo.prioridad=prioridad;
-    Caja padre;
+template <class A> 
+void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
+    Caja<A> nuevo = new Caja<A>(elemento,prioridad);
+    Caja<A> padre = nuevo;
     ultimo++;
     contador++;
-    heap[ultimo] = nuevo;
+    arreglo[ultimo] = nuevo;
     int iterador = ultimo;
-    while ((iterador > 1) && (heap[iterador].prioridad > heap[iterador / 2].prioridad)) {
-        padre = heap[iterador / 2];
-        heap[iterador / 2] = heap[iterador];
+    while ((iterador > 1) && (arreglo[iterador].prioridad > arreglo[iterador / 2].prioridad)) {
+        padre = arreglo[iterador / 2];
+        arreglo[iterador / 2] = arreglo[iterador];
         iterador = iterador / 2;
     }
 }
 
-template <class A,int tam> 
-A ColaDePrioridad<A,tam>::sacar() {
-    Caja auxiliar = heap[1];
-    Caja padre = heap[1];
+template <class A> 
+A ColaDePrioridad<A>::sacar() {
+    Caja<A> auxiliar = arreglo[1];
+    Caja<A> padre = arreglo[1];
     bool terminado = false;
     int iterador = 1;
     int minimo = 1;
-    heap[1] = heap[ultimo];
+    arreglo[1] = arreglo[ultimo];
     ultimo--;
     contador--;
     while (!terminado) {
         if (iterador * 2 > ultimo) {
-            if (heap[iterador * 2].prioridad > heap[ultimo].prioridad) {
+            if (arreglo[iterador * 2].prioridad > arreglo[ultimo].prioridad) {
                 minimo = iterador * 2;
-                if ((heap[iterador * 2 + 1].prioridad > heap[minimo].prioridad)) {
+                if ((arreglo[iterador * 2 + 1].prioridad > arreglo[minimo].prioridad)) {
                     minimo = iterador * 2 + 1;
                 }
             }
             if (iterador != minimo) {
-                padre = heap[iterador];
-                heap[iterador] = heap[minimo];
-                heap[minimo] = padre;
+                padre = arreglo[iterador];
+                arreglo[iterador] = arreglo[minimo];
+                arreglo[minimo] = padre;
                 iterador = minimo;
             } else {
                 terminado = true;
@@ -161,8 +160,10 @@ A ColaDePrioridad<A,tam>::sacar() {
     return auxiliar.elemento;
 }
 
-template <class A,int tam> 
-int ColaDePrioridad<A,tam>::numElem() {
+template <class A> 
+int ColaDePrioridad<A>::numElem() {
     return contador;
-}
+}  
+//};
 #endif /* COLADEPRIORIDAD_H */
+
