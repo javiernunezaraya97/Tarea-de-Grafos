@@ -49,7 +49,7 @@ public:
     //EFE: une los elementos del conjunto 1 con los del conjunto 2.
     //REQ: conjunto de conjuntos inicializado. ambos conjuntos existan.
     //MOD: conjunto de conjuntos.
-    void unirConjuntos(Conjunto conj1, Conjunto conj2);
+    void unirConjuntos(string idConj1, string idConj2);
 private:
 
     template <typename C>
@@ -127,18 +127,34 @@ string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem) {
             } else
                 auxElem = auxElem.sig;
         }
-        if (!encontrado)
-            auxConj = auxConj.sig;
+
+        if (encontrado)
+            buscado= auxConj.identificador;
+        return buscado;
     }
-    if (encontrado)
-        buscado = auxConj.identificador;
-    return buscado;
 }
-
 template <typename T>
-void ConjuntoDeConj<T>::unirConjuntos(Conjunto conj1, Conjunto conj2) {
-
+void ConjuntoDeConj<T>::unirConjuntos(string idConj1, string idConj2){
+        bool encontrados=false;
+        Conjunto Conj1=nullptr;
+        Conjunto Conj2=nullptr;
+        ConjuntosList Conjuntos=primero;
+        
+        while ((Conjuntos==nullptr)&&(!encontrados)){
+            if (Conjuntos.identificador==idConj1){
+                Conj1=Conjuntos.ConjPtr;
+            }
+            if (Conjuntos.identificador==idConj2){
+                Conj2=Conjuntos.ConjPtr;
+            }
+            if ((Conj1==nullptr)&&(Conj2==nullptr)){
+                encontrados=true;
+            }else if (!encontrados)
+                Conjuntos=Conjuntos.sig;
+        }    
 }
+
+
 //};
 
 #endif /* CONJUNTODECONJ_H */

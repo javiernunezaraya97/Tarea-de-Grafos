@@ -39,13 +39,13 @@ public:
   REQ:
   MOD:
 */
-    void vaciar();
+    void Vaciar();
 /*
   EFE:
   REQ:
   MOD:
 */
-    bool vacio();
+    bool Vacio();
 /*
   EFE:
   REQ:
@@ -100,20 +100,10 @@ Diccionario<T>::Diccionario(const Diccionario& orig){
 
 template < typename T >
 Diccionario<T>::~Diccionario(){
-}
-
-template < typename T >
-void Diccionario< T>::Crear(){
-    primero = nullptr;
-    ultimoLleno = 0;
-}
-
-template < typename T >
-void Diccionario<T>::Destruir(){
-    Nodo<T> *temp = primero;
+     Nodo<T> *temp = primero;
     Nodo<T> *aux = nullptr;
     while (temp != nullptr) {
-        aux = temp->sgt;
+        aux = temp->siguiente;
         delete temp;
         temp = aux;
     }
@@ -121,14 +111,16 @@ void Diccionario<T>::Destruir(){
     delete temp;
 }
 
+
+
 template < typename T >
 void Diccionario< T>::Vaciar(){
-    primero = NULL;
+    primero = nullptr;
 }
 
 template <typename T>
 bool Diccionario<T>::Vacio(){
-     if (primero != NULL) {
+     if (primero != nullptr) {
         return false;
     }
     return true;
