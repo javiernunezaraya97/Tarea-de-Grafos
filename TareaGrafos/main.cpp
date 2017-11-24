@@ -15,20 +15,22 @@
 //#define SIZE 10
 #include "ListaDeAdy.h"
 #include "ColaDePrioridad.h"
+#include <string>
 using namespace std;
 /*
  * 
  */
 int main(int argc, char** argv) {
-    ColaDePrioridad<string> cola;
-    int i=cola.numElem();
-    cola.agregar("Hola",1);
-//    cola.agregar("Kikut",8);
+  ColaDePrioridad<string>* cola=new ColaDePrioridad<string>;
+    int i=cola->numElem();
+    cola->agregar("a",1);
+    cola->agregar("s",8);
+
 //    cola.agregar("Sandra",7);
 //    cola.agregar("Guapa",2);
-//    for(int i=0;i<cola.numElem();i++){
-//        cout<<"Elemento: "<<i<<"\n";
-//    }
+    for(int i=0;i<=cola->numElem();i++){
+        cout<<"Elemento: "<<i<<cola->sacar()<<"\n";
+    }
     
     grafo *g=new grafo;
     

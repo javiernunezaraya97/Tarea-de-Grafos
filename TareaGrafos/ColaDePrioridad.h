@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   ColaDePrioridad.h
  * Author: Luis
@@ -78,56 +72,48 @@ public:
     //  MOD: Cola
     //     */   
 private:
-
     template <typename B>
     struct Caja {
         B elemento;
         int prioridad;
-
         Caja(B elementoNuevo, int nuevaPrioridad) {
             elemento = elementoNuevo;
             prioridad = nuevaPrioridad;
         }
-
-        Caja() {
-
-        }
+        Caja (){};
     };
-    Caja<A> arreglo[SIZE];
+    Caja<A> arreglo[10];
     int ultimo;
     int contador;
 };
-
-template <typename A>
-ColaDePrioridad<A>::ColaDePrioridad() {
-    //        Caja<A> arreglo[SIZE];
-    ultimo = 0;
-    contador = 0;
-}
-
-template <class A>
+    template <typename A>
+    ColaDePrioridad<A>::ColaDePrioridad(){
+        ultimo = 0;
+        contador = 0;
+    }
+  template <typename A> 
 ColaDePrioridad<A>::~ColaDePrioridad() {
 
 }
 
-template <class A>
+template <typename A> 
 void ColaDePrioridad<A>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <class A>
+template <typename A> 
 bool ColaDePrioridad<A>::vacia() {
     return (ultimo == 0);
 }
 
-template <class A>
+template <typename A> 
 void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
-    Caja<A> nuevo = new Caja<A>(elemento, prioridad);
-    Caja<A> padre = nuevo;
+    Caja<A>* nuevo = new Caja<A>(elemento,prioridad);
+    Caja<A> padre;
     ultimo++;
     contador++;
-    arreglo[ultimo] = nuevo;
+    arreglo[ultimo] = *nuevo;
     int iterador = ultimo;
     while ((iterador > 1) && (arreglo[iterador].prioridad > arreglo[iterador / 2].prioridad)) {
         padre = arreglo[iterador / 2];
@@ -136,7 +122,7 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     }
 }
 
-template <class A>
+template <typename A> 
 A ColaDePrioridad<A>::sacar() {
     Caja<A> auxiliar = arreglo[1];
     Caja<A> padre = arreglo[1];
@@ -169,10 +155,9 @@ A ColaDePrioridad<A>::sacar() {
     return auxiliar.elemento;
 }
 
-template <class A>
+template <typename A> 
 int ColaDePrioridad<A>::numElem() {
     return contador;
-}
+}  
 //};
 #endif /* COLADEPRIORIDAD_H */
-
