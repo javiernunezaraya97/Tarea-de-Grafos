@@ -120,30 +120,34 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     ultimo++;
     contador++;
     arreglo[ultimo] = *nuevo;
+    //cout<<arreglo[ultimo].elemento<<"\n";
     int agregado = ultimo;
     while ((agregado > 0) && (arreglo[agregado].prioridad < arreglo[agregado / 2].prioridad)) {
         padre = arreglo[agregado / 2];
         arreglo[agregado / 2] = arreglo[agregado];
         arreglo[agregado] = padre;
+        //cout<<arreglo[agregado].elemento;
         agregado = agregado / 2;
     }
 }
 
 template <typename A>
 A ColaDePrioridad<A>::sacar() {
-    Caja<A> auxiliar = arreglo[1];
+    A auxiliar = arreglo[1].elemento;
+    //cout<<arreglo[1].elemento<<"\n";
+    //cout<<auxiliar;
     Caja<A> padre;
     bool terminado = false;
     int iterador = 1;
     int minimo = 0;
-    if (this->numElem() > 1) {
+    if (contador > 1) {
         arreglo[1] = arreglo[ultimo];
         ultimo--;
         contador--;
         while (!terminado) {
             if (iterador * 2 <= ultimo) {
                 minimo = iterador * 2;
-                if ((iterador * 2+1 <= ultimo)&&(arreglo[iterador * 2 + 1].prioridad < arreglo[iterador * 2].prioridad)) {
+                if ((iterador * 2 + 1 <= ultimo)&&(arreglo[iterador * 2 + 1].prioridad < arreglo[iterador * 2].prioridad)) {
                     minimo = iterador * 2 + 1;
                 }
                 if (arreglo[minimo].prioridad < arreglo[iterador].prioridad) {
@@ -151,9 +155,9 @@ A ColaDePrioridad<A>::sacar() {
                     arreglo[iterador] = arreglo[minimo];
                     arreglo[minimo] = padre;
                     iterador = minimo;
+                } else {
+                    terminado = true;
                 }
-                iterador++;
-
             } else {
                 terminado = true;
             }
@@ -162,7 +166,8 @@ A ColaDePrioridad<A>::sacar() {
         ultimo--;
         contador--;
     }
-    return auxiliar.elemento;
+    //cout<<auxiliar<<"\n";
+    return auxiliar;
 }
 
 template <typename A>

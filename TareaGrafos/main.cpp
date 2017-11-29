@@ -35,10 +35,20 @@ int main(int argc, char** argv) {
     cola->agregar("r", 6);
     cola->agregar("f", 7);
     cola->agregar("e", 10);
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
+//    cola->sacar();
             cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
 //    int num = cola->numElem();
 //    for (int i = 0; i < num; i++) {
 //        cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
@@ -82,7 +92,7 @@ int main(int argc, char** argv) {
     grafo *g = new grafo;
 
     vertice v1 = g->agregarVertice("prueba");
-    cout << "etiqueta: " << v1->etiqueta << "\n";
+   // cout << "etiqueta: " << v1->etiqueta << "\n";
     vertice v2 = g->agregarVertice("katherine fea");
     cout << "etiqueta2: " << v2->etiqueta << "\n";
     g->agregarArista(v1, v2, 10);
