@@ -22,6 +22,7 @@ using namespace std;
 template <class T>
 class ConjuntoDeConj {
 public:
+    
     //EFE:Constructuye el conjunto de conjunto disjutnos
     //REQ:---
     //MOD:
@@ -51,7 +52,7 @@ public:
     //MOD: conjunto de conjuntos.
     void unirConjuntos(string idConj1, string idConj2);
 private:
-
+    
     template <typename C>
     struct Conjunto {
         C elemento;

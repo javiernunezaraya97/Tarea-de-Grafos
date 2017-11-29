@@ -13,7 +13,8 @@
 
 #include <iostream>
 //#define SIZE 10
-#include "ListaDeAdy.h"
+#include "MatrizDeAdy.h"
+//#include "ListaDeAdy.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include <string>
@@ -91,8 +92,10 @@ int main(int argc, char** argv) {
 
     grafo *g = new grafo;
 
-    vertice v1 = g->agregarVertice("prueba");
-   // cout << "etiqueta: " << v1->etiqueta << "\n";
+
+    vertice v1 = g->agregarVertice("abc");
+    cout << "etiqueta: " << v1->etiqueta << "\n";
+
     vertice v2 = g->agregarVertice("katherine fea");
     cout << "etiqueta2: " << v2->etiqueta << "\n";
     g->agregarArista(v1, v2, 10);
