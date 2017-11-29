@@ -55,11 +55,11 @@ private:
     template <typename C>
     struct Conjunto {
         C elemento;
-        Conjunto *sig;
+        Conjunto *sigElem;
 
         Conjunto(C e) {
             elemento = e;
-            sig = nullptr;
+            sigElem = nullptr;
         };
 
         Conjunto() {
@@ -70,17 +70,17 @@ private:
     struct ConjuntosList {
         string identificador;
         ConjuntosList *sig;
-        Conjunto *ConjPtr;
+        Conjunto<C>* ConjPtr;
 
         ConjuntosList(string id, C e) {
             identificador = id;
-            ConjPtr = new Conjunto(e);
+            ConjPtr = new Conjunto<C>(e);
             sig = nullptr;
         }
 
         ConjuntosList() {
             identificador = "";
-            ConjPtr = new Conjunto;
+            ConjPtr = new Conjunto<C>;
             sig = nullptr;
         };
     };
@@ -104,54 +104,75 @@ void ConjuntoDeConj<T>::vaciar() {
 
 template <typename T>
 bool ConjuntoDeConj<T>::vacio() {
-
+    return primero==nullptr;
 }
 
 template <typename T>
 void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento) {
-    ConjuntosList<T> nConj = new ConjuntosList<T>(Identificador, elemento);
-    nConj.sig = primero;
+    ConjuntosList<T>* nConj = new ConjuntosList<T>(Identificador, elemento);
+    nConj->sig = primero;
     primero = nConj;
 }
 
 template <typename T>
 string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem) {
     bool encontrado = false;
-    Conjunto auxElem = primero->ConjPtr;
-    ConjuntosList auxConj = primero;
+    Conjunto<T>* auxElem = primero->ConjPtr;
+    ConjuntosList<T>*  auxConj = primero;
     string buscado = "";
-    while ((auxConj == nullptr)&&(!encontrado)) {
-        while ((auxElem == nullptr)&&(!encontrado)) {
-            if (auxElem.elemento == elem) {
+    while ((auxConj != nullptr)&&(!encontrado)) {
+        auxElem= auxConj->ConjPtr;
+        while ((auxElem != nullptr)&&(!encontrado)) {
+            if (auxElem->elemento == elem) {
                 encontrado = true;
+                buscado= auxConj->identificador;
             } else
-                auxElem = auxElem.sig;
+                auxElem = auxElem->sigElem;
         }
-
-        if (encontrado)
-            buscado= auxConj.identificador;
-        return buscado;
+        auxConj= auxConj->sig;
     }
+        return buscado;
+   
 }
 template <typename T>
 void ConjuntoDeConj<T>::unirConjuntos(string idConj1, string idConj2){
         bool encontrados=false;
-        Conjunto Conj1=nullptr;
-        Conjunto Conj2=nullptr;
-        ConjuntosList Conjuntos=primero;
-        
-        while ((Conjuntos==nullptr)&&(!encontrados)){
-            if (Conjuntos.identificador==idConj1){
-                Conj1=Conjuntos.ConjPtr;
+        Conjunto<T>*  Conj1=nullptr;
+        Conjunto<T>*  Conj2=nullptr;
+        Conjunto<T>*  conjAux;
+        ConjuntosList<T>*  Conjuntos=primero;
+        ConjuntosList<T>*  ConjuntosPrev=nullptr;
+        ConjuntosList<T>*  Conjunto2=primero;
+        if (primero->identificador==idConj2){
+            Conj2=primero->ConjPtr;
+        }
+        while ((Conjuntos!=nullptr)&&(!encontrados)){
+            if (Conjuntos->identificador==idConj1){
+                Conj1=Conjuntos->ConjPtr;
             }
-            if (Conjuntos.identificador==idConj2){
-                Conj2=Conjuntos.ConjPtr;
+            if (Conjuntos->sig->identificador==idConj2){
+                Conj2=Conjuntos->sig->ConjPtr;
+                ConjuntosPrev=Conjuntos;
             }
-            if ((Conj1==nullptr)&&(Conj2==nullptr)){
+            if ((Conj1!=nullptr)&&(Conj2!=nullptr)){
                 encontrados=true;
             }else if (!encontrados)
-                Conjuntos=Conjuntos.sig;
+                Conjuntos=Conjuntos->sig;
         }    
+        while ( Conj1->sigElem!=nullptr){
+            Conj1= Conj1->sigElem;
+        }        
+        Conj1->sigElem=Conj2;
+        
+        if  (ConjuntosPrev!=nullptr){
+            Conjunto2=ConjuntosPrev->sig;
+            ConjuntosPrev->sig=Conjunto2->sig;
+        } else {
+            primero= primero->sig;
+        }
+        delete (Conjunto2);
+        
+        
 }
 
 
