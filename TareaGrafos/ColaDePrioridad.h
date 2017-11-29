@@ -1,3 +1,4 @@
+
 /* 
  * File:   ColaDePrioridad.h
  * Author: Luis
@@ -171,3 +172,4 @@ int ColaDePrioridad<A>::numElem() {
 }
 //};
 #endif /* COLADEPRIORIDAD_H */
+
