@@ -1,3 +1,4 @@
+
 /* 
  * File:   ColaDePrioridad.h
  * Author: Luis
@@ -7,7 +8,7 @@
 
 #ifndef COLADEPRIORIDAD_H
 #define COLADEPRIORIDAD_H
-#define SIZE 10
+#define SIZE 20
 #include <string.h>
 #include <string>
 #include <sstream>
@@ -86,7 +87,7 @@ private:
         Caja() {
         };
     };
-    Caja<A> arreglo[10];
+    Caja<A> arreglo[SIZE];
     int ultimo;
     int contador;
 };
@@ -120,41 +121,47 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     ultimo++;
     contador++;
     arreglo[ultimo] = *nuevo;
-    int iterador = ultimo;
-    while ((iterador > 0) && (arreglo[iterador].prioridad < arreglo[iterador / 2].prioridad)) {
-        padre = arreglo[iterador / 2];
-        arreglo[iterador / 2] = arreglo[iterador];
-        iterador = iterador / 2;
+    int agregado = ultimo;
+    while ((agregado > 0) && (arreglo[agregado].prioridad < arreglo[agregado / 2].prioridad)) {
+        padre = arreglo[agregado / 2];
+        arreglo[agregado / 2] = arreglo[agregado];
+        arreglo[agregado] = padre;
+        agregado = agregado / 2;
     }
 }
 
 template <typename A>
 A ColaDePrioridad<A>::sacar() {
-    Caja<A> auxiliar = arreglo[0];
+    Caja<A> auxiliar = arreglo[1];
     Caja<A> padre;
     bool terminado = false;
-    int iterador = 0;
+    int iterador = 1;
     int minimo = 0;
-    arreglo[0] = arreglo[ultimo];
-    ultimo--;
-    contador--;
-    while (!terminado) {
-        if (iterador * 2 >= ultimo) {
-            minimo = iterador*2;
-            if(arreglo[iterador * 2+1].prioridad < arreglo[iterador * 2].prioridad){
-                minimo = iterador*2+1;
-            }
-            if (arreglo[minimo].prioridad < arreglo[iterador].prioridad) {
-                padre = arreglo[iterador];
-                arreglo[iterador] = arreglo[minimo];
-                arreglo[minimo] = padre;
-                iterador = minimo;
-            } 
+    if (this->numElem() > 1) {
+        arreglo[1] = arreglo[ultimo];
+        ultimo--;
+        contador--;
+        while (!terminado) {
+            if (iterador * 2 <= ultimo) {
+                minimo = iterador * 2;
+                if ((iterador * 2+1 <= ultimo)&&(arreglo[iterador * 2 + 1].prioridad < arreglo[iterador * 2].prioridad)) {
+                    minimo = iterador * 2 + 1;
+                }
+                if (arreglo[minimo].prioridad < arreglo[iterador].prioridad) {
+                    padre = arreglo[iterador];
+                    arreglo[iterador] = arreglo[minimo];
+                    arreglo[minimo] = padre;
+                    iterador = minimo;
+                }
                 iterador++;
-            
-        } else {
-            terminado = true;
+
+            } else {
+                terminado = true;
+            }
         }
+    } else {
+        ultimo--;
+        contador--;
     }
     return auxiliar.elemento;
 }
@@ -165,3 +172,4 @@ int ColaDePrioridad<A>::numElem() {
 }
 //};
 #endif /* COLADEPRIORIDAD_H */
+
