@@ -28,8 +28,7 @@ struct Vertice{
         numAdy = 0;
     }
 };
-typedef Vertice vertice;
-typedef Vertice verticeNulo;
+typedef Vertice* vertice;
 class MatrizDeAdy {
 public:
 /*
@@ -148,13 +147,13 @@ public:
 */
     int numVerticesAdy(vertice v);
     
-    typedef MatrizDeAdy grafo;
+    
 private:
-    vertice vertices[100];
-    int matrizAdyacencia[100][100];
+    Vertice vertices[10];
+    int matrizAdyacencia[10][10];
     int ultimo = -1;
     int numVertice;
 };
-
+typedef MatrizDeAdy grafo;
 #endif /* MATRIZDEADY_H */
 

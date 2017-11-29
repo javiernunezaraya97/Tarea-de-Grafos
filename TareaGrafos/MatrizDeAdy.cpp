@@ -14,9 +14,9 @@
 #include "MatrizDeAdy.h"
 
 MatrizDeAdy::MatrizDeAdy() {
-    for (int i = 0; i < 100; i++) { //inicializar todos los pesos en -1
-        for (int j = 0; j < 100; j++) {
-            matrizAdyacencia[i][j] = 1;
+    for (int i = 0; i < 10; i++) { //inicializar todos los pesos en -1
+        for (int j = 0; j < 10; j++) {
+            matrizAdyacencia[i][j] = -1;
         }
     }
     numVertice = 0;
@@ -42,17 +42,16 @@ bool MatrizDeAdy::vacio(){
 }
 
 vertice MatrizDeAdy::agregarVertice(string etiq){
-    Vertice vrt = Vertice(etiq);
     ultimo++;
-    vertices[ultimo] = vrt;
+    vertices[ultimo].etiqueta = etiq;
     numVertice++;
-    return vrt;
+    return &vertices[ultimo];
 }
 
 void MatrizDeAdy::eliminarVertice(vertice v){
     int contador = 0;
     while(contador < numVertice){
-        if(vertices[contador].etiqueta == v.etiqueta){
+        if(vertices[contador].etiqueta == v->etiqueta){
             while(contador < (numVertice-1)){
                 vertices[contador] = vertices[contador+1];
                 contador++; 
@@ -64,18 +63,18 @@ void MatrizDeAdy::eliminarVertice(vertice v){
 }
 
 void MatrizDeAdy::modificarEtiqueta(vertice v, string etiq){
-    v.etiqueta =  etiq;
+    v->etiqueta =  etiq;
 }
 
 string MatrizDeAdy::Etiqueta(vertice v){
-    return v.etiqueta;
+    return v->etiqueta;
 }
 
 void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
     int i = 0;
     bool iguales = false;
     while (!iguales) {
-        if (vertices[i].etiqueta == v1.etiqueta) {
+        if (vertices[i].etiqueta == v1->etiqueta) {
             iguales = true;
         } else {
             i++;
@@ -84,7 +83,7 @@ void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if(vertices[j].etiqueta == v2.etiqueta) {
+        if(vertices[j].etiqueta == v2->etiqueta) {
             iguales = true;
         } else {
             j++;
@@ -101,7 +100,7 @@ void MatrizDeAdy::eliminarArista(vertice v1, vertice v2){
     int i = 0;
     bool iguales = false;
     while (!iguales) {
-        if (vertices[i].etiqueta == v1.etiqueta) {
+        if (vertices[i].etiqueta == v1->etiqueta) {
             iguales = true;
         } else {
             i++;
@@ -110,7 +109,7 @@ void MatrizDeAdy::eliminarArista(vertice v1, vertice v2){
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if (vertices[j].etiqueta == v2.etiqueta) {
+        if (vertices[j].etiqueta == v2->etiqueta) {
             iguales = true;
         } else {
             j++;
@@ -124,7 +123,7 @@ void MatrizDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
     int i = 0;
     bool iguales = false;
     while (!iguales) {
-        if (vertices[i].etiqueta == v1.etiqueta) {
+        if (vertices[i].etiqueta == v1->etiqueta) {
             iguales = true;
         } else {
             i++;
@@ -133,7 +132,7 @@ void MatrizDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if (vertices[j].etiqueta == v2.etiqueta) {
+        if (vertices[j].etiqueta == v2->etiqueta) {
             iguales = true;
         } else {
             j++;
@@ -147,7 +146,7 @@ int MatrizDeAdy::Peso(vertice v1, vertice v2){
     int i = 0;
     bool iguales = false;
     while (!iguales) {
-        if (vertices[i].etiqueta == v1.etiqueta) {
+        if (vertices[i].etiqueta == v1->etiqueta) {
             iguales = true;
         } else {
             i++;
@@ -156,7 +155,7 @@ int MatrizDeAdy::Peso(vertice v1, vertice v2){
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if (vertices[j].etiqueta == v2.etiqueta) {
+        if (vertices[j].etiqueta == v2->etiqueta) {
             iguales = true;
         } else {
             j++;
@@ -169,7 +168,7 @@ bool MatrizDeAdy::adyacentes(vertice v1, vertice v2){
     int i = 0;
     bool iguales = false;
     while (!iguales) {
-        if (vertices[i].etiqueta == v1.etiqueta) {
+        if (vertices[i].etiqueta == v1->etiqueta) {
             iguales = true;
         } else {
             i++;
@@ -178,7 +177,7 @@ bool MatrizDeAdy::adyacentes(vertice v1, vertice v2){
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if (vertices[j].etiqueta == v2.etiqueta) {
+        if (vertices[j].etiqueta == v2->etiqueta) {
             iguales = true;
         } else {
             j++;
@@ -192,28 +191,76 @@ bool MatrizDeAdy::adyacentes(vertice v1, vertice v2){
 }
 
 vertice MatrizDeAdy::primerVertice(){
-    return vertices[0];
+    if(ultimo != -1)
+        return &vertices[0];
+    else
+        return nullptr;
 }
 
 vertice MatrizDeAdy::sigVertice(vertice v){
     bool encontrado = false;
     int contador = 0;
     while (!encontrado) {
-        if (vertices[contador].etiqueta == v.etiqueta) {
+        if (vertices[contador].etiqueta == v->etiqueta) {
             encontrado = true;
         } else {
             contador++;
         }
     }
-    return vertices[contador+1];
+    if(!((contador+1) == ultimo))
+        return &vertices[contador+1];
+    else
+        return nullptr;
 }
 
 vertice MatrizDeAdy::primerVerticeAdy(vertice v){
-    
+    int i = 0;
+    bool iguales = false;
+    while (!iguales) {
+        if (vertices[i].etiqueta == v->etiqueta) {
+            iguales = true;
+        } else {
+            i++;
+        }
+    }
+    int j = 0;
+    while(matrizAdyacencia[i][j] != -1){
+        j++;
+    }
+    if(j <= ultimo)
+        return &vertices[j];
+    else 
+        return nullptr;
 }
 
 vertice MatrizDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
-    
+    int i = 0;
+    bool iguales = false;
+    while (!iguales) {
+        if (vertices[i].etiqueta == v->etiqueta) {
+            iguales = true;
+        } else {
+            i++;
+        }
+    }
+    iguales = false;
+    int j = 0;
+    while (!iguales) {
+        if (vertices[j].etiqueta == vAdy->etiqueta) {
+            iguales = true;
+        } else {
+            j++;
+        }
+    }
+    j++;
+    while(matrizAdyacencia[i][j] != -1){
+        j++;
+    }
+    if(j<= ultimo)
+        return &vertices[j];
+    else
+        return nullptr;
+
 }
 
 int MatrizDeAdy::numVertices(){
@@ -221,6 +268,6 @@ int MatrizDeAdy::numVertices(){
 }
 
 int MatrizDeAdy::numVerticesAdy(vertice v){
-    return v.numAdy;
+    return v->numAdy;
 }
 
