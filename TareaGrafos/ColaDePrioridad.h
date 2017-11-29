@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   ColaDePrioridad.h
  * Author: Luis
@@ -78,82 +72,86 @@ public:
     //  MOD: Cola
     //     */   
 private:
+
     template <typename B>
     struct Caja {
         B elemento;
         int prioridad;
+
         Caja(B elementoNuevo, int nuevaPrioridad) {
             elemento = elementoNuevo;
             prioridad = nuevaPrioridad;
         }
-        Caja (){};
+
+        Caja() {
+        };
     };
     Caja<A> arreglo[10];
     int ultimo;
     int contador;
 };
-    template <typename A>
-    ColaDePrioridad<A>::ColaDePrioridad(){
-        ultimo = 0;
-        contador = 0;
-    }
-  template <typename A> 
+
+template <typename A>
+ColaDePrioridad<A>::ColaDePrioridad() {
+    ultimo = 0;
+    contador = 0;
+}
+
+template <typename A>
 ColaDePrioridad<A>::~ColaDePrioridad() {
 
 }
 
-template <typename A> 
+template <typename A>
 void ColaDePrioridad<A>::vaciar() {
     ultimo = 0;
     contador = 0;
 }
 
-template <typename A> 
+template <typename A>
 bool ColaDePrioridad<A>::vacia() {
     return (ultimo == 0);
 }
 
-template <typename A> 
+template <typename A>
 void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
-    Caja<A>* nuevo = new Caja<A>(elemento,prioridad);
+    Caja<A>* nuevo = new Caja<A>(elemento, prioridad);
     Caja<A> padre;
     ultimo++;
     contador++;
     arreglo[ultimo] = *nuevo;
     int iterador = ultimo;
-    while ((iterador > 1) && (arreglo[iterador].prioridad > arreglo[iterador / 2].prioridad)) {
+    while ((iterador > 0) && (arreglo[iterador].prioridad < arreglo[iterador / 2].prioridad)) {
         padre = arreglo[iterador / 2];
         arreglo[iterador / 2] = arreglo[iterador];
         iterador = iterador / 2;
     }
 }
 
-template <typename A> 
+template <typename A>
 A ColaDePrioridad<A>::sacar() {
-    Caja<A> auxiliar = arreglo[1];
-    Caja<A> padre = arreglo[1];
+    Caja<A> auxiliar = arreglo[0];
+    Caja<A> padre;
     bool terminado = false;
-    int iterador = 1;
-    int minimo = 1;
-    arreglo[1] = arreglo[ultimo];
+    int iterador = 0;
+    int minimo = 0;
+    arreglo[0] = arreglo[ultimo];
     ultimo--;
     contador--;
     while (!terminado) {
-        if (iterador * 2 > ultimo) {
-            if (arreglo[iterador * 2].prioridad > arreglo[ultimo].prioridad) {
-                minimo = iterador * 2;
-                if ((arreglo[iterador * 2 + 1].prioridad > arreglo[minimo].prioridad)) {
-                    minimo = iterador * 2 + 1;
-                }
+        if (iterador * 2 >= ultimo) {
+            minimo = iterador*2;
+            if(arreglo[iterador * 2+1].prioridad < arreglo[iterador * 2].prioridad){
+                minimo = iterador*2+1;
             }
-            if (iterador != minimo) {
+            if (arreglo[minimo].prioridad < arreglo[iterador].prioridad) {
                 padre = arreglo[iterador];
                 arreglo[iterador] = arreglo[minimo];
                 arreglo[minimo] = padre;
                 iterador = minimo;
-            } else {
-                terminado = true;
-            }
+            } 
+                iterador++;
+            
         } else {
             terminado = true;
         }
@@ -161,10 +159,9 @@ A ColaDePrioridad<A>::sacar() {
     return auxiliar.elemento;
 }
 
-template <typename A> 
+template <typename A>
 int ColaDePrioridad<A>::numElem() {
     return contador;
-}  
+}
 //};
 #endif /* COLADEPRIORIDAD_H */
-
