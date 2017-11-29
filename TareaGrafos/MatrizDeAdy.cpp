@@ -16,7 +16,7 @@
 MatrizDeAdy::MatrizDeAdy() {
     for (int i = 0; i < 100; i++) { //inicializar todos los pesos en -1
         for (int j = 0; j < 100; j++) {
-            matrizAdyacencia[i][j] = -1;
+            matrizAdyacencia[i][j] = 1;
         }
     }
     numVertice = 0;
@@ -29,7 +29,7 @@ MatrizDeAdy::~MatrizDeAdy() {
 }
 
 void MatrizDeAdy::vaciar(){
-    ultimoI,ultimoJ,ultimoV = -1;
+    ultimo = -1;
     for (int i = 0; i < 100; i++) { //reestablece el valor default de los pesos
         for (int j = 0; j < 100; j++) {
             matrizAdyacencia[i][j] = -1;
@@ -43,8 +43,8 @@ bool MatrizDeAdy::vacio(){
 
 vertice MatrizDeAdy::agregarVertice(string etiq){
     Vertice vrt = Vertice(etiq);
-    ultimoV++;
-    vertices[ultimoV] = Vertice;
+    ultimo++;
+    vertices[ultimo] = vrt;
     numVertice++;
     return vrt;
 }
@@ -52,7 +52,7 @@ vertice MatrizDeAdy::agregarVertice(string etiq){
 void MatrizDeAdy::eliminarVertice(vertice v){
     int contador = 0;
     while(contador < numVertice){
-        if(vertices[contador]->etiqueta == v->etiqueta){
+        if(vertices[contador].etiqueta == v.etiqueta){
             while(contador < (numVertice-1)){
                 vertices[contador] = vertices[contador+1];
                 contador++; 
@@ -64,11 +64,11 @@ void MatrizDeAdy::eliminarVertice(vertice v){
 }
 
 void MatrizDeAdy::modificarEtiqueta(vertice v, string etiq){
-    v->etiqueta =  etiq;
+    v.etiqueta =  etiq;
 }
 
 string MatrizDeAdy::Etiqueta(vertice v){
-    return v->etiqueta;
+    return v.etiqueta;
 }
 
 void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
@@ -81,26 +81,20 @@ void MatrizDeAdy::agregarArista(vertice v1, vertice v2, int peso){
             i++;
         }
     }
-    if(i > ultimoI){
-        ultimoI = i;
-    }
     iguales = false;
     int j = 0;
     while (!iguales) {
-        if (vertices[j].etiqueta == v2.etiqueta) {
+        if(vertices[j].etiqueta == v2.etiqueta) {
             iguales = true;
         } else {
             j++;
         }
     }
-    if(j > ultimoJ){
-        ultimoJ = j;
-    }
     matrizAdyacencia[i][j] = peso;
     matrizAdyacencia[j][i] = peso;
 
-    vertices[i]->numAdy++;
-    vertices[j]->numAdy++;
+    vertices[i].numAdy++;
+    vertices[j].numAdy++;
 }
 
 void MatrizDeAdy::eliminarArista(vertice v1, vertice v2){
@@ -227,6 +221,6 @@ int MatrizDeAdy::numVertices(){
 }
 
 int MatrizDeAdy::numVerticesAdy(vertice v){
-    return v->numAdy;
+    return v.numAdy;
 }
 

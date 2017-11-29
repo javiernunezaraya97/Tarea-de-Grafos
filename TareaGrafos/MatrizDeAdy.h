@@ -15,6 +15,7 @@
 #define MATRIZDEADY_H
 #include <string>
 using namespace std;
+
 struct Vertice{
     string etiqueta;
     int numAdy;
@@ -27,7 +28,7 @@ struct Vertice{
         numAdy = 0;
     }
 };
-typedef Vertice* vertice;
+typedef Vertice vertice;
 class MatrizDeAdy {
 public:
 /*
@@ -148,9 +149,9 @@ public:
     
     typedef MatrizDeAdy grafo;
 private:
-    vertice* vertices[100];
-    int** matrizAdyacencia[100][100];
-    int ultimoI,ultimoJ, ultimoV = -1;
+    vertice vertices[100];
+    int matrizAdyacencia[100][100];
+    int ultimo = -1;
     int numVertice;
 };
 
