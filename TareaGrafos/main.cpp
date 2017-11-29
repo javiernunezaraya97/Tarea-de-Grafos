@@ -25,7 +25,7 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-
+    string p;
     cola->agregar("j", 9);
     cola->agregar("g", 8);
     cola->agregar("a", 1);
@@ -36,16 +36,16 @@ int main(int argc, char** argv) {
     cola->agregar("r", 6);
     cola->agregar("f", 7);
     cola->agregar("e", 10);
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
-//    cola->sacar();
+  p=  cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
             cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
 //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
 //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
