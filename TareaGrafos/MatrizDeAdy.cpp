@@ -29,12 +29,8 @@ MatrizDeAdy::~MatrizDeAdy() {
 }
 
 void MatrizDeAdy::vaciar(){
-    ultimo = -1;
-    for (int i = 0; i < 100; i++) { //reestablece el valor default de los pesos
-        for (int j = 0; j < 100; j++) {
-            matrizAdyacencia[i][j] = -1;
-        }
-    }
+    ultimo = -1; numVertice = 0;
+    
 }
 
 bool MatrizDeAdy::vacio(){
@@ -45,6 +41,10 @@ vertice MatrizDeAdy::agregarVertice(string etiq){
     ultimo++;
     vertices[ultimo].etiqueta = etiq;
     numVertice++;
+    for (int i = 0; i < numVertice; i++) { //reestablece el valor default de los pesos
+        matrizAdyacencia[i][ultimo] = -1;
+        matrizAdyacencia[ultimo][i] = -1;
+    }
     return &vertices[ultimo];
 }
 
@@ -60,6 +60,7 @@ void MatrizDeAdy::eliminarVertice(vertice v){
         contador++;
     }
     numVertice--;
+    ultimo--;
 }
 
 void MatrizDeAdy::modificarEtiqueta(vertice v, string etiq){
@@ -224,7 +225,7 @@ vertice MatrizDeAdy::primerVerticeAdy(vertice v){
         }
     }
     int j = 0;
-    while(matrizAdyacencia[i][j] != -1){
+    while(matrizAdyacencia[i][j] == -1){
         j++;
     }
     if(j <= ultimo)
@@ -253,10 +254,10 @@ vertice MatrizDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
         }
     }
     j++;
-    while(matrizAdyacencia[i][j] != -1){
+    while(matrizAdyacencia[i][j] == -1){
         j++;
     }
-    if(j<= ultimo)
+    if(j <= ultimo)
         return &vertices[j];
     else
         return nullptr;
