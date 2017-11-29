@@ -18,76 +18,145 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
+
 template <class T>
 class ConjuntoDeConj {
 public:
-    template <typename C>
-    struct ConjuntoDeConjuntos{
-        struct Conjunto{
-        C elemento;    
-        Conjunto *sig;
-        Conjunto(C e){
-                Conjunto.elemento = e;
-                Conjunto.sig = nullptr;
-            };
-        }
-        string identificador;
-        ConjuntoDeConjuntos *sig;
-        Conjunto *conjuntos;
-        ConjuntoDeConjuntos(string id, C e){
-            identificador = id;
-            conjuntos = new Conjunto(e);
-            sig = nullptr;
-        }
-    };
+    
     //EFE:Constructuye el conjunto de conjunto disjutnos
     //REQ:---
     //MOD:
     ConjuntoDeConj();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: Destruye el conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicialiado
+    //MOD: conjunto de conjuntos
     virtual ~ConjuntoDeConj();
-    //EFE:
-    //REQ:
+    //EFE:vacia el conjunto de conjuntos 
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     void vaciar();
-    //EFE:
-    //REQ:
+    //EFE: retorna un true si el conjunto de conjuntos esta vacio y un false si no.
+    //REQ: conjunto de conjuntos inicializado
     //MOD:
     bool vacio();
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: retorna el identificador del conjunto que pertenece elemento
+    //REQ: conjunto de conjuntos inicializado.
+    //MOD:---
     string conjuntoAlQuePertenece(T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
+    //EFE: agrega un conjunto con un elemento al conjunto de conjuntos.
+    //REQ: conjunto de conjuntos inicializado. elemento no pertenezca a otro conjunto.
+    //MOD: conjunto de conjuntos..
     void agregarConjunto(string Identificador, T elemento);
-    //EFE:
-    //REQ:
-    //MOD:
-    void unirConjuntos(T conj1, T conj2);
+    //EFE: une los elementos del conjunto 1 con los del conjunto 2.
+    //REQ: conjunto de conjuntos inicializado. ambos conjuntos existan.
+    //MOD: conjunto de conjuntos.
+    void unirConjuntos(string idConj1, string idConj2);
 private:
     
-    ConjuntoDeConjuntos *primero;
-    template <typename T>
-    ConjuntoDeConj<T>::ConjuntoDeConj(){
-        
-    }
-    ConjuntoDeConj<T>::~ConjuntoDeConj(){
-        
-    }
-    void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento){
-        
-    }
-    string ConjuntoDeConj<T>::conjuntoAlQuePertenece(){
-        
-    }
-    void ConjuntoDeConj<T>::unirConjuntos(T conj1, T conj2){
-        
-    }
+    template <typename C>
+    struct Conjunto {
+        C elemento;
+        Conjunto *sig;
+
+        Conjunto(C e) {
+            elemento = e;
+            sig = nullptr;
+        };
+
+        Conjunto() {
+        };
+    };
+
+    template <typename C>
+    struct ConjuntosList {
+        string identificador;
+        ConjuntosList *sig;
+        Conjunto *ConjPtr;
+
+        ConjuntosList(string id, C e) {
+            identificador = id;
+            ConjPtr = new Conjunto(e);
+            sig = nullptr;
+        }
+
+        ConjuntosList() {
+            identificador = "";
+            ConjPtr = new Conjunto;
+            sig = nullptr;
+        };
+    };
+    ConjuntosList<T>* primero;
 };
+
+template <typename T>
+ConjuntoDeConj<T>::ConjuntoDeConj() {
+    primero = new ConjuntosList<T>;
+}
+
+template <typename T>
+ConjuntoDeConj<T>::~ConjuntoDeConj() {
+
+}
+
+template <typename T>
+void ConjuntoDeConj<T>::vaciar() {
+
+}
+
+template <typename T>
+bool ConjuntoDeConj<T>::vacio() {
+
+}
+
+template <typename T>
+void ConjuntoDeConj<T>::agregarConjunto(string Identificador, T elemento) {
+    ConjuntosList<T> nConj = new ConjuntosList<T>(Identificador, elemento);
+    nConj.sig = primero;
+    primero = nConj;
+}
+
+template <typename T>
+string ConjuntoDeConj<T>::conjuntoAlQuePertenece(T elem) {
+    bool encontrado = false;
+    Conjunto auxElem = primero->ConjPtr;
+    ConjuntosList auxConj = primero;
+    string buscado = "";
+    while ((auxConj == nullptr)&&(!encontrado)) {
+        while ((auxElem == nullptr)&&(!encontrado)) {
+            if (auxElem.elemento == elem) {
+                encontrado = true;
+            } else
+                auxElem = auxElem.sig;
+        }
+
+        if (encontrado)
+            buscado= auxConj.identificador;
+        return buscado;
+    }
+}
+template <typename T>
+void ConjuntoDeConj<T>::unirConjuntos(string idConj1, string idConj2){
+        bool encontrados=false;
+        Conjunto Conj1=nullptr;
+        Conjunto Conj2=nullptr;
+        ConjuntosList Conjuntos=primero;
+        
+        while ((Conjuntos==nullptr)&&(!encontrados)){
+            if (Conjuntos.identificador==idConj1){
+                Conj1=Conjuntos.ConjPtr;
+            }
+            if (Conjuntos.identificador==idConj2){
+                Conj2=Conjuntos.ConjPtr;
+            }
+            if ((Conj1==nullptr)&&(Conj2==nullptr)){
+                encontrados=true;
+            }else if (!encontrados)
+                Conjuntos=Conjuntos.sig;
+        }    
+}
+
+
+//};
 
 #endif /* CONJUNTODECONJ_H */
 

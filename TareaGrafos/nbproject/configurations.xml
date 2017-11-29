@@ -11,9 +11,9 @@
       <logicalFolder name="f2" displayName="Modelos Auxiliares" projectFiles="true">
         <itemPath>ColaDePrioridad.h</itemPath>
         <itemPath>ConjuntoDeConj.h</itemPath>
+        <itemPath>Diccionario.h</itemPath>
       </logicalFolder>
       <itemPath>AlgoritmosGrafos.h</itemPath>
-      <itemPath>Diccionario.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
