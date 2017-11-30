@@ -52,6 +52,12 @@ public:
   MOD:
 */
     void agregar(T elemento);
+    /*
+  EFE:
+  REQ:
+  MOD:
+*/
+    void eliminar(T elemento);
 /*
   EFE:
   REQ:
@@ -94,9 +100,9 @@ Diccionario<T>::Diccionario(){
     ultimoLleno = 0;
 }
 
-template < typename T >
-Diccionario<T>::Diccionario(const Diccionario& orig){
-}
+//template < typename T >
+//Diccionario<T>::Diccionario(const Diccionario& orig){
+//}
 
 template < typename T >
 Diccionario<T>::~Diccionario(){
@@ -133,7 +139,7 @@ void Diccionario<T>::agregar(T e){
             if (aux->elemento == e) {
                 existe = true;
             }
-            aux = aux->sgt;
+            aux = aux->siguiente;
         }
     }
 
@@ -164,7 +170,7 @@ bool Diccionario<T>::pertenece(T e){
         if (temp->elemento == e) {
             return true;
         }
-        temp = temp->sgt;
+        temp = temp->siguiente;
     }
     return false;
 }
@@ -180,7 +186,7 @@ string Diccionario<T>::listar(){
     Nodo<T> *temp = primero;
     while (temp != NULL ) {
         fs << temp->elemento << ",";
-        temp = temp->sgt;
+        temp = temp->siguiente;
     }
     return fs.str();
 }
