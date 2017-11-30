@@ -132,6 +132,8 @@ int main(int argc, char** argv) {
 
     g->vaciar();
     bool vacio = g->vacio();
+	
+	System.out.println("Caca");
 
 
     return 0;
