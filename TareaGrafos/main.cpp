@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
     cola->agregar("r", 6);
     cola->agregar("f", 7);
     cola->agregar("e", 10);
+
   p=  cola->sacar();
     p=cola->sacar();
     p=cola->sacar();
@@ -68,27 +69,27 @@ int main(int argc, char** argv) {
     prueba->agregarConjunto("f", 74);
     prueba->agregarConjunto("b", 75);
     prueba->agregarConjunto("a", 78);
-    
-    string pert= prueba->conjuntoAlQuePertenece(6);
+
+    string pert = prueba->conjuntoAlQuePertenece(6);
     prueba->unirConjuntos("c", "e");
     prueba->unirConjuntos("d", "c");
     prueba->unirConjuntos("d", "k");
     prueba->unirConjuntos("d", "f");
     prueba->unirConjuntos("d", "b");
     prueba->unirConjuntos("d", "a");
-    
-    
-    int jj=0;
-//    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-//
-//    cola->agregar("a", 1);
-//    cola->agregar("s", 2);
-//
-//    cola->agregar("Sandra", 7);
-//    int num = 2/*cola->numElem()*/;
-//    for (int i = 0; i < num; i++) {
-//        cout << "Elemento: " << i << cola->sacar() << "\n";
-//    }
+
+
+    int jj = 0;
+    //    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
+    //
+    //    cola->agregar("a", 1);
+    //    cola->agregar("s", 2);
+    //
+    //    cola->agregar("Sandra", 7);
+    //    int num = 2/*cola->numElem()*/;
+    //    for (int i = 0; i < num; i++) {
+    //        cout << "Elemento: " << i << cola->sacar() << "\n";
+    //    }
 
     grafo *g = new grafo;
 

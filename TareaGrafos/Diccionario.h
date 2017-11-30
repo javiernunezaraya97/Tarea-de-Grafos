@@ -39,13 +39,13 @@ public:
   REQ:
   MOD:
 */
-    void Vaciar();
+    void vaciar();
 /*
   EFE:
   REQ:
   MOD:
 */
-    bool Vacio();
+    bool vacio();
 /*
   EFE:
   REQ:
@@ -72,7 +72,7 @@ public:
     int numElem();
     
     
-    string Listar();
+    string listar();
     
     int ultimoLleno;
 private:
@@ -114,20 +114,17 @@ Diccionario<T>::~Diccionario(){
 
 
 template < typename T >
-void Diccionario< T>::Vaciar(){
+void Diccionario< T>::vaciar(){
     primero = nullptr;
 }
 
 template <typename T>
-bool Diccionario<T>::Vacio(){
-     if (primero != nullptr) {
-        return false;
-    }
-    return true;
+bool Diccionario<T>::vacio(){
+    return primero==nullptr;
 }
 
 template <typename T>
-void Diccionario<T>::Agregar(T e){
+void Diccionario<T>::agregar(T e){
      bool existe = false;
  
     if (ultimoLleno != 0) {
@@ -142,26 +139,26 @@ void Diccionario<T>::Agregar(T e){
 
     if (!existe) {
         Nodo<T> *temp = new Nodo<T>(e);
-        temp->sgt = primero;
+        temp->siguiente = primero;
         primero = temp;
         ultimoLleno++;
     }
 }
 
 template <typename T>
-void Diccionario<T>::Eliminar(T e){
+void Diccionario<T>::eliminar(T e){
      Nodo<T> *temp = primero;
-    while(temp->sgt->elemento != e && temp != NULL){
-        temp = temp->sgt;
+    while(temp->siguiente->elemento != e && temp != NULL){
+        temp = temp->siguiente;
     }
-    if(temp->sgt->elemento == e){
-        temp->sgt = temp->sgt->sgt;
+    if(temp->siguiente->elemento == e){
+        temp->siguiente = temp->siguiente->siguiente;
     }
     ultimoLleno--;
 }
 
 template <typename T>
-bool Diccionario<T>::Pertenece(T e){
+bool Diccionario<T>::pertenece(T e){
     Nodo<T> *temp = primero;
     while (temp != NULL) {
         if (temp->elemento == e) {
@@ -173,12 +170,12 @@ bool Diccionario<T>::Pertenece(T e){
 }
 
 template <typename T>
-int Diccionario<T>::NumElem(){
+int Diccionario<T>::numElem(){
      return ultimoLleno;
 }
 
 template <typename T>
-string Diccionario<T>::Listar(){
+string Diccionario<T>::listar(){
     stringstream fs; 
     Nodo<T> *temp = primero;
     while (temp != NULL ) {

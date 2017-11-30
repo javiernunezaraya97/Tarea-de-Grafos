@@ -136,7 +136,7 @@ template <typename A>
 A ColaDePrioridad<A>::sacar() {
     A auxiliar = arreglo[1].elemento;
     cout<<arreglo[1].elemento<<"\n";
-    //cout<<auxiliar;
+
     Caja<A> padre;
     bool terminado = false;
     int iterador = 1;
