@@ -13,12 +13,22 @@
 
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
+#include "ColaDePrioridad.h"
+#include "ConjuntoDeConj.h"
+//#include "Diccionario.h"
+#include "ListaDeAdy.h"
+//#include "MatrizDeAdy.h"
 
 class AlgoritmosGrafos {
 public:
     AlgoritmosGrafos();
     AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     virtual ~AlgoritmosGrafos();
+    
+    grafo Iguales(grafo g);
+    
+    void kruskal();
+    
 private:
 
 };

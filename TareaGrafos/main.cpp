@@ -15,6 +15,7 @@
 //#define SIZE 10
 #include "MatrizDeAdy.h"
 //#include "ListaDeAdy.h"
+#include "Diccionario.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include <string>
@@ -24,8 +25,25 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
+
     string p;
+
+    
+    Diccionario<string>* dicc = new Diccionario<string>;
+    dicc->agregar("Hola");
+    dicc->agregar("Soy");
+    dicc->agregar("Una");
+    dicc->agregar("Oveja");
+    dicc->agregar("Ovejas");
+    dicc->agregar("Muchas");
+    dicc->agregar("Sence");
+    dicc->agregar("No");
+    dicc->agregar("Make");
+    cout << dicc->listar();
+
+     ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
+
+
     cola->agregar("j", 9);
     cola->agregar("g", 8);
     cola->agregar("a", 1);
@@ -36,6 +54,8 @@ int main(int argc, char** argv) {
     cola->agregar("r", 6);
     cola->agregar("f", 7);
     cola->agregar("e", 10);
+
+
 
   p=  cola->sacar();
     p=cola->sacar();

@@ -22,3 +22,12 @@ AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
 AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
 
+
+grafo AlgoritmosGrafos::Iguales(grafo g){
+    
+}
+
+void AlgoritmosGrafos::kruskal(){
+    
+}
+
