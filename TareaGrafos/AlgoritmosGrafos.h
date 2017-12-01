@@ -14,6 +14,7 @@
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
 #include <utility> 
+#include "map"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
@@ -31,7 +32,7 @@ public:
       REQ:
       MOD:
      */
-    void Dijkstra();
+    void Dijkstra(vertice v);
 
     /*
       EFE:
