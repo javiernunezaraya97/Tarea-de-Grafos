@@ -22,3 +22,26 @@ AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
 AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
 
+void AlgoritmosGrafos::Dijkstra(){
+    
+}
+
+void AlgoritmosGrafos::Floyd(){
+    
+}
+
+void AlgoritmosGrafos::Prim(){
+    
+}
+
+void AlgoritmosGrafos::Kruskal(){
+    
+}
+
+grafo AlgoritmosGrafos::Copiar(){
+    
+}
+
+bool AlgoritmosGrafos::Iguales(){
+    
+}

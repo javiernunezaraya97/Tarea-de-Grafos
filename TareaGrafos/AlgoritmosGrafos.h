@@ -19,50 +19,52 @@
 #include "Diccionario.h"
 #include "ListaDeAdy.h"
 //#include "MatrizDeAdy.h"
-using namespace std; 
+using namespace std;
+
 class AlgoritmosGrafos {
 public:
     AlgoritmosGrafos();
     AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     virtual ~AlgoritmosGrafos();
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Dijkstra();
+
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Floyd();
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Prim();
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Kruskal();
+    /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    grafo Copiar();
+    /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    bool Iguales();
 private:
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
-    void Dijkstra;
-    
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
-    void Floyd;
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
-    void Prim;
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
-    void Kruskal;
-    /*
-  EFE:
-  REQ:
-  MOD:
-*/
-    grafo Copiar;
-    /*
-  EFE:
-  REQ:
-  MOD:
-*/
-    bool Iguales;
+
 };
 
 #endif /* ALGORITMOSGRAFOS_H */
