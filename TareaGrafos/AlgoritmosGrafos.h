@@ -24,8 +24,18 @@ using namespace std;
 
 class AlgoritmosGrafos {
 public:
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
     AlgoritmosGrafos();
-    AlgoritmosGrafos(const AlgoritmosGrafos& orig);
+    //AlgoritmosGrafos(const AlgoritmosGrafos& orig);
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
     virtual ~AlgoritmosGrafos();
     /*
       EFE:
