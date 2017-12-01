@@ -13,22 +13,62 @@
 
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
+
+#include <utility> 
+#include "map"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
-//#include "Diccionario.h"
+#include "Diccionario.h"
 #include "ListaDeAdy.h"
 //#include "MatrizDeAdy.h"
+using namespace std;
+
 
 class AlgoritmosGrafos {
 public:
     AlgoritmosGrafos();
     AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     virtual ~AlgoritmosGrafos();
+
     
-    grafo Iguales(grafo g);
-    
-    void kruskal();
-    
+        /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Dijkstra(vertice v);
+
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Floyd();
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Prim();
+    /*
+      EFE:
+      REQ:
+      MOD:
+     */
+    void Kruskal();
+    /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    grafo Copiar();
+    /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    bool Iguales();
+
 private:
 
 };
