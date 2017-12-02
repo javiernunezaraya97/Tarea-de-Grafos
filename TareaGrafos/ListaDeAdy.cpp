@@ -200,7 +200,11 @@ vertice ListaDeAdy::sigVertice(vertice v){
     return v->sgtVertice;
 }
 vertice ListaDeAdy::primerVerticeAdy(vertice v){
-    return v->adyacencia->ptrVert;
+    vertice va=nullptr;
+    if (v->adyacencia!=nullptr){
+        va=v->adyacencia->ptrVert;
+    }
+    return va;
 }
 vertice ListaDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
     arista AdySgt=v->adyacencia;
