@@ -65,6 +65,12 @@ public:
   MOD:
      */
     bool Iguales();
+      /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    vertice buscarVertice(grafo grf,string etiqueta);
 private:
 
 };

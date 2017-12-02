@@ -13,11 +13,24 @@
 
 #include "AlgoritmosGrafos.h"
 using namespace std;
+//struct Arista {
+//    vertice v1;
+//    vertice v2;
+//    bool operator==(const Arista& arista) const {
+//        bool iguales = (v1 == arista.v1 && v2 == arista.v2) ||
+//                      (v1 == arista.v2 && v2 == arista.v1);
+//        return iguales;
+//    }
+//    bool operator!=(const Arista& arista) const {
+//        return !this->operator==(arista);
+//    }
+//};
 //Se utilizan en Dijkstra
 map <string, int> Distancia; //También se utiliza en Coloreo de grfrafo
 map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
+Diccionario<Arista> aristasVisitadas;
 grafo grf;
 
 AlgoritmosGrafos::AlgoritmosGrafos() {
@@ -217,34 +230,51 @@ void AlgoritmosGrafos::Kruskal() {
 
 grafo AlgoritmosGrafos::Copiar(grafo original) {
 //    grafo copia;
-//    visitedEdges.empty();
-//    Graph::Vertex vertex = graph.firstVertex();
-//    const int numVertex = graph.numVertex();
-//    for (int i = 0; i < numVertex; i++) {
-//        std::string label = graph.getLabel(vertex);
-//        graphCopy.addVertex(label);
-//        vertex = graph.nextVertex(vertex);
+//    Arista arista;
+//    string etiqueta = "";
+//    aristasVisitadas.vaciar();
+//    vertice v = original.primerVertice();
+//    int tamOriginal = original.numVertices();
+//    int peso = 0;
+//    for (int i = 0; i < tamOriginal; i++) {
+//        etiqueta = original.Etiqueta(v);
+//        copia.agregarVertice(etiqueta);
+//        v = original.sigVertice(v);
 //    }
-//    vertex = graph.firstVertex();
-//    while (vertex != Graph::NullVertex) {
-//        std::string label = graph.getLabel(vertex);
-//        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
-//        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
-//        while (adjacent != Graph::NullVertex) {
-//            if (!visitedEdges.contains({vertex, adjacent})) {
-//                visitedEdges.add({vertex, adjacent});
-//                label = graph.getLabel(adjacent);
-//                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
-//                int weight = graph.getWeight(vertex, adjacent);
-//                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
+//    v = original.primerVertice();
+//    vertice vCopia;
+//    vertice vCopiaAdy;
+//    vertice adyacente;
+//    while (v != nullptr) {
+//        etiqueta = original.Etiqueta(v);
+//        vCopia = buscarVertice(copia, etiqueta);
+//        adyacente = original.primerVerticeAdy(v);
+//        peso = original.Peso(v, adyacente);
+//        arista.peso = peso;
+//        arista.ptrVert = v;
+//        arista.sgtAdy = adyacente;
+//        while (adyacente != nullptr) {
+//            if (!aristasVisitadas.pertenece(arista)) {
+//                aristasVisitadas.agregar(arista);
+//                etiqueta = original.Etiqueta(adyacente);
+//                vCopiaAdy = buscarVertice(copia, etiqueta);
+//                peso = original.Peso(v, adyacente);
+//                copia.agregarArista(vCopia, vCopiaAdy, peso);
 //            }
-//            adjacent = graph.nextAdjacent(vertex, adjacent);
+//            adyacente = original.sigVerticeAdy(v, adyacente);
+//            arista.peso = peso;
+//            arista.ptrVert = v;
+//            arista.sgtAdy = adyacente;
 //        }
-//        vertex = graph.nextVertex(vertex);
+//        v = original.sigVertice(v);
 //    }
-//    return graphCopy;
+//    return copia;
 }
 
 bool AlgoritmosGrafos::Iguales() {
+
+}
+
+vertice AlgoritmosGrafos::buscarVertice(grafo grf, string etiqueta) {
 
 }
