@@ -25,7 +25,6 @@
 //#include "MatrizDeAdy.h"
 using namespace std;
 
-
 class AlgoritmosGrafos {
 public:
     /*
@@ -42,13 +41,13 @@ public:
      */
     virtual ~AlgoritmosGrafos();
 
-    
-        /*
-      EFE:
-      REQ:
-      MOD:
+
+    /*
+  EFE:
+  REQ:
+  MOD:
      */
-    void Dijkstra(vertice v);
+    void Dijkstra(vertice v, grafo g);
 
     /*
       EFE:
@@ -73,33 +72,33 @@ public:
   REQ:
   MOD:
      */
-    grafo Copiar(grafo);
+    grafo Copiar(grafo grf);
     /*
   EFE:
   REQ:
   MOD:
      */
-    bool Iguales(grafo g1, grafo g2);
 
-        /*
-  EFE: parte recursiva del vendedor.
-  REQ: grafo inicializado
-  MOD: ---
+    bool Iguales(grafo g1, grafo g2);
+    /*
+    EFE: parte recursiva del vendedor.
+    REQ: grafo inicializado
+    MOD: ---
      */
     void visitarVertRec(grafo, int i);
-    
-        /*
-  EFE: Encuentra el circuito de menor costo y lo despliega en consola
-  REQ:  grafo inicializado
-  MOD:---
+
+    /*
+    EFE: Encuentra el circuito de menor costo y lo despliega en consola
+    REQ:  grafo inicializado
+    MOD:---
      */
     void vendedor(grafo);
-    
+
     vertice buscarEtiq(string etiq, grafo g);
-    
+
 private:
     ConjuntoDeConj<vertice> cnjDeCnj;
-    
+
 };
 
 #endif /* ALGORITMOSGRAFOS_H */
