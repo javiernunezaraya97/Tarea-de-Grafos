@@ -14,11 +14,20 @@
 #include "AlgoritmosGrafos.h"
 using namespace std;
 //Se utilizan en Dijkstra
-map <string, int> Distancia; //También se utiliza en Coloreo de grfrafo
+map <string, int> Distancia; 
 map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
 grafo grf;
+// se utiliza para el problema del vendedor.
+Diccionario<vertice> diccVertVisitados;
+vertice solActual[100];
+vertice mejorSol[100];
+int numSoluciones = 0;
+int costoActual = 0;
+int menorCosto= 1000000;
+// se utiliza para ver si son iguales.
+map<vertice, vertice> R11Vert;
 
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
@@ -28,6 +37,7 @@ AlgoritmosGrafos::AlgoritmosGrafos() {
 
 AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
+
 
 void AlgoritmosGrafos::Dijkstra(vertice v) {
     Distancia.clear();
@@ -211,40 +221,166 @@ void AlgoritmosGrafos::Prim() {
 
 }
 
-void AlgoritmosGrafos::Kruskal() {
-
+void AlgoritmosGrafos::Kruskal(grafo g) {
+    cnjDeCnj.iniciar();
+    ColaDePrioridad<pair<vertice, vertice>> CP;
+    Diccionario<pair<vertice, vertice>> DiccAristasV;
+    CP.iniciar();
+    vertice v= g.primerVertice();
+    vertice va;
+    int nom=0; // se usan ints para el identificador pero en string;
+    pair<vertice, vertice> vertices;
+    while(v!=nullptr){
+        va=g.primerVerticeAdy(v);
+        cnjDeCnj.agregarConjunto(to_string(nom),v);
+        
+        while(va!=nullptr){
+            vertices.first=v;
+            vertices.second=va;
+            if (!DiccAristasV.pertenece(make_pair(va,v))){
+                CP.agregar(vertices,g.Peso(v,va));
+                DiccAristasV.agregar(vertices);
+            }
+            va=g.sigVerticeAdy(v, va);
+        }
+        nom++;
+        v=g.sigVertice(v);
+    }
+    
+    int costo=0;
+    int cantAristas=0;
+    cout<<"el arbol de costo minimo es: ";
+    string Ncnj1;
+    string Ncnj2;
+    while(cantAristas<g.numVertices()-1){
+        vertices=CP.sacar();
+        Ncnj1=cnjDeCnj.conjuntoAlQuePertenece(vertices.first);
+        Ncnj2=cnjDeCnj.conjuntoAlQuePertenece(vertices.second);
+        
+        if(Ncnj1!=Ncnj2){
+            cout<< g.Etiqueta(vertices.first)<<"-"<< g.Etiqueta(vertices.second)<<", ";
+            costo+=g.Peso(vertices.first,vertices.second);
+            cnjDeCnj.unirConjuntos(Ncnj1,Ncnj2);
+            cantAristas++;
+        }
+    }
+    cout<< "y su costo es de"<<costo<<endl;
+    cnjDeCnj.~ConjuntoDeConj();
+    CP.~ColaDePrioridad();
 }
 
 grafo AlgoritmosGrafos::Copiar(grafo original) {
-    grafo copia;
-    visitedEdges.empty();
-    Graph::Vertex vertex = graph.firstVertex();
-    const int numVertex = graph.numVertex();
-    for (int i = 0; i < numVertex; i++) {
-        std::string label = graph.getLabel(vertex);
-        graphCopy.addVertex(label);
-        vertex = graph.nextVertex(vertex);
-    }
-    vertex = graph.firstVertex();
-    while (vertex != Graph::NullVertex) {
-        std::string label = graph.getLabel(vertex);
-        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
-        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
-        while (adjacent != Graph::NullVertex) {
-            if (!visitedEdges.contains({vertex, adjacent})) {
-                visitedEdges.add({vertex, adjacent});
-                label = graph.getLabel(adjacent);
-                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
-                int weight = graph.getWeight(vertex, adjacent);
-                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
-            }
-            adjacent = graph.nextAdjacent(vertex, adjacent);
-        }
-        vertex = graph.nextVertex(vertex);
-    }
-    return graphCopy;
+//    grafo copia;
+//    visitedEdges.empty();
+//    Graph::Vertex vertex = graph.firstVertex();
+//    const int numVertex = graph.numVertex();
+//    for (int i = 0; i < numVertex; i++) {
+//        std::string label = graph.getLabel(vertex);
+//        graphCopy.addVertex(label);
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    vertex = graph.firstVertex();
+//    while (vertex != Graph::NullVertex) {
+//        std::string label = graph.getLabel(vertex);
+//        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
+//        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
+//        while (adjacent != Graph::NullVertex) {
+//            if (!visitedEdges.contains({vertex, adjacent})) {
+//                visitedEdges.add({vertex, adjacent});
+//                label = graph.getLabel(adjacent);
+//                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
+//                int weight = graph.getWeight(vertex, adjacent);
+//                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
+//            }
+//            adjacent = graph.nextAdjacent(vertex, adjacent);
+//        }
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    return graphCopy;
 }
 
-bool AlgoritmosGrafos::Iguales() {
+bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
+    bool iguales= true;
+    if (g1.numVertices()==g2.numVertices()){
+        R11Vert.clear();
+        vertice v1=g1.primerVertice();
+        vertice v2;
+        while ((v1!=nullptr)&&(iguales)){
+            v2=buscarEtiq(g1.Etiqueta(v1),g2);
+            if(v2!=nullptr){
+                if(g1.numVerticesAdy(v1)==g2.numVerticesAdy(v2)){
+                    R11Vert[v1]=v2;
+                } else iguales=false;
+            }else iguales=false;
+            v1=g1.sigVertice(v1);
+        }
+        
+    } else iguales=false;
+    if(iguales){
+       vertice v1=g1.primerVertice();
+       vertice v2; 
+       while((v1!=nullptr)&&(iguales)){
+            v2=g1.primerVerticeAdy(v1);
+            while((v2!=nullptr)&&(iguales)){
+                if(g1.Peso(v1,v2)==g2.Peso(R11Vert[v1],R11Vert[v2])){
+                    v2=g1.sigVerticeAdy(v1,v2);
+                } else iguales=false;
+            }
+            v1=g1.sigVertice(v1);
+        }
+    }
+    
+    return iguales;
+}
 
+
+void AlgoritmosGrafos::visitarVertRec(grafo g, int i){
+    vertice va= g.primerVerticeAdy(solActual[i-1]);
+    while(va!=nullptr){
+        if(!diccVertVisitados.pertenece(va)){
+            diccVertVisitados.agregar(va);
+            solActual[i]=va;
+            costoActual+=g.Peso(solActual[i-1],va);
+            if(i==g.numVertices()){
+                if(g.adyacentes(solActual[i],solActual[i])){
+                    costoActual+=g.Peso(solActual[1],solActual[i]);
+                    if(menorCosto>costoActual){
+                        menorCosto=costoActual;
+                        for(int j=1;j<=i;j++)
+                            mejorSol[j]=solActual[j];
+                    }
+                    numSoluciones++;
+                    costoActual-=g.Peso(solActual[1],solActual[i]);
+                }
+            } else {
+                visitarVertRec(g, i+1);
+            }
+            diccVertVisitados.eliminar(va);
+            costoActual-=g.Peso(solActual[i-1],va);
+        }
+    }
+    
+}
+
+void AlgoritmosGrafos::vendedor(grafo g){
+    diccVertVisitados.iniciar();
+    solActual[1]=g.primerVertice();
+    diccVertVisitados.agregar(g.primerVertice());
+    visitarVertRec(g,2);
+    cout << "Se obtuvieron: " << numSoluciones << " soluciones factibles. \nLa solucion con el menor costo obtenida fue: ";
+    for (int i = 1; i <= g.numVertices(); ++i)
+    {
+        cout << g.Etiqueta(mejorSol[i]) << ", ";
+    }
+    cout << "\ncon un costo de: " << menorCosto << endl;
+    
+    diccVertVisitados.~Diccionario();
+}
+
+vertice AlgoritmosGrafos::buscarEtiq(string etiq, grafo g){
+    vertice v=g.primerVertice();
+    while((v!=nullptr)&&(g.Etiqueta(v)!=etiq)){
+        v=g.sigVertice(v);
+    }
+    return v; 
 }
