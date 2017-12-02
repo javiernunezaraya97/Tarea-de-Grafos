@@ -28,7 +28,10 @@ public:
   MOD:
 */
     Diccionario();
- /*
+ 
+    void iniciar();
+    
+    /*
   EFE:
   REQ:
   MOD:
@@ -58,12 +61,6 @@ public:
   MOD:
 */
     void eliminar(T elemento);
-/*
-  EFE:
-  REQ:
-  MOD:
-*/
-    void borrar(T elemento);
 /*
   EFE:
   REQ:
@@ -100,7 +97,12 @@ Diccionario<T>::Diccionario(){
     ultimoLleno = 0;
 }
 
-//template < typename T >
+template < typename T >
+void Diccionario::iniciar(){
+    primero = nullptr;
+    ultimoLleno = 0;
+}
+
 //Diccionario<T>::Diccionario(const Diccionario& orig){
 //}
 

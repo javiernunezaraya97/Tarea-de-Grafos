@@ -19,6 +19,13 @@ map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
 grafo grf;
+Diccionario<vertice> diccVertVisitados;
+Vertice solActual[100];
+Vertice mejorSol[100];
+int numSoluciones = 0;
+int costoActual = 0;
+int menorCosto= 1000000;
+
 
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
@@ -261,36 +268,79 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
 }
 
 grafo AlgoritmosGrafos::Copiar(grafo original) {
-    grafo copia;
-    visitedEdges.empty();
-    Graph::Vertex vertex = graph.firstVertex();
-    const int numVertex = graph.numVertex();
-    for (int i = 0; i < numVertex; i++) {
-        std::string label = graph.getLabel(vertex);
-        graphCopy.addVertex(label);
-        vertex = graph.nextVertex(vertex);
-    }
-    vertex = graph.firstVertex();
-    while (vertex != Graph::NullVertex) {
-        std::string label = graph.getLabel(vertex);
-        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
-        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
-        while (adjacent != Graph::NullVertex) {
-            if (!visitedEdges.contains({vertex, adjacent})) {
-                visitedEdges.add({vertex, adjacent});
-                label = graph.getLabel(adjacent);
-                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
-                int weight = graph.getWeight(vertex, adjacent);
-                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
-            }
-            adjacent = graph.nextAdjacent(vertex, adjacent);
-        }
-        vertex = graph.nextVertex(vertex);
-    }
-    return graphCopy;
+//    grafo copia;
+//    visitedEdges.empty();
+//    Graph::Vertex vertex = graph.firstVertex();
+//    const int numVertex = graph.numVertex();
+//    for (int i = 0; i < numVertex; i++) {
+//        std::string label = graph.getLabel(vertex);
+//        graphCopy.addVertex(label);
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    vertex = graph.firstVertex();
+//    while (vertex != Graph::NullVertex) {
+//        std::string label = graph.getLabel(vertex);
+//        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
+//        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
+//        while (adjacent != Graph::NullVertex) {
+//            if (!visitedEdges.contains({vertex, adjacent})) {
+//                visitedEdges.add({vertex, adjacent});
+//                label = graph.getLabel(adjacent);
+//                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
+//                int weight = graph.getWeight(vertex, adjacent);
+//                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
+//            }
+//            adjacent = graph.nextAdjacent(vertex, adjacent);
+//        }
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    return graphCopy;
 }
 
-bool AlgoritmosGrafos::Iguales() {
+bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
 
+}
+
+
+void AlgoritmosGrafos::visitarVertRec(grafo g, int i){
+    vertice va= g.primerVerticeAdy(solActual[i-1]);
+    while(va!=nullptr){
+        if(!diccVertVisitados.pertenece(va)){
+            diccVertVisitados.agregar(va);
+            solActual[i]=va;
+            costoActual+=g.Peso(solActual[i-1],va);
+            if(i==g.numVertices()){
+                if(g.adyacentes(solActual[i],solActual[i])){
+                    costoActual+=g.Peso(solActual[1],solActual[i]);
+                    if(menorCosto>costoActual){
+                        menorCosto=costoActual;
+                        mejorSol=solActual;
+                    }
+                    numSoluciones++;
+                    costoActual-=g.Peso(solActual[1],solActual[i]);
+                }
+            } else {
+                visitarVertRec(g, i+1);
+            }
+            diccVertVisitados.eliminar(va);
+            costoActual-=g.Peso(solActual[i-1],va);
+        }
+    }
+    
+}
+
+void AlgoritmosGrafos::vendedor(grafo g){
+    diccVertVisitados.iniciar();
+    solActual[1]=g.primerVertice();
+    diccVertVisitados.agregar(g.primerVertice());
+    visitarVertRec(g,2);
+    cout << "Se obtuvieron: " << numSoluciones << " soluciones factibles. \nLa solucion con el menor costo obtenida fue: ";
+    for (int i = 1; i <= g.numVertices(); ++i)
+    {
+        cout << g.Etiqueta(mejorSol[i]) << ", ";
+    }
+    cout << "\ncon un costo de: " << menorCosto << endl;
+    
+    diccVertVisitados.~Diccionario();
 }
 

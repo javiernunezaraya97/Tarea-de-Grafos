@@ -63,14 +63,29 @@ public:
   REQ:
   MOD:
      */
-    grafo Copiar();
+    grafo Copiar(grafo);
     /*
   EFE:
   REQ:
   MOD:
      */
-    bool Iguales();
+    bool Iguales(grafo g1, grafo g2);
 
+        /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    void visitarVertRec(grafo, int i);
+    
+        /*
+  EFE:
+  REQ:
+  MOD:
+     */
+    void vendedor(grafo);
+    
+    
 private:
     ConjuntoDeConj<vertice> cnjDeCnj;
     
