@@ -48,54 +48,54 @@ public:
   REQ:
   MOD:
      */
-    void Dijkstra(vertice v, grafo g);
+    void Dijkstra(vertice v, const grafo& g);
 
     /*
       EFE:
       REQ:
       MOD:
      */
-    void Floyd();
+    void Floyd(const grafo& );
     /*
       EFE:
       REQ:
       MOD:
      */
-    void Prim(grafo grf);
+    void Prim(const grafo& grf);
     /*
       EFE:
       REQ: grafo inicializado y no vacio, que contenga al menos una arista.
       MOD:
      */
-    void Kruskal(grafo g);
+    void Kruskal(const grafo& g);
     /*
   EFE:
   REQ:
   MOD:
      */
-    grafo Copiar(grafo grf);
+    grafo Copiar(const grafo& grf);
     /*
   EFE:
   REQ:
   MOD:
      */
 
-    bool Iguales(grafo g1, grafo g2);
+    bool Iguales(const grafo& g1,const grafo& g2);
     /*
     EFE: parte recursiva del vendedor.
     REQ: grafo inicializado
     MOD: ---
      */
-    void visitarVertRec(grafo, int i);
+    void visitarVertRec(const grafo&, int i);
 
     /*
     EFE: Encuentra el circuito de menor costo y lo despliega en consola
     REQ:  grafo inicializado
     MOD:---
      */
-    void vendedor(grafo);
+    void vendedor(const grafo&);
 
-    vertice buscarEtiq(string etiq, grafo g);
+    vertice buscarEtiq(string etiq,const grafo& g);
 
 private:
     ConjuntoDeConj<vertice> cnjDeCnj;

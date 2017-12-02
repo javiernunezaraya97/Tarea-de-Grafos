@@ -56,7 +56,7 @@ AlgoritmosGrafos::~AlgoritmosGrafos() {
 
 }
 
-void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
+void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
     Distancia.clear();
     Caminos.clear();
     Diccionario <vertice> VerticesRevisados;
@@ -78,6 +78,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
         }
         actual = grf.sigVertice(actual);
     }
+    v=grf.primerVertice();
     VerticesRevisados.agregar(v);
     while (n != VerticesRevisados.numElem()) {
         menor = -1;
@@ -111,6 +112,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
                 }
             }
         }
+        if(pivote!=nullptr){
         VerticesRevisados.agregar(pivote);
         AdyacentePivote = grf.primerVerticeAdy(pivote);
         while (AdyacentePivote != nullptr) {
@@ -122,6 +124,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
             }
             AdyacentePivote = grf.sigVerticeAdy(pivote, AdyacentePivote);
         }
+        }
     }
     for (itCaminos = Caminos.begin(); itCaminos != Caminos.end(); ++itCaminos) {
         cout << "El camino mas corto de " << grf.Etiqueta(v) << " a " << itCaminos ->first << ": " << itCaminos ->second;
@@ -129,7 +132,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
     }
 }
 
-void Floyd(grafo grf) {
+void Floyd(const grafo& grf) {
     int tamGrafo = grf.numVertices();
     int A[tamGrafo][tamGrafo]; //Matriz de costos.
     int P[tamGrafo][tamGrafo]; //Matriz de vertices.
@@ -234,25 +237,25 @@ void Floyd(grafo grf) {
     }
 }
 
-void AlgoritmosGrafos::Prim(grafo grf) {
-    Diccionario<vertice> dVV = new Diccionario<vertice>;
-    dVV.agregar(grf.primerVertice());
+void AlgoritmosGrafos::Prim(const grafo& grf) {
+    Diccionario<vertice>* dVV = new Diccionario<vertice>;
+    dVV->agregar(grf.primerVertice());
     vertice v,vAdy,menor,menorAdy;
     int pesoMinimo;
     int numElem = grf.numVertices();
-    while (dVV.numElem() < numElem){
-        pesoMinimo= numeric_limits<int>max();
+    while (dVV->numElem() < numElem){
+        pesoMinimo= numeric_limits<int>::max();
         v = grf.primerVertice();
         while (v != nullptr) {
-            v = grf.primerVertice();
-            if (dVV.pertenece(v)) {
+            if (dVV->pertenece(v)) {
                 vAdy = grf.primerVerticeAdy(v);
                 while(vAdy != nullptr){
-                    if(!dVV.pertenece(vAdy)){
+                    if(!dVV->pertenece(vAdy)){
                         if(grf.Peso(v,vAdy) < pesoMinimo){
                             pesoMinimo = grf.Peso(v,vAdy);
                             menor = v;
                             menorAdy = vAdy;
+                            //cout<< pesoMinimo;
                         }
                     }
                     vAdy = grf.sigVerticeAdy(v,vAdy);
@@ -260,12 +263,12 @@ void AlgoritmosGrafos::Prim(grafo grf) {
             }
             v = grf.sigVertice(v);
         }
-        dVV.agregar(menorAdy);
-        cout << grf.Etiqueta(menor) << "-" << grf.Etiqueta(menorAdy);
+        dVV->agregar(menorAdy);
+        cout << grf.Etiqueta(menor) << "-" << grf.Etiqueta(menorAdy)<< " Peso: "<<pesoMinimo<<"\n";
     }
 }
 
-void AlgoritmosGrafos::Kruskal(grafo g) {
+void AlgoritmosGrafos::Kruskal(const grafo& g) {
     cnjDeCnj.iniciar();
     ColaDePrioridad<pair<vertice, vertice>> CP;
     Diccionario<pair<vertice, vertice>> DiccAristasV;
@@ -293,7 +296,7 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
 
     int costo = 0;
     int cantAristas = 0;
-    cout << "el arbol de costo minimo es: ";
+    cout << "el arbol de costo minimo es: \n";
     string Ncnj1;
     string Ncnj2;
     while (cantAristas < g.numVertices() - 1) {
@@ -302,18 +305,18 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
         Ncnj2 = cnjDeCnj.conjuntoAlQuePertenece(vertices.second);
 
         if (Ncnj1 != Ncnj2) {
-            cout << g.Etiqueta(vertices.first) << "-" << g.Etiqueta(vertices.second) << ", ";
+            cout << g.Etiqueta(vertices.first) << "-" << g.Etiqueta(vertices.second)<< " con Peso: "<<g.Peso(vertices.first, vertices.second) << "\n";
             costo += g.Peso(vertices.first, vertices.second);
             cnjDeCnj.unirConjuntos(Ncnj1, Ncnj2);
             cantAristas++;
         }
     }
-    cout << "y su costo es de" << costo << endl;
+    cout << "y su costo es de " << costo << endl;
     cnjDeCnj.~ConjuntoDeConj();
     CP.~ColaDePrioridad();
 }
 
-grafo AlgoritmosGrafos::Copiar(grafo original) {
+grafo AlgoritmosGrafos::Copiar(const grafo& original) {
     grafo copia;
     string etiqueta = "";
     vertice v = original.primerVertice();
@@ -334,9 +337,10 @@ grafo AlgoritmosGrafos::Copiar(grafo original) {
         etiqueta = original.Etiqueta(v);
         vCopia = buscarEtiq(etiqueta, copia);
         adyacente = original.primerVerticeAdy(v);
-        peso = original.Peso(v, adyacente);
+
         while (adyacente != nullptr) {
-            if (aristasVisitadas.pertenece({v, adyacente})) {//El == de este funciona en ambas direcciones
+                    peso = original.Peso(v, adyacente);
+            if (!aristasVisitadas.pertenece({v, adyacente})) {//El == de este funciona en ambas direcciones
                 aristasVisitadas.agregar({v, adyacente});
                 //Conecta los vertices en la copia
                 etiqueta = original.Etiqueta(adyacente);
@@ -352,7 +356,7 @@ grafo AlgoritmosGrafos::Copiar(grafo original) {
     return copia;
 }
 
-bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
+bool AlgoritmosGrafos::Iguales(const grafo& g1,const grafo& g2) {
     bool iguales = true;
     if (g1.numVertices() == g2.numVertices()) {
         R11Vert.clear();
@@ -386,7 +390,7 @@ bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
     return iguales;
 }
 
-void AlgoritmosGrafos::visitarVertRec(grafo g, int i) {
+void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
     vertice va = g.primerVerticeAdy(solActual[i - 1]);
     while (va != nullptr) {
         if (!diccVertVisitados.pertenece(va)) {
@@ -414,7 +418,7 @@ void AlgoritmosGrafos::visitarVertRec(grafo g, int i) {
 
 }
 
-void AlgoritmosGrafos::vendedor(grafo g) {
+void AlgoritmosGrafos::vendedor(const grafo& g) {
     diccVertVisitados.iniciar();
     solActual[1] = g.primerVertice();
     diccVertVisitados.agregar(g.primerVertice());
@@ -428,7 +432,7 @@ void AlgoritmosGrafos::vendedor(grafo g) {
     diccVertVisitados.~Diccionario();
 }
 
-vertice AlgoritmosGrafos::buscarEtiq(string etiq, grafo g) {
+vertice AlgoritmosGrafos::buscarEtiq( string etiq ,const grafo&  g) {
     vertice v = g.primerVertice();
     while ((v != nullptr)&&(g.Etiqueta(v) != etiq)) {
         v = g.sigVertice(v);
