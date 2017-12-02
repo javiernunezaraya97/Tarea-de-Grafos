@@ -15,6 +15,7 @@
 #define ALGORITMOSGRAFOS_H
 
 #include <utility> 
+#include <vector>
 #include "map"
 #include<string>
 #include "ColaDePrioridad.h"

@@ -5,7 +5,7 @@
  */
 
 /* 
- * File:   AlgoritmosGrafos.cpp
+ * File:   Algoritmosgrfrafos.cpp
  * Author: Javier
  * 
  * Created on 5 de noviembre de 2017, 11:35 p.m.
@@ -14,7 +14,7 @@
 #include "AlgoritmosGrafos.h"
 using namespace std;
 //Se utilizan en Dijkstra
-map <string, int> Distancia; //También se utiliza en Coloreo de Grafo
+map <string, int> Distancia; //También se utiliza en Coloreo de grfrafo
 map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
@@ -58,7 +58,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v) {
         for (it = Distancia.begin(); it != Distancia.end(); ++it) //Busca el menor camino que no esté listo.
         {
             if ((it ->second < menor && it ->second >= 0) || menor < 0) {
-                //Buscar Vertice en Grafo
+                //Buscar Vertice en grfrafo
                 vertice resultado = nullptr;
                 vertice actual = grf.primerVertice();
                 while (actual != nullptr && resultado == nullptr) {
@@ -70,7 +70,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v) {
                 //
                 if (!VerticesRevisados.pertenece(actual)) {
                     menor = it ->second;
-                    //Buscar Vertice en Grafo
+                    //Buscar Vertice en grfrafo
                     resultado = nullptr;
                     actual = grf.primerVertice();
                     while (actual != nullptr && resultado == nullptr) {
@@ -103,8 +103,109 @@ void AlgoritmosGrafos::Dijkstra(vertice v) {
     }
 }
 
-void AlgoritmosGrafos::Floyd() {
+void Floyd(grafo grf) {
+    int cantVertices = grf.numVertices();
+    int A[cantVertices][cantVertices]; //Matriz de costos.
+    int P[cantVertices][cantVertices]; //Matriz de vertices.
+    int i, j, k;
+    vertice v1 = grf.primerVertice();
+    vertice v2;
+    vertice resultado;
+    vertice actual;
+    vector <vertice> mapeo;
 
+    //Construye el vector mapeo.
+    while (v1 != nullptr) {
+        mapeo.push_back(v1);
+        v1 = grf.sigVertice(v1);
+    }
+
+    //Llena la matriz A con los pesos de las aristas del grafo.
+    for (i = 0; i < cantVertices; ++i) {
+        v1 = mapeo[i];
+        for (j = i; j < cantVertices; ++j) {
+            v2 = mapeo[j];
+            if (grf.adyacentes(v1, v2)) {
+                A[i][j] = grf.Peso(v1, v2);
+                A[j][i] = grf.Peso(v1, v2);
+            } else //Si no existe arista utiliza -1 como "infinito".
+            {
+                A[i][j] = -1;
+                A[j][i] = -1;
+            }
+        }
+    }
+
+    //Llena la matriz P con ceros.
+    for (i = 0; i < cantVertices; ++i) {
+        for (j = 0; j < cantVertices; ++j) {
+            P[i][j] = 0;
+        }
+    }
+
+    //Hace cero la diagonal de la matriz de pesos A.
+    for (int i = 0; i < cantVertices; ++i) {
+        A[i][i] = 0;
+    }
+
+    //Ciclo del algoritmo de Floyd.
+    for (k = 0; k < cantVertices; ++k) {
+        for (i = 0; i < cantVertices; ++i) {
+            for (j = 0; j < cantVertices; ++j) {
+                if (A[i][k] != -1 && A[k][j] != -1) {
+                    if ((A[i][k] + A[k][j]) < A[i][j] || A[i][j] == -1) {
+                        A[i][j] = A[i][k] + A[k][j];
+                        P[i][j] = k;
+                    }
+                }
+            }
+        }
+    }
+
+    //Cambia los "infinitos" por cero.
+    for (int i = 0; i < cantVertices; ++i) {
+        for (int j = 0; j < cantVertices; ++j) {
+            if (A[i][j] == -1) {
+                A[i][j] = 0;
+            }
+        }
+    }
+    cout << "Se ha ejecutado Floyd. Ingrese la etiqueta del vertice del que desea saber los caminos mas cortos, ingrese un -1 para salir." << endl;
+    string e;
+    cin >> e;
+    vector <vertice>::iterator vit; //Iterador para moverse por el vector mapeo.
+    while (e != "-1") {
+        //Buscar Vertice en grfrafo
+        resultado = nullptr;
+        actual = grf.primerVertice();
+        while (actual != nullptr && resultado == nullptr) {
+            if (grf.Etiqueta(actual) == it->first) {
+                resultado = actual;
+            }
+            actual = grf.sigVertice(actual);
+        }
+        //
+        v1 = actual;
+        vit = mapeo.begin();
+        j = 0;
+        while (*vit != v1) //Busca en el mapeo el vertice con la etiqueta ingresada.
+        {
+            ++vit;
+            ++j;
+        }
+        for (i = 0; i < cantVertices; ++i) {
+            cout << "El camino mas corto de " << grf.Etiqueta(v1) << " a " << grf.Etiqueta(mapeo[i]) << ": " << grf.Etiqueta(v1);
+            k = i;
+            while (P[j][k] != 0) {
+                cout << "-> " << grf.Etiqueta(mapeo[P[j][k]]);
+                k = P[j][k];
+            }
+            cout << "-> " << grf.Etiqueta(mapeo[i]);
+            cout << ". Su costo es de: " << A[j][i] << endl;
+        }
+        cout << "Ingrese la etiqueta del vertice del que desea saber los caminos mas cortos, ingrese un -1 para salir." << endl;
+        cin >> e;
+    }
 }
 
 void AlgoritmosGrafos::Prim() {
@@ -159,8 +260,34 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
     CP.~ColaDePrioridad();
 }
 
-grafo AlgoritmosGrafos::Copiar() {
-
+grafo AlgoritmosGrafos::Copiar(grafo original) {
+    grafo copia;
+    visitedEdges.empty();
+    Graph::Vertex vertex = graph.firstVertex();
+    const int numVertex = graph.numVertex();
+    for (int i = 0; i < numVertex; i++) {
+        std::string label = graph.getLabel(vertex);
+        graphCopy.addVertex(label);
+        vertex = graph.nextVertex(vertex);
+    }
+    vertex = graph.firstVertex();
+    while (vertex != Graph::NullVertex) {
+        std::string label = graph.getLabel(vertex);
+        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
+        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
+        while (adjacent != Graph::NullVertex) {
+            if (!visitedEdges.contains({vertex, adjacent})) {
+                visitedEdges.add({vertex, adjacent});
+                label = graph.getLabel(adjacent);
+                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
+                int weight = graph.getWeight(vertex, adjacent);
+                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
+            }
+            adjacent = graph.nextAdjacent(vertex, adjacent);
+        }
+        vertex = graph.nextVertex(vertex);
+    }
+    return graphCopy;
 }
 
 bool AlgoritmosGrafos::Iguales() {
