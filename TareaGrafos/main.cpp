@@ -13,8 +13,9 @@
 
 #include <iostream>
 //#define SIZE 10
-#include "MatrizDeAdy.h"
-//#include "ListaDeAdy.h"
+#include "AlgoritmosGrafos.h"
+//#include "MatrizDeAdy.h"
+#include "ListaDeAdy.h"
 #include "Diccionario.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
@@ -25,6 +26,17 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
+
+    string p;
+    grafo *g = new grafo;
+       AlgoritmosGrafos AG;
+       vertice vj;
+       for (int i =0; i<=50;++i){
+            vj=g->agregarVertice(to_string(i));
+            
+       }
+    AG.Kruskal(*g);
+    
     
     Diccionario<string>* dicc = new Diccionario<string>;
     dicc->agregar("Hola");
@@ -37,9 +49,16 @@ int main(int argc, char** argv) {
     dicc->agregar("No");
     dicc->agregar("Make");
     cout << dicc->listar();
-    /*
-     ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
 
+    ColaDePrioridad<string> cp;
+    cp.iniciar();
+    cp.agregar("hola",1);
+    
+     ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
+     
+     
+     
+     
     cola->agregar("j", 9);
     cola->agregar("g", 8);
     cola->agregar("a", 1);
@@ -50,15 +69,30 @@ int main(int argc, char** argv) {
     cola->agregar("r", 6);
     cola->agregar("f", 7);
     cola->agregar("e", 10);
-        int num = cola->numElem();
-        for (int i = 0; i < num; i++) {
-            cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
-        }
 
-     */
 
-    ConjuntoDeConj<int>* prueba = new ConjuntoDeConj<int>;
 
+  p=  cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+    p=cola->sacar();
+            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+//    int num = cola->numElem();
+//    for (int i = 0; i < num; i++) {
+//        cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
+//    }
+
+    ConjuntoDeConj<int>* prueba= new ConjuntoDeConj<int>;
+    
     prueba->agregarConjunto("c", 5);
     prueba->agregarConjunto("d", 6);
     prueba->agregarConjunto("e", 7);
@@ -92,7 +126,7 @@ int main(int argc, char** argv) {
     //        cout << "Elemento: " << i << cola->sacar() << "\n";
     //    }
 
-    grafo *g = new grafo;
+
 
 
     vertice v1 = g->agregarVertice("abc");
@@ -132,8 +166,11 @@ int main(int argc, char** argv) {
 
     g->vaciar();
     bool vacio = g->vacio();
-
-
+ 
+    
+    
+    
+            
     return 0;
 
 }

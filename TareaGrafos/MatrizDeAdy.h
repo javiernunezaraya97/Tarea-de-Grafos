@@ -27,6 +27,10 @@ struct Vertice{
         etiqueta = e;
         numAdy = 0;
     }
+    Vertice& operator= (const Vertice orig){
+        etiqueta=orig.etiqueta;
+        numAdy=orig.numAdy;
+    }
 };
 typedef Vertice* vertice;
 class MatrizDeAdy {

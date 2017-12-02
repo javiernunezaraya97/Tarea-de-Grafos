@@ -24,6 +24,9 @@ public:
    MOD: 
      */
     ColaDePrioridad();
+    
+    void iniciar();
+    
     //    ColaDePrioridad(const ColaDePrioridad& orig);
     /*
   EFE: Destruye la cola
@@ -99,6 +102,12 @@ ColaDePrioridad<A>::ColaDePrioridad() {
 }
 
 template <typename A>
+void ColaDePrioridad<A>::iniciar(){
+    ultimo = 0;
+    contador = 0;
+}
+
+template <typename A>
 ColaDePrioridad<A>::~ColaDePrioridad() {
 
 }
@@ -135,8 +144,8 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
 template <typename A>
 A ColaDePrioridad<A>::sacar() {
     A auxiliar = arreglo[1].elemento;
-    cout<<arreglo[1].elemento<<"\n";
-    //cout<<auxiliar<<"\n";
+//    cout<<arreglo[1].elemento<<"\n";
+
     Caja<A> padre;
     bool terminado = false;
     int iterador = 1;

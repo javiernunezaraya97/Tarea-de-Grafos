@@ -13,9 +13,11 @@
 
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
+
 #include <utility> 
 #include <vector>
 #include "map"
+#include<string>
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
@@ -23,12 +25,15 @@
 //#include "MatrizDeAdy.h"
 using namespace std;
 
+
 class AlgoritmosGrafos {
 public:
     AlgoritmosGrafos();
     AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     virtual ~AlgoritmosGrafos();
-    /*
+
+    
+        /*
       EFE:
       REQ:
       MOD:
@@ -49,24 +54,42 @@ public:
     void Prim();
     /*
       EFE:
-      REQ:
+      REQ: grafo inicializado y no vacio, que contenga al menos una arista.
       MOD:
      */
-    void Kruskal();
+    void Kruskal(grafo g);
     /*
   EFE:
   REQ:
   MOD:
      */
-    grafo Copiar();
+    grafo Copiar(grafo);
     /*
   EFE:
   REQ:
   MOD:
      */
-    bool Iguales();
-private:
+    bool Iguales(grafo g1, grafo g2);
 
+        /*
+  EFE: parte recursiva del vendedor.
+  REQ: grafo inicializado
+  MOD: ---
+     */
+    void visitarVertRec(grafo, int i);
+    
+        /*
+  EFE: Encuentra el circuito de menor costo y lo despliega en consola
+  REQ:  grafo inicializado
+  MOD:---
+     */
+    void vendedor(grafo);
+    
+    vertice buscarEtiq(string etiq, grafo g);
+    
+private:
+    ConjuntoDeConj<vertice> cnjDeCnj;
+    
 };
 
 #endif /* ALGORITMOSGRAFOS_H */
