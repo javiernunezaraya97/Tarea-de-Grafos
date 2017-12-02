@@ -80,7 +80,7 @@ public:
   MOD:
      */
 
-    bool Iguales(grafo g1, grafo g2);
+    bool Iguales(const grafo& g1,const grafo& g2);
     /*
     EFE: parte recursiva del vendedor.
     REQ: grafo inicializado

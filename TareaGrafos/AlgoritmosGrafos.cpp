@@ -78,6 +78,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
         }
         actual = grf.sigVertice(actual);
     }
+    v=grf.primerVertice();
     VerticesRevisados.agregar(v);
     while (n != VerticesRevisados.numElem()) {
         menor = -1;
@@ -111,6 +112,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
                 }
             }
         }
+        if(pivote!=nullptr){
         VerticesRevisados.agregar(pivote);
         AdyacentePivote = grf.primerVerticeAdy(pivote);
         while (AdyacentePivote != nullptr) {
@@ -121,6 +123,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
                 itCaminos ->second = Caminos.find(grf.Etiqueta(pivote))-> second + "-> " + grf.Etiqueta(AdyacentePivote);
             }
             AdyacentePivote = grf.sigVerticeAdy(pivote, AdyacentePivote);
+        }
         }
     }
     for (itCaminos = Caminos.begin(); itCaminos != Caminos.end(); ++itCaminos) {
@@ -244,7 +247,6 @@ void AlgoritmosGrafos::Prim(const grafo& grf) {
         pesoMinimo= numeric_limits<int>::max();
         v = grf.primerVertice();
         while (v != nullptr) {
-            v = grf.primerVertice();
             if (dVV->pertenece(v)) {
                 vAdy = grf.primerVerticeAdy(v);
                 while(vAdy != nullptr){
@@ -253,6 +255,7 @@ void AlgoritmosGrafos::Prim(const grafo& grf) {
                             pesoMinimo = grf.Peso(v,vAdy);
                             menor = v;
                             menorAdy = vAdy;
+                            //cout<< pesoMinimo;
                         }
                     }
                     vAdy = grf.sigVerticeAdy(v,vAdy);
@@ -261,7 +264,7 @@ void AlgoritmosGrafos::Prim(const grafo& grf) {
             v = grf.sigVertice(v);
         }
         dVV->agregar(menorAdy);
-        cout << grf.Etiqueta(menor) << "-" << grf.Etiqueta(menorAdy);
+        cout << grf.Etiqueta(menor) << "-" << grf.Etiqueta(menorAdy)<< " Peso: "<<pesoMinimo<<"\n";
     }
 }
 
@@ -293,7 +296,7 @@ void AlgoritmosGrafos::Kruskal(const grafo& g) {
 
     int costo = 0;
     int cantAristas = 0;
-    cout << "el arbol de costo minimo es: ";
+    cout << "el arbol de costo minimo es: \n";
     string Ncnj1;
     string Ncnj2;
     while (cantAristas < g.numVertices() - 1) {
@@ -302,13 +305,13 @@ void AlgoritmosGrafos::Kruskal(const grafo& g) {
         Ncnj2 = cnjDeCnj.conjuntoAlQuePertenece(vertices.second);
 
         if (Ncnj1 != Ncnj2) {
-            cout << g.Etiqueta(vertices.first) << "-" << g.Etiqueta(vertices.second) << ", ";
+            cout << g.Etiqueta(vertices.first) << "-" << g.Etiqueta(vertices.second)<< " con Peso: "<<g.Peso(vertices.first, vertices.second) << "\n";
             costo += g.Peso(vertices.first, vertices.second);
             cnjDeCnj.unirConjuntos(Ncnj1, Ncnj2);
             cantAristas++;
         }
     }
-    cout << "y su costo es de" << costo << endl;
+    cout << "y su costo es de " << costo << endl;
     cnjDeCnj.~ConjuntoDeConj();
     CP.~ColaDePrioridad();
 }
@@ -334,9 +337,10 @@ grafo AlgoritmosGrafos::Copiar(const grafo& original) {
         etiqueta = original.Etiqueta(v);
         vCopia = buscarEtiq(etiqueta, copia);
         adyacente = original.primerVerticeAdy(v);
-        peso = original.Peso(v, adyacente);
+
         while (adyacente != nullptr) {
-            if (aristasVisitadas.pertenece({v, adyacente})) {//El == de este funciona en ambas direcciones
+                    peso = original.Peso(v, adyacente);
+            if (!aristasVisitadas.pertenece({v, adyacente})) {//El == de este funciona en ambas direcciones
                 aristasVisitadas.agregar({v, adyacente});
                 //Conecta los vertices en la copia
                 etiqueta = original.Etiqueta(adyacente);
@@ -352,7 +356,7 @@ grafo AlgoritmosGrafos::Copiar(const grafo& original) {
     return copia;
 }
 
-bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
+bool AlgoritmosGrafos::Iguales(const grafo& g1,const grafo& g2) {
     bool iguales = true;
     if (g1.numVertices() == g2.numVertices()) {
         R11Vert.clear();
