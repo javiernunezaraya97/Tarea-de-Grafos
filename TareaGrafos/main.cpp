@@ -29,15 +29,18 @@ int main(int argc, char** argv) {
 
     string p;
     grafo *g = new grafo;
-       AlgoritmosGrafos AG;
-       vertice vj;
-       for (int i =0; i<=50;++i){
-            vj=g->agregarVertice(to_string(i));
-            
-       }
-    AG.Kruskal(*g);
-    
-    
+    AlgoritmosGrafos AG;
+    vertice vj;
+    for (int i = 0; i <= 50; ++i) {
+        vj = g->agregarVertice(to_string(i));
+        if (i > 0 && i < 50) {
+            g->agregarArista(g->primerVertice(), g->sigVertice(vj), 3);
+        }
+    }
+    //    AG.Kruskal(*g);
+    //       AG.Dijkstra(g->primerVertice(),*g);
+    //       grafo copia = AG.Copiar(*g);
+
     Diccionario<string>* dicc = new Diccionario<string>;
     dicc->agregar("Hola");
     dicc->agregar("Soy");
@@ -52,13 +55,13 @@ int main(int argc, char** argv) {
 
     ColaDePrioridad<string> cp;
     cp.iniciar();
-    cp.agregar("hola",1);
-    
-     ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-     
-     
-     
-     
+    cp.agregar("hola", 1);
+
+    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
+
+
+
+
     cola->agregar("j", 9);
     cola->agregar("g", 8);
     cola->agregar("a", 1);
@@ -72,27 +75,27 @@ int main(int argc, char** argv) {
 
 
 
-  p=  cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-    p=cola->sacar();
-            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-//            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-//    int num = cola->numElem();
-//    for (int i = 0; i < num; i++) {
-//        cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
-//    }
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    p = cola->sacar();
+    cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
+    //    int num = cola->numElem();
+    //    for (int i = 0; i < num; i++) {
+    //        cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
+    //    }
 
-    ConjuntoDeConj<int>* prueba= new ConjuntoDeConj<int>;
-    
+    ConjuntoDeConj<int>* prueba = new ConjuntoDeConj<int>;
+
     prueba->agregarConjunto("c", 5);
     prueba->agregarConjunto("d", 6);
     prueba->agregarConjunto("e", 7);
@@ -166,11 +169,11 @@ int main(int argc, char** argv) {
 
     g->vaciar();
     bool vacio = g->vacio();
- 
-    
-    
-    
-            
+
+
+
+
+
     return 0;
 
 }
