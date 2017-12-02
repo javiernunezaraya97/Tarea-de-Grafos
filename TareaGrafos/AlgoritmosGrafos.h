@@ -37,7 +37,7 @@ public:
   REQ:
   MOD:
      */
-    void Dijkstra(vertice v);
+    void Dijkstra(vertice v, grafo g);
 
     /*
       EFE:
