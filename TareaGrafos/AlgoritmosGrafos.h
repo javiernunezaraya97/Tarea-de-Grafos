@@ -14,6 +14,7 @@
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
 #include <utility> 
+#include <vector>
 #include "map"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
