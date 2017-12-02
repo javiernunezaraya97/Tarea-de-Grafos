@@ -22,6 +22,7 @@
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
 #include "ListaDeAdy.h"
+#include <limits>
 //#include "MatrizDeAdy.h"
 using namespace std;
 
@@ -60,7 +61,7 @@ public:
       REQ:
       MOD:
      */
-    void Prim();
+    void Prim(grafo grf);
     /*
       EFE:
       REQ: grafo inicializado y no vacio, que contenga al menos una arista.
