@@ -19,6 +19,7 @@
 #include "Diccionario.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
+#include "AlgoritmosGrafos.h"
 #include <string>
 using namespace std;
 
@@ -26,155 +27,112 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
+    grafo g = new grafo;
+    vertice v;
+    string etiqueta;
+    AlgoritmosGrafos* algoritmos = new AlgoritmosGrafos();
+    int caso = 0;
+    cout << "Saludos, ¿que desea utilizar?" << "\n";
+    cout << "Presione la tecla 1 para operadores basicos." << "\n";
+    cout << "Presione la tecla 2 para algoritmos." << "\n";
+    cout << "Presione la tecla 3 para salir." << "\n";
+    bool salir = false;
+    while (!salir) {
+        cin >> caso;
+        int segundoCaso = 0;
+        switch (caso) {
+            case 1:
+                cout << "Presione 1 para vaciar()" << "\n";
+                cout << "Presione 2 para vacio()" << "\n";
+                cout << "Presione 3 para agregarVertice()" << "\n";
+                cout << "Presione 4 para eliminarVertice()" << "\n";
+                cout << "Presione 5 para modifiarEtiqueta()" << "\n";
+                cout << "Presione 6 para Etiqueta()" << "\n";
+                cout << "Presione 7 para agregarArista()" << "\n";
+                cout << "Presione 8 para eliminarArista()" << "\n";
+                cout << "Presione 9 para modificarPeso()" << "\n";
+                cout << "Presione 10 para peso()" << "\n";
+                cout << "Presione 11 para adyacentes()" << "\n";
+                cout << "Presione 12 para primerVertice()" << "\n";
+                cout << "Presione 13 para siguienteVertice()" << "\n";
+                cout << "Presione 14 para primerVerticeAdy()" << "\n";
+                cout << "Presione 15 para sigVerticeAdy()" << "\n";
+                cout << "Presione 16 para numVertices()" << "\n";
+                cout << "Presione 17 para numVerticesAdy()" << "\n";
+                cin >> segundoCaso;
+                break;
 
-    string p;
-    grafo *g = new grafo;
-    AlgoritmosGrafos AG;
-    vertice vj;
-    for (int i = 0; i <= 50; ++i) {
-        vj = g->agregarVertice(to_string(i));
-        if (i > 0 && i < 50) {
-            g->agregarArista(g->primerVertice(), g->sigVertice(vj), 3);
+            case 2:
+                cout << "Presione 1 para Dijkstra()" << "\n";
+                cout << "Presione 2 para Floyd()" << "\n";
+                cout << "Presione 3 para Prim()" << "\n";
+                cout << "Presione 4 para Kruskal()" << "\n";
+                cout << "Presione 5 para Copiar()" << "\n";
+                cout << "Presione 6 para Iguales()" << "\n";
+                cout << "Presione 7 para Vendedor()"<< "\n";
+                cin >> segundoCaso;
+                break;
+            case 3:
+                cout << "Adios" << "\n";
+                salir = true;
+                break;
+
+        }
+        if (!salir && caso == 1) {
+            switch (segundoCaso) {
+                case 1:
+                    g.vaciar();
+                    break;
+                case 2:
+                    if(g.vacio())
+                        cout << "El grafo esta vacio" << "\n";
+                    else
+                        cout << "El grafo no esta vacio"<< "\n";
+                    break;
+                case 3:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    g.agregarVertice(etiqueta);
+                    break;
+                case 4:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    g.eliminarVertice(v);
+                    break;
+                case 5:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    cout << "Escriba la nueva etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    g.modificarEtiqueta(v,etiqueta);
+                    break;
+                case 6:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    cout << g.Etiqueta(v);
+                    break;
+            }
+            cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
+            cout << "Presione la tecla 2 para usar algoritmos." << "\n";
+            cout << "Presione la tecla 3 para salir." << "\n";
+            cin >> caso;
+        } else if (!salir && caso == 2) {
+            switch (segundoCaso) {
+
+            }
+            cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
+            cout << "Presione la tecla 2 para usar algoritmos." << "\n";
+            cout << "Presione la tecla 3 para salir." << "\n";
+            cin >> caso;
+        }
+        if(caso == 3){
+            salir = true;
+            cout << "adios";
         }
     }
-    //    AG.Kruskal(*g);
-    //       AG.Dijkstra(g->primerVertice(),*g);
-    //       grafo copia = AG.Copiar(*g);
-
-    Diccionario<string>* dicc = new Diccionario<string>;
-    dicc->agregar("Hola");
-    dicc->agregar("Soy");
-    dicc->agregar("Una");
-    dicc->agregar("Oveja");
-    dicc->agregar("Ovejas");
-    dicc->agregar("Muchas");
-    dicc->agregar("Sence");
-    dicc->agregar("No");
-    dicc->agregar("Make");
-    cout << dicc->listar();
-
-    ColaDePrioridad<string> cp;
-    cp.iniciar();
-    cp.agregar("hola", 1);
-
-    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-
-
-
-
-    cola->agregar("j", 9);
-    cola->agregar("g", 8);
-    cola->agregar("a", 1);
-    cola->agregar("s", 5);
-    cola->agregar("t", 2);
-    cola->agregar("i", 3);
-    cola->agregar("y", 4);
-    cola->agregar("r", 6);
-    cola->agregar("f", 7);
-    cola->agregar("e", 10);
-
-
-
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    p = cola->sacar();
-    cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-    //            cout << "Elemento: " /*<< i+1*/ << cola->sacar() << "\n";
-    //    int num = cola->numElem();
-    //    for (int i = 0; i < num; i++) {
-    //        cout << "Elemento: " << i + 1 << cola->sacar() << "\n";
-    //    }
-
-    ConjuntoDeConj<int>* prueba = new ConjuntoDeConj<int>;
-
-    prueba->agregarConjunto("c", 5);
-    prueba->agregarConjunto("d", 6);
-    prueba->agregarConjunto("e", 7);
-    prueba->agregarConjunto("k", 17);
-    prueba->agregarConjunto("j", 71);
-    prueba->agregarConjunto("i", 73);
-    prueba->agregarConjunto("h", 27);
-    prueba->agregarConjunto("g", 24);
-    prueba->agregarConjunto("f", 74);
-    prueba->agregarConjunto("b", 75);
-    prueba->agregarConjunto("a", 78);
-
-    string pert = prueba->conjuntoAlQuePertenece(6);
-    prueba->unirConjuntos("c", "e");
-    prueba->unirConjuntos("d", "c");
-    prueba->unirConjuntos("d", "k");
-    prueba->unirConjuntos("d", "f");
-    prueba->unirConjuntos("d", "b");
-    prueba->unirConjuntos("d", "a");
-
-
-    int jj = 0;
-    //    ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-    //
-    //    cola->agregar("a", 1);
-    //    cola->agregar("s", 2);
-    //
-    //    cola->agregar("Sandra", 7);
-    //    int num = 2/*cola->numElem()*/;
-    //    for (int i = 0; i < num; i++) {
-    //        cout << "Elemento: " << i << cola->sacar() << "\n";
-    //    }
-
-
-
-
-    vertice v1 = g->agregarVertice("abc");
-    cout << "etiqueta: " << v1->etiqueta << "\n";
-
-    vertice v2 = g->agregarVertice("katherine fea");
-    cout << "etiqueta2: " << v2->etiqueta << "\n";
-    g->agregarArista(v1, v2, 10);
-    bool esAdy = g->adyacentes(v1, v2);
-    cout << "peso: " << g->Peso(v1, v2) << "\n";
-    v2 = g->agregarVertice("k fea");
-    g->agregarArista(v1, v2, 14);
-    esAdy = g->adyacentes(v1, v2);
-    cout << v2->etiqueta << "\n" << esAdy << "\n";
-    cout << "peso: " << g->Peso(v1, v2) << "\n";
-    v2 = g->agregarVertice("ka fea");
-    g->agregarArista(v1, v2, 6);
-    esAdy = g->adyacentes(v1, v2);
-    cout << "peso: " << g->Peso(v1, v2) << "\n";
-    g->modificarPeso(v1, v2, 22);
-
-    cout << "peso nuevo: " << g->Peso(v1, v2) << "\n";
-    cout << "peso nuevo: " << g->Peso(v2, v1) << "\n";
-    cout << v1->etiqueta << "\n" << esAdy << "\n";
-    cout << v2->etiqueta << "\n";
-    cout << g->numVertices() << "\n";
-    cout << g->numVerticesAdy(v1) << "\n";
-
-
-    v2 = g->primerVerticeAdy(v1);
-    cout << g->Etiqueta(v2) << "\n";
-    v2 = g->sigVerticeAdy(v1, v2);
-    cout << g->Etiqueta(v2) << "\n";
-    v2 = g->sigVerticeAdy(v1, v2);
-    cout << g->Etiqueta(v2) << "\n";
-
-
-    g->vaciar();
-    bool vacio = g->vacio();
-
-
-
-
-
     return 0;
-
 }
 

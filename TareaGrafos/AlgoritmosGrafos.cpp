@@ -49,10 +49,11 @@ map<vertice, vertice> R11Vert;
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
 
-AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
-}
+//AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
+//}
 
 AlgoritmosGrafos::~AlgoritmosGrafos() {
+
 }
 
 void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
@@ -233,8 +234,35 @@ void Floyd(grafo grf) {
     }
 }
 
-void AlgoritmosGrafos::Prim() {
-
+void AlgoritmosGrafos::Prim(grafo grf) {
+    Diccionario<vertice> dVV = new Diccionario<vertice>;
+    dVV.agregar(grf.primerVertice());
+    vertice v,vAdy,menor,menorAdy;
+    int pesoMinimo;
+    int numElem = grf.numVertices();
+    while (dVV.numElem() < numElem){
+        pesoMinimo= numeric_limits<int>max();
+        v = grf.primerVertice();
+        while (v != nullptr) {
+            v = grf.primerVertice();
+            if (dVV.pertenece(v)) {
+                vAdy = grf.primerVerticeAdy(v);
+                while(vAdy != nullptr){
+                    if(!dVV.pertenece(vAdy)){
+                        if(grf.Peso(v,vAdy) < pesoMinimo){
+                            pesoMinimo = grf.Peso(v,vAdy);
+                            menor = v;
+                            menorAdy = vAdy;
+                        }
+                    }
+                    vAdy = grf.sigVerticeAdy(v,vAdy);
+                }
+            }
+            v = grf.sigVertice(v);
+        }
+        dVV.agregar(menorAdy);
+        cout << grf.Etiqueta(menor) << "-" << grf.Etiqueta(menorAdy);
+    }
 }
 
 void AlgoritmosGrafos::Kruskal(grafo g) {
