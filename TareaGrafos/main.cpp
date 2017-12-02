@@ -27,7 +27,9 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    grafo g;
+    grafo g = new grafo;
+    vertice v;
+    string etiqueta;
     AlgoritmosGrafos* algoritmos = new AlgoritmosGrafos();
     int caso = 0;
     cout << "Saludos, ¿que desea utilizar?" << "\n";
@@ -40,25 +42,23 @@ int main(int argc, char** argv) {
         int segundoCaso = 0;
         switch (caso) {
             case 1:
-                cout << "Presione 1 para iniciar()" << "\n";
-                cout << "Presione 2 para destruir()" << "\n";
-                cout << "Presione 3 para vaciar()" << "\n";
-                cout << "Presione 4 para vacio()" << "\n";
-                cout << "Presione 5 para agregarVertice()" << "\n";
-                cout << "Presione 6 para eliminarVertice()" << "\n";
-                cout << "Presione 7 para modifiarEtiqueta()" << "\n";
-                cout << "Presione 8 para Etiqueta()" << "\n";
-                cout << "Presione 9 para agregarArista()" << "\n";
-                cout << "Presione 10 para eliminarArista()" << "\n";
-                cout << "Presione 11 para modificarPeso()" << "\n";
-                cout << "Presione 12 para peso()" << "\n";
-                cout << "Presione 13 para adyacentes()" << "\n";
-                cout << "Presione 14 para primerVertice()" << "\n";
-                cout << "Presione 15 para siguienteVertice()" << "\n";
-                cout << "Presione 16 para primerVerticeAdy()" << "\n";
-                cout << "Presione 17 para sigVerticeAdy()" << "\n";
-                cout << "Presione 18 para numVertices()" << "\n";
-                cout << "Presione 19 para numVerticesAdy()" << "\n";
+                cout << "Presione 1 para vaciar()" << "\n";
+                cout << "Presione 2 para vacio()" << "\n";
+                cout << "Presione 3 para agregarVertice()" << "\n";
+                cout << "Presione 4 para eliminarVertice()" << "\n";
+                cout << "Presione 5 para modifiarEtiqueta()" << "\n";
+                cout << "Presione 6 para Etiqueta()" << "\n";
+                cout << "Presione 7 para agregarArista()" << "\n";
+                cout << "Presione 8 para eliminarArista()" << "\n";
+                cout << "Presione 9 para modificarPeso()" << "\n";
+                cout << "Presione 10 para peso()" << "\n";
+                cout << "Presione 11 para adyacentes()" << "\n";
+                cout << "Presione 12 para primerVertice()" << "\n";
+                cout << "Presione 13 para siguienteVertice()" << "\n";
+                cout << "Presione 14 para primerVerticeAdy()" << "\n";
+                cout << "Presione 15 para sigVerticeAdy()" << "\n";
+                cout << "Presione 16 para numVertices()" << "\n";
+                cout << "Presione 17 para numVerticesAdy()" << "\n";
                 cin >> segundoCaso;
                 break;
 
@@ -68,7 +68,8 @@ int main(int argc, char** argv) {
                 cout << "Presione 3 para Prim()" << "\n";
                 cout << "Presione 4 para Kruskal()" << "\n";
                 cout << "Presione 5 para Copiar()" << "\n";
-                cout << "presione 6 para Iguales()" << "\n";
+                cout << "Presione 6 para Iguales()" << "\n";
+                cout << "Presione 7 para Vendedor()"<< "\n";
                 cin >> segundoCaso;
                 break;
             case 3:
@@ -79,21 +80,51 @@ int main(int argc, char** argv) {
         }
         if (!salir && caso == 1) {
             switch (segundoCaso) {
-
+                case 1:
+                    g.vaciar();
+                    break;
+                case 2:
+                    if(g.vacio())
+                        cout << "El grafo esta vacio" << "\n";
+                    else
+                        cout << "El grafo no esta vacio"<< "\n";
+                    break;
+                case 3:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    g.agregarVertice(etiqueta);
+                    break;
+                case 4:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    g.eliminarVertice(v);
+                    break;
+                case 5:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    cout << "Escriba la nueva etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    g.modificarEtiqueta(v,etiqueta);
+                    break;
+                case 6:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    cout << g.Etiqueta(v);
+                    break;
             }
-
-            cout << "Saludos, ¿que desea utilizar?" << "\n";
-            cout << "Presione la tecla 1 para operadores basicos." << "\n";
-            cout << "Presione la tecla 2 para algoritmos." << "\n";
+            cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
+            cout << "Presione la tecla 2 para usar algoritmos." << "\n";
             cout << "Presione la tecla 3 para salir." << "\n";
             cin >> caso;
         } else if (!salir && caso == 2) {
             switch (segundoCaso) {
 
             }
-            cout << "Saludos, ¿que desea utilizar?" << "\n";
-            cout << "Presione la tecla 1 para operadores basicos." << "\n";
-            cout << "Presione la tecla 2 para algoritmos." << "\n";
+            cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
+            cout << "Presione la tecla 2 para usar algoritmos." << "\n";
             cout << "Presione la tecla 3 para salir." << "\n";
             cin >> caso;
         }
