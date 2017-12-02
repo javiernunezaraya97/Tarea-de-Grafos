@@ -23,10 +23,12 @@ template <class T>
 class ConjuntoDeConj {
 public:
     
-    //EFE:Constructuye el conjunto de conjunto disjutnos
+    //EFE:Construye el conjunto de conjunto disjutnos
     //REQ:---
     //MOD:
     ConjuntoDeConj();
+    
+    void iniciar ();
     //EFE: Destruye el conjunto de conjuntos.
     //REQ: conjunto de conjuntos inicialiado
     //MOD: conjunto de conjuntos
@@ -90,6 +92,11 @@ private:
 
 template <typename T>
 ConjuntoDeConj<T>::ConjuntoDeConj() {
+    primero = new ConjuntosList<T>;
+}
+
+template<typename T>
+void ConjuntoDeConj<T>::iniciar(){
     primero = new ConjuntosList<T>;
 }
 

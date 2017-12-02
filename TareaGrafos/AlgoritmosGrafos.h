@@ -16,6 +16,7 @@
 
 #include <utility> 
 #include "map"
+#include<string>
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
@@ -52,10 +53,10 @@ public:
     void Prim();
     /*
       EFE:
-      REQ:
+      REQ: grafo inicializado y no vacio, que contenga al menos una arista.
       MOD:
      */
-    void Kruskal();
+    void Kruskal(grafo g);
     /*
   EFE:
   REQ:
@@ -70,7 +71,8 @@ public:
     bool Iguales();
 
 private:
-
+    ConjuntoDeConj<vertice> cnjDeCnj;
+    
 };
 
 #endif /* ALGORITMOSGRAFOS_H */

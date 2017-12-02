@@ -13,8 +13,9 @@
 
 #include <iostream>
 //#define SIZE 10
-#include "MatrizDeAdy.h"
-//#include "ListaDeAdy.h"
+#include "AlgoritmosGrafos.h"
+//#include "MatrizDeAdy.h"
+#include "ListaDeAdy.h"
 #include "Diccionario.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
@@ -27,7 +28,15 @@ using namespace std;
 int main(int argc, char** argv) {
 
     string p;
-
+    grafo *g = new grafo;
+       AlgoritmosGrafos AG;
+       vertice vj;
+       for (int i =0; i<=50;++i){
+            vj=g->agregarVertice(to_string(i));
+            
+       }
+    AG.Kruskal(*g);
+    
     
     Diccionario<string>* dicc = new Diccionario<string>;
     dicc->agregar("Hola");
@@ -41,9 +50,15 @@ int main(int argc, char** argv) {
     dicc->agregar("Make");
     cout << dicc->listar();
 
+    ColaDePrioridad<string> cp;
+    cp.iniciar();
+    cp.agregar("hola",1);
+    
      ColaDePrioridad<string>* cola = new ColaDePrioridad<string>;
-
-
+     
+     
+     
+     
     cola->agregar("j", 9);
     cola->agregar("g", 8);
     cola->agregar("a", 1);
@@ -111,7 +126,7 @@ int main(int argc, char** argv) {
     //        cout << "Elemento: " << i << cola->sacar() << "\n";
     //    }
 
-    grafo *g = new grafo;
+
 
 
     vertice v1 = g->agregarVertice("abc");
@@ -151,8 +166,11 @@ int main(int argc, char** argv) {
 
     g->vaciar();
     bool vacio = g->vacio();
-
-
+ 
+    
+    
+    
+            
     return 0;
 
 }

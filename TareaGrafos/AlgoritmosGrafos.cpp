@@ -111,8 +111,52 @@ void AlgoritmosGrafos::Prim() {
 
 }
 
-void AlgoritmosGrafos::Kruskal() {
-
+void AlgoritmosGrafos::Kruskal(grafo g) {
+    cnjDeCnj.iniciar();
+    ColaDePrioridad<pair<vertice, vertice>> CP;
+    Diccionario<pair<vertice, vertice>> DiccAristasV;
+    CP.iniciar();
+    vertice v= g.primerVertice();
+    vertice va;
+    int nom=0; // se usan ints para el identificador pero en string;
+    pair<vertice, vertice> vertices;
+    while(v!=nullptr){
+        va=g.primerVerticeAdy(v);
+        cnjDeCnj.agregarConjunto(to_string(nom),v);
+        
+        while(va!=nullptr){
+            vertices.first=v;
+            vertices.second=va;
+            if (!DiccAristasV.pertenece(make_pair(va,v))){
+                CP.agregar(vertices,g.Peso(v,va));
+                DiccAristasV.agregar(vertices);
+            }
+            va=g.sigVerticeAdy(v, va);
+        }
+        nom++;
+        v=g.sigVertice(v);
+    }
+    
+    int costo=0;
+    int cantAristas=0;
+    cout<<"el arbol de costo minimo es: ";
+    string Ncnj1;
+    string Ncnj2;
+    while(cantAristas<g.numVertices()-1){
+        vertices=CP.sacar();
+        Ncnj1=cnjDeCnj.conjuntoAlQuePertenece(vertices.first);
+        Ncnj2=cnjDeCnj.conjuntoAlQuePertenece(vertices.second);
+        
+        if(Ncnj1!=Ncnj2){
+            cout<< g.Etiqueta(vertices.first)<<"-"<< g.Etiqueta(vertices.second)<<", ";
+            costo+=g.Peso(vertices.first,vertices.second);
+            cnjDeCnj.unirConjuntos(Ncnj1,Ncnj2);
+            cantAristas++;
+        }
+    }
+    cout<< "y su costo es de"<<costo<<endl;
+    cnjDeCnj.~ConjuntoDeConj();
+    CP.~ColaDePrioridad();
 }
 
 grafo AlgoritmosGrafos::Copiar() {
