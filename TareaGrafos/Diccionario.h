@@ -98,7 +98,7 @@ Diccionario<T>::Diccionario(){
 }
 
 template < typename T >
-void Diccionario::iniciar(){
+void Diccionario<T>::iniciar(){
     primero = nullptr;
     ultimoLleno = 0;
 }

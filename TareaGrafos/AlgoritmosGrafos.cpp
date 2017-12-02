@@ -21,8 +21,8 @@ map<string, string>::iterator itCaminos;
 grafo grf;
 // se utiliza para el problema del vendedor.
 Diccionario<vertice> diccVertVisitados;
-Vertice solActual[100];
-Vertice mejorSol[100];
+vertice solActual[100];
+vertice mejorSol[100];
 int numSoluciones = 0;
 int costoActual = 0;
 int menorCosto= 1000000;
@@ -300,7 +300,37 @@ grafo AlgoritmosGrafos::Copiar(grafo original) {
 }
 
 bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
+    bool iguales= true;
+    if (g1.numVertices()==g2.numVertices()){
+        R11Vert.clear();
+        vertice v1=g1.primerVertice();
+        vertice v2;
+        while ((v1!=nullptr)&&(iguales)){
+            v2=buscarEtiq(g1.Etiqueta(v1),g2);
+            if(v2!=nullptr){
+                if(g1.numVerticesAdy(v1)==g2.numVerticesAdy(v2)){
+                    R11Vert[v1]=v2;
+                } else iguales=false;
+            }else iguales=false;
+            v1=g1.sigVertice(v1);
+        }
+        
+    } else iguales=false;
+    if(iguales){
+       vertice v1=g1.primerVertice();
+       vertice v2; 
+       while((v1!=nullptr)&&(iguales)){
+            v2=g1.primerVerticeAdy(v1);
+            while((v2!=nullptr)&&(iguales)){
+                if(g1.Peso(v1,v2)==g2.Peso(R11Vert[v1],R11Vert[v2])){
+                    v2=g1.sigVerticeAdy(v1,v2);
+                } else iguales=false;
+            }
+            v1=g1.sigVertice(v1);
+        }
+    }
     
+    return iguales;
 }
 
 
@@ -316,7 +346,8 @@ void AlgoritmosGrafos::visitarVertRec(grafo g, int i){
                     costoActual+=g.Peso(solActual[1],solActual[i]);
                     if(menorCosto>costoActual){
                         menorCosto=costoActual;
-                        mejorSol=solActual;
+                        for(int j=1;j<=i;j++)
+                            mejorSol[j]=solActual[j];
                     }
                     numSoluciones++;
                     costoActual-=g.Peso(solActual[1],solActual[i]);
@@ -351,5 +382,5 @@ vertice AlgoritmosGrafos::buscarEtiq(string etiq, grafo g){
     while((v!=nullptr)&&(g.Etiqueta(v)!=etiq)){
         v=g.sigVertice(v);
     }
-    return v;
+    return v; 
 }
