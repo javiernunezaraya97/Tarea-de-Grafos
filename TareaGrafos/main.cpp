@@ -33,10 +33,12 @@ int main(int argc, char** argv) {
        vertice vj;
        for (int i =0; i<=50;++i){
             vj=g->agregarVertice(to_string(i));
-            
+            if(i>0&&i<50){
+                g->agregarArista(g->primerVertice(),g->sigVertice(vj),3);
+            }
        }
-    AG.Kruskal(*g);
-    
+//    AG.Kruskal(*g);
+//       AG.Dijkstra(g->primerVertice(),*g);
     
     Diccionario<string>* dicc = new Diccionario<string>;
     dicc->agregar("Hola");

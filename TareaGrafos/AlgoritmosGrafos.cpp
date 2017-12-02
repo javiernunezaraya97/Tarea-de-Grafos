@@ -13,25 +13,25 @@
 
 #include "AlgoritmosGrafos.h"
 using namespace std;
-//struct Arista {
-//    vertice v1;
-//    vertice v2;
-//    bool operator==(const Arista& arista) const {
-//        bool iguales = (v1 == arista.v1 && v2 == arista.v2) ||
-//                      (v1 == arista.v2 && v2 == arista.v1);
-//        return iguales;
-//    }
-//    bool operator!=(const Arista& arista) const {
-//        return !this->operator==(arista);
-//    }
-//};
+struct Par {
+    vertice v1;
+    vertice v2;
+    bool operator==(const Par& par) const {
+        bool iguales = (v1 == par.v1 && v2 == par.v2) ||
+                      (v1 == par.v2 && v2 == par.v1);
+        return iguales;
+    }
+    bool operator!=(const Par& par) const {
+        return !this->operator==(par);
+    }
+};
 //Se utilizan en Dijkstra
 map <string, int> Distancia; 
 map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
-Diccionario<Arista> aristasVisitadas;
-grafo grf;
+Diccionario<Par> aristasVisitadas;
+//grafo grf;
 // se utiliza para el problema del vendedor.
 Diccionario<vertice> diccVertVisitados;
 vertice solActual[100];
@@ -41,7 +41,7 @@ int costoActual = 0;
 int menorCosto= 1000000;
 // se utiliza para ver si son iguales.
 map<vertice, vertice> R11Vert;
-
+//map<vertice,vertice> aristasVisitadas;
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
 
@@ -52,7 +52,7 @@ AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
 
 
-void AlgoritmosGrafos::Dijkstra(vertice v) {
+void AlgoritmosGrafos::Dijkstra(vertice v,grafo grf) {
     Distancia.clear();
     Caminos.clear();
     Diccionario <vertice> VerticesRevisados;
@@ -283,46 +283,38 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
 }
 
 grafo AlgoritmosGrafos::Copiar(grafo original) {
-//    grafo copia;
-//    Arista arista;
-//    string etiqueta = "";
-//    aristasVisitadas.vaciar();
-//    vertice v = original.primerVertice();
-//    int tamOriginal = original.numVertices();
-//    int peso = 0;
-//    for (int i = 0; i < tamOriginal; i++) {
-//        etiqueta = original.Etiqueta(v);
-//        copia.agregarVertice(etiqueta);
-//        v = original.sigVertice(v);
-//    }
-//    v = original.primerVertice();
-//    vertice vCopia;
-//    vertice vCopiaAdy;
-//    vertice adyacente;
-//    while (v != nullptr) {
-//        etiqueta = original.Etiqueta(v);
-//        vCopia = buscarVertice(copia, etiqueta);
-//        adyacente = original.primerVerticeAdy(v);
-//        peso = original.Peso(v, adyacente);
-//        arista.peso = peso;
-//        arista.ptrVert = v;
-//        arista.sgtAdy = adyacente;
-//        while (adyacente != nullptr) {
-//            if (!aristasVisitadas.pertenece(arista)) {
-//                aristasVisitadas.agregar(arista);
-//                etiqueta = original.Etiqueta(adyacente);
-//                vCopiaAdy = buscarVertice(copia, etiqueta);
-//                peso = original.Peso(v, adyacente);
-//                copia.agregarArista(vCopia, vCopiaAdy, peso);
-//            }
-//            adyacente = original.sigVerticeAdy(v, adyacente);
-//            arista.peso = peso;
-//            arista.ptrVert = v;
-//            arista.sgtAdy = adyacente;
-//        }
-//        v = original.sigVertice(v);
-//    }
-//    return copia;
+    grafo copia;
+    string etiqueta = "";
+    vertice v = original.primerVertice();
+    int tamOriginal = original.numVertices();
+    int peso = 0;
+    for (int i = 0; i < tamOriginal; i++) {
+        etiqueta = original.Etiqueta(v);
+        copia.agregarVertice(etiqueta);
+        v = original.sigVertice(v);
+    }
+    v = original.primerVertice();
+    vertice vCopia;
+    vertice vCopiaAdy;
+    vertice adyacente;
+    while (v != nullptr) {
+        etiqueta = original.Etiqueta(v);
+        vCopia = buscarEtiq(etiqueta,copia);
+        adyacente = original.primerVerticeAdy(v);
+        peso = original.Peso(v, adyacente);
+        while (adyacente != nullptr) {
+            if (aristasVisitadas.pertenece({v,adyacente})) {
+                aristasVisitadas.agregar({v,adyacente});
+                etiqueta = original.Etiqueta(adyacente);
+                vCopiaAdy = buscarEtiq(etiqueta,copia);
+                peso = original.Peso(v, adyacente);
+                copia.agregarArista(vCopia, vCopiaAdy, peso);
+            }
+            adyacente = original.sigVerticeAdy(v, adyacente);
+        }
+        v = original.sigVertice(v);
+    }
+    return copia;
 }
 
 bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
