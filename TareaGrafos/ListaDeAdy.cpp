@@ -86,7 +86,7 @@ void ListaDeAdy::eliminarVertice(vertice v){
 void ListaDeAdy::modificarEtiqueta(vertice v, string etiq){
     v->etiqueta=etiq;
 }
-string ListaDeAdy::Etiqueta(vertice v){
+string ListaDeAdy::Etiqueta(vertice v)const{
     return v->etiqueta;
 }
 void ListaDeAdy::agregarArista(vertice v1, vertice v2, int peso){
@@ -166,7 +166,7 @@ void ListaDeAdy::modificarPeso(vertice v1, vertice v2, int pesoN){
     ady->peso=pesoN;
     
 }
-int ListaDeAdy::Peso(vertice v1, vertice v2){
+int ListaDeAdy::Peso(vertice v1, vertice v2)const{
     arista ady= v1->adyacencia;
     int pesoAdy=-1;
     while ((ady->ptrVert!=v2)&&(ady->sgtAdy!=nullptr)){
@@ -178,7 +178,7 @@ int ListaDeAdy::Peso(vertice v1, vertice v2){
     return pesoAdy;
 }
 
-bool ListaDeAdy::adyacentes(vertice v1, vertice v2){
+bool ListaDeAdy::adyacentes(vertice v1, vertice v2)const{
     bool encontrado=false;
     arista ady= v1->adyacencia;
     
@@ -193,20 +193,20 @@ bool ListaDeAdy::adyacentes(vertice v1, vertice v2){
     return encontrado;
 }
 
-vertice ListaDeAdy::primerVertice(){
+vertice ListaDeAdy::primerVertice() const {
     return vertInicial;
 }
-vertice ListaDeAdy::sigVertice(vertice v){
+vertice ListaDeAdy::sigVertice(vertice v)const{
     return v->sgtVertice;
 }
-vertice ListaDeAdy::primerVerticeAdy(vertice v){
+vertice ListaDeAdy::primerVerticeAdy(vertice v)const{
     vertice va=nullptr;
     if (v->adyacencia!=nullptr){
         va=v->adyacencia->ptrVert;
     }
     return va;
 }
-vertice ListaDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
+vertice ListaDeAdy::sigVerticeAdy(vertice v, vertice vAdy)const{
     arista AdySgt=v->adyacencia;
     vertice aux=nullptr;
     while ((AdySgt->sgtAdy!=nullptr)&&(AdySgt->ptrVert!=vAdy)){
@@ -217,10 +217,10 @@ vertice ListaDeAdy::sigVerticeAdy(vertice v, vertice vAdy){
     }
     return aux;
 }
-int ListaDeAdy::numVertices(){
+int ListaDeAdy::numVertices()const{
     return cantVert;
 }
-int ListaDeAdy::numVerticesAdy(vertice v){
+int ListaDeAdy::numVerticesAdy(vertice v)const{
     return v->cantAdy;
 }
 

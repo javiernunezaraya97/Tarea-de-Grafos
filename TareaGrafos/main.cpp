@@ -27,9 +27,9 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    srand(10041997);
+    srand(10042017);
     
-    grafo *g = new grafo;
+    grafo* g= new grafo;
     AlgoritmosGrafos AG;
     vertice vj;
 //    for (int i = 0; i <= 50; ++i) {
@@ -45,20 +45,27 @@ int main(int argc, char** argv) {
     for (int i = 0; i < n; ++i){
         g->agregarVertice(to_string(i));
     }
+//   const grafo gPrueba=g;
     for (int i = 0; i < n; ++i){
-        
+         
         v1 = AG.buscarEtiq(to_string(i),*g);
         for (int j = 0; j < n/3; ++j)
-        {
+        {  // g=gPrueba;
             p = (rand()%20) + 1;
-            v2 = AG.buscarEtiq(to_string(rand()%n),*g);
+            v2 = AG.buscarEtiq(to_string(rand()%(n-1)), *g);
             while ((g->adyacentes(v1, v2)) || (v1 == v2))
-            {
-                v2 = AG.buscarEtiq(to_string(rand()%n),*g);
+            {   //g=gPrueba;
+                v2 = AG.buscarEtiq(to_string(rand()%n), *g);
             }
+           // g=gPrueba;
             g->agregarArista(v1,v2,p);
+           // gPrueba=g;
         }
+        
     }
+    
+    AG.vendedor(*g);
+    cout<< "hola";
     int j=n;
 
 

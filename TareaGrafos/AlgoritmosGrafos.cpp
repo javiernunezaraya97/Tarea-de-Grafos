@@ -55,7 +55,7 @@ AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
 AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
 
-void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
+void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
     Distancia.clear();
     Caminos.clear();
     Diccionario <vertice> VerticesRevisados;
@@ -128,7 +128,7 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
     }
 }
 
-void Floyd(grafo grf) {
+void Floyd(const grafo& grf) {
     int tamGrafo = grf.numVertices();
     int A[tamGrafo][tamGrafo]; //Matriz de costos.
     int P[tamGrafo][tamGrafo]; //Matriz de vertices.
@@ -237,7 +237,7 @@ void AlgoritmosGrafos::Prim() {
 
 }
 
-void AlgoritmosGrafos::Kruskal(grafo g) {
+void AlgoritmosGrafos::Kruskal(const grafo& g) {
     cnjDeCnj.iniciar();
     ColaDePrioridad<pair<vertice, vertice>> CP;
     Diccionario<pair<vertice, vertice>> DiccAristasV;
@@ -285,7 +285,7 @@ void AlgoritmosGrafos::Kruskal(grafo g) {
     CP.~ColaDePrioridad();
 }
 
-grafo AlgoritmosGrafos::Copiar(grafo original) {
+grafo AlgoritmosGrafos::Copiar(const grafo& original) {
     grafo copia;
     string etiqueta = "";
     vertice v = original.primerVertice();
@@ -358,7 +358,7 @@ bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
     return iguales;
 }
 
-void AlgoritmosGrafos::visitarVertRec(grafo g, int i) {
+void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
     vertice va = g.primerVerticeAdy(solActual[i - 1]);
     while (va != nullptr) {
         if (!diccVertVisitados.pertenece(va)) {
@@ -386,7 +386,7 @@ void AlgoritmosGrafos::visitarVertRec(grafo g, int i) {
 
 }
 
-void AlgoritmosGrafos::vendedor(grafo g) {
+void AlgoritmosGrafos::vendedor(const grafo& g) {
     diccVertVisitados.iniciar();
     solActual[1] = g.primerVertice();
     diccVertVisitados.agregar(g.primerVertice());
@@ -400,7 +400,7 @@ void AlgoritmosGrafos::vendedor(grafo g) {
     diccVertVisitados.~Diccionario();
 }
 
-vertice AlgoritmosGrafos::buscarEtiq(string etiq, grafo g) {
+vertice AlgoritmosGrafos::buscarEtiq( string etiq ,const grafo&  g) {
     vertice v = g.primerVertice();
     while ((v != nullptr)&&(g.Etiqueta(v) != etiq)) {
         v = g.sigVertice(v);

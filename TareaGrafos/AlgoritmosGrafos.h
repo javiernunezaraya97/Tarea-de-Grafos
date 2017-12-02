@@ -75,16 +75,16 @@ public:
     REQ: grafo inicializado
     MOD: ---
      */
-    void visitarVertRec(grafo, int i);
+    void visitarVertRec(const grafo&, int i);
 
     /*
     EFE: Encuentra el circuito de menor costo y lo despliega en consola
     REQ:  grafo inicializado
     MOD:---
      */
-    void vendedor(grafo);
+    void vendedor(const grafo&);
 
-    vertice buscarEtiq(string etiq, grafo g);
+    vertice buscarEtiq(string etiq,const grafo& g);
 
 private:
     ConjuntoDeConj<vertice> cnjDeCnj;
