@@ -72,19 +72,20 @@ public:
     bool Iguales(grafo g1, grafo g2);
 
         /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: parte recursiva del vendedor.
+  REQ: grafo inicializado
+  MOD: ---
      */
     void visitarVertRec(grafo, int i);
     
         /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Encuentra el circuito de menor costo y lo despliega en consola
+  REQ:  grafo inicializado
+  MOD:---
      */
     void vendedor(grafo);
     
+    vertice buscarEtiq(string etiq, grafo g);
     
 private:
     ConjuntoDeConj<vertice> cnjDeCnj;

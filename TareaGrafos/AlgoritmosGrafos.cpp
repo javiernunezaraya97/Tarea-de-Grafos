@@ -14,18 +14,20 @@
 #include "AlgoritmosGrafos.h"
 using namespace std;
 //Se utilizan en Dijkstra
-map <string, int> Distancia; //También se utiliza en Coloreo de grfrafo
+map <string, int> Distancia; 
 map <string, string> Caminos;
 map<string, int>::iterator it;
 map<string, string>::iterator itCaminos;
 grafo grf;
+// se utiliza para el problema del vendedor.
 Diccionario<vertice> diccVertVisitados;
 Vertice solActual[100];
 Vertice mejorSol[100];
 int numSoluciones = 0;
 int costoActual = 0;
 int menorCosto= 1000000;
-
+// se utiliza para ver si son iguales.
+map<vertice, vertice> R11Vert;
 
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
@@ -298,7 +300,7 @@ grafo AlgoritmosGrafos::Copiar(grafo original) {
 }
 
 bool AlgoritmosGrafos::Iguales(grafo g1, grafo g2) {
-
+    
 }
 
 
@@ -344,3 +346,10 @@ void AlgoritmosGrafos::vendedor(grafo g){
     diccVertVisitados.~Diccionario();
 }
 
+vertice AlgoritmosGrafos::buscarEtiq(string etiq, grafo g){
+    vertice v=g.primerVertice();
+    while((v!=nullptr)&&(g.Etiqueta(v)!=etiq)){
+        v=g.sigVertice(v);
+    }
+    return v;
+}
