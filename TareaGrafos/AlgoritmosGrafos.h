@@ -37,14 +37,14 @@ public:
   REQ:
   MOD:
      */
-    void Dijkstra(vertice v, grafo g);
+    void Dijkstra(vertice v, const grafo& g);
 
     /*
       EFE:
       REQ:
       MOD:
      */
-    void Floyd();
+    void Floyd(const grafo& );
     /*
       EFE:
       REQ:
@@ -56,13 +56,13 @@ public:
       REQ: grafo inicializado y no vacio, que contenga al menos una arista.
       MOD:
      */
-    void Kruskal(grafo g);
+    void Kruskal(const grafo& g);
     /*
   EFE:
   REQ:
   MOD:
      */
-    grafo Copiar(grafo grf);
+    grafo Copiar(const grafo& grf);
     /*
   EFE:
   REQ:
