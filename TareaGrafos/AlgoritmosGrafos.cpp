@@ -131,8 +131,8 @@ void AlgoritmosGrafos::Dijkstra(vertice v, grafo grf) {
 
 void Floyd(grafo grf) {
     int tamGrafo = grf.numVertices();
-    int A[tamGrafo][tamGrafo]; //Matriz de costos.
-    int P[tamGrafo][tamGrafo]; //Matriz de vertices.
+    int Costos[tamGrafo][tamGrafo]; //Matriz de costos.
+    int Vertices[tamGrafo][tamGrafo]; //Matriz de vertices.
     int i, j, k;
     vertice v1 = grf.primerVertice();
     vertice v2;
@@ -146,42 +146,42 @@ void Floyd(grafo grf) {
         v1 = grf.sigVertice(v1);
     }
 
-    //Llena la matriz A con los pesos de las aristas del grafo.
+    //Llena la matriz Costos con los pesos de las aristas del grafo.
     for (i = 0; i < tamGrafo; ++i) {
         v1 = recorrido[i];
         for (j = i; j < tamGrafo; ++j) {
             v2 = recorrido[j];
             if (grf.adyacentes(v1, v2)) {
-                A[i][j] = grf.Peso(v1, v2);
-                A[j][i] = grf.Peso(v1, v2);
+                Costos[i][j] = grf.Peso(v1, v2);
+                Costos[j][i] = grf.Peso(v1, v2);
             } else //Si no existe arista utiliza -1 como "infinito".
             {
-                A[i][j] = -1;
-                A[j][i] = -1;
+                Costos[i][j] = -1;
+                Costos[j][i] = -1;
             }
         }
     }
 
-    //Llena la matriz P con ceros.
+    //Llena la matriz Vertices con ceros.
     for (i = 0; i < tamGrafo; ++i) {
         for (j = 0; j < tamGrafo; ++j) {
-            P[i][j] = 0;
+            Vertices[i][j] = 0;
         }
     }
 
-    //Hace cero la diagonal de la matriz de pesos A.
+    //Hace cero la diagonal de la matriz de pesos Costos.
     for (int i = 0; i < tamGrafo; ++i) {
-        A[i][i] = 0;
+        Costos[i][i] = 0;
     }
 
     //Ciclo del algoritmo de Floyd.
     for (k = 0; k < tamGrafo; ++k) {
         for (i = 0; i < tamGrafo; ++i) {
             for (j = 0; j < tamGrafo; ++j) {
-                if (A[i][k] != -1 && A[k][j] != -1) {
-                    if ((A[i][k] + A[k][j]) < A[i][j] || A[i][j] == -1) {
-                        A[i][j] = A[i][k] + A[k][j];
-                        P[i][j] = k;
+                if (Costos[i][k] != -1 && Costos[k][j] != -1) {
+                    if ((Costos[i][k] + Costos[k][j]) < Costos[i][j] || Costos[i][j] == -1) {
+                        Costos[i][j] = Costos[i][k] + Costos[k][j];
+                        Vertices[i][j] = k;
                     }
                 }
             }
@@ -191,8 +191,8 @@ void Floyd(grafo grf) {
     //Cambia los "infinitos" por cero.
     for (int i = 0; i < tamGrafo; ++i) {
         for (int j = 0; j < tamGrafo; ++j) {
-            if (A[i][j] == -1) {
-                A[i][j] = 0;
+            if (Costos[i][j] == -1) {
+                Costos[i][j] = 0;
             }
         }
     }
@@ -222,12 +222,12 @@ void Floyd(grafo grf) {
         for (i = 0; i < tamGrafo; ++i) {
             cout << "El camino mas corto de " << grf.Etiqueta(v1) << " a " << grf.Etiqueta(recorrido[i]) << ": " << grf.Etiqueta(v1);
             k = i;
-            while (P[j][k] != 0) {
-                cout << "-> " << grf.Etiqueta(recorrido[P[j][k]]);
-                k = P[j][k];
+            while (Vertices[j][k] != 0) {
+                cout << "-> " << grf.Etiqueta(recorrido[Vertices[j][k]]);
+                k = Vertices[j][k];
             }
             cout << "-> " << grf.Etiqueta(recorrido[i]);
-            cout << ". Su costo es de: " << A[j][i] << endl;
+            cout << ". Su costo es de: " << Costos[j][i] << endl;
         }
         cout << "Ingrese la etiqueta del vertice del que desea saber los caminos mas cortos, ingrese un -1 para salir." << endl;
         cin >> e;
