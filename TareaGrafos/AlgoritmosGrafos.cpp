@@ -23,8 +23,8 @@ grafo grf;
 AlgoritmosGrafos::AlgoritmosGrafos() {
 }
 
-AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
-}
+//AlgoritmosGrafos::AlgoritmosGrafos(const AlgoritmosGrafos& orig) {
+//}
 
 AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
