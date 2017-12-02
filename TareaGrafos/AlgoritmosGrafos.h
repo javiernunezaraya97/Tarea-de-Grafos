@@ -58,7 +58,7 @@ public:
   REQ:
   MOD:
      */
-    grafo Copiar();
+    grafo Copiar(grafo grf);
     /*
   EFE:
   REQ:

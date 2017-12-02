@@ -216,33 +216,33 @@ void AlgoritmosGrafos::Kruskal() {
 }
 
 grafo AlgoritmosGrafos::Copiar(grafo original) {
-    grafo copia;
-    visitedEdges.empty();
-    Graph::Vertex vertex = graph.firstVertex();
-    const int numVertex = graph.numVertex();
-    for (int i = 0; i < numVertex; i++) {
-        std::string label = graph.getLabel(vertex);
-        graphCopy.addVertex(label);
-        vertex = graph.nextVertex(vertex);
-    }
-    vertex = graph.firstVertex();
-    while (vertex != Graph::NullVertex) {
-        std::string label = graph.getLabel(vertex);
-        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
-        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
-        while (adjacent != Graph::NullVertex) {
-            if (!visitedEdges.contains({vertex, adjacent})) {
-                visitedEdges.add({vertex, adjacent});
-                label = graph.getLabel(adjacent);
-                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
-                int weight = graph.getWeight(vertex, adjacent);
-                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
-            }
-            adjacent = graph.nextAdjacent(vertex, adjacent);
-        }
-        vertex = graph.nextVertex(vertex);
-    }
-    return graphCopy;
+//    grafo copia;
+//    visitedEdges.empty();
+//    Graph::Vertex vertex = graph.firstVertex();
+//    const int numVertex = graph.numVertex();
+//    for (int i = 0; i < numVertex; i++) {
+//        std::string label = graph.getLabel(vertex);
+//        graphCopy.addVertex(label);
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    vertex = graph.firstVertex();
+//    while (vertex != Graph::NullVertex) {
+//        std::string label = graph.getLabel(vertex);
+//        Graph::Vertex vertexCopy = findVertex(graphCopy, label);
+//        Graph::Vertex adjacent = graph.firstAdjacent(vertex);
+//        while (adjacent != Graph::NullVertex) {
+//            if (!visitedEdges.contains({vertex, adjacent})) {
+//                visitedEdges.add({vertex, adjacent});
+//                label = graph.getLabel(adjacent);
+//                Graph::Vertex adjacentCopy = findVertex(graphCopy, label);
+//                int weight = graph.getWeight(vertex, adjacent);
+//                graphCopy.addEdge(vertexCopy, adjacentCopy, weight);
+//            }
+//            adjacent = graph.nextAdjacent(vertex, adjacent);
+//        }
+//        vertex = graph.nextVertex(vertex);
+//    }
+//    return graphCopy;
 }
 
 bool AlgoritmosGrafos::Iguales() {
