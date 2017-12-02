@@ -13,9 +13,11 @@
 
 #ifndef ALGORITMOSGRAFOS_H
 #define ALGORITMOSGRAFOS_H
+
 #include <utility> 
 #include <vector>
 #include "map"
+#include<string>
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
@@ -28,10 +30,12 @@ public:
     AlgoritmosGrafos();
     AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     virtual ~AlgoritmosGrafos();
+
+
     /*
-      EFE:
-      REQ:
-      MOD:
+  EFE:
+  REQ:
+  MOD:
      */
     void Dijkstra(vertice v);
 
@@ -49,10 +53,10 @@ public:
     void Prim();
     /*
       EFE:
-      REQ:
+      REQ: grafo inicializado y no vacio, que contenga al menos una arista.
       MOD:
      */
-    void Kruskal();
+    void Kruskal(grafo g);
     /*
   EFE:
   REQ:
@@ -64,14 +68,26 @@ public:
   REQ:
   MOD:
      */
-    bool Iguales();
-      /*
-  EFE:
-  REQ:
-  MOD:
+
+    bool Iguales(grafo g1, grafo g2);
+    /*
+    EFE: parte recursiva del vendedor.
+    REQ: grafo inicializado
+    MOD: ---
      */
-    vertice buscarVertice(grafo grf,string etiqueta);
+    void visitarVertRec(grafo, int i);
+
+    /*
+    EFE: Encuentra el circuito de menor costo y lo despliega en consola
+    REQ:  grafo inicializado
+    MOD:---
+     */
+    void vendedor(grafo);
+
+    vertice buscarEtiq(string etiq, grafo g);
+
 private:
+    ConjuntoDeConj<vertice> cnjDeCnj;
 
 };
 
