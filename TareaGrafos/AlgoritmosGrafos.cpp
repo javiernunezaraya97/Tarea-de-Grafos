@@ -398,7 +398,7 @@ void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
             solActual[i] = va;
             costoActual += g.Peso(solActual[i - 1], va);
             if (i == g.numVertices()) {
-                if (g.adyacentes(solActual[i], solActual[i])) {
+                if (g.adyacentes(solActual[1], solActual[i])) {
                     costoActual += g.Peso(solActual[1], solActual[i]);
                     if (menorCosto > costoActual) {
                         menorCosto = costoActual;
@@ -414,6 +414,7 @@ void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
             diccVertVisitados.eliminar(va);
             costoActual -= g.Peso(solActual[i - 1], va);
         }
+        va=g.sigVerticeAdy(solActual[i-1],va);
     }
 
 }

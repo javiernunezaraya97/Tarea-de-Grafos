@@ -55,7 +55,7 @@ public:
       REQ:
       MOD:
      */
-    void Floyd(const grafo& );
+    void Floyd(const grafo& grf);
     /*
       EFE:
       REQ:

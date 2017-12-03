@@ -13,7 +13,7 @@
 
 #include <iostream>
 //#define SIZE 10
-#include "AlgoritmosGrafos.h"
+//#include "AlgoritmosGrafos.h"
 //#include "MatrizDeAdy.h"
 #include "ListaDeAdy.h"
 #include "Diccionario.h"
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 //    }
     vertice v1;
     vertice v2;
-    int n=15;
+    int n=6;
     int p;
     for (int i = 0; i < n; ++i){
         g->agregarVertice(to_string(i));
@@ -69,7 +69,9 @@ int main(int argc, char** argv) {
     
     AG.Prim(gCopia);
     
-    AG.Dijkstra(gCopia.primerVertice(), gCopia);
+    AG.Floyd(gCopia);
+   // AG.vendedor(gCopia);
+   // AG.Dijkstra(gCopia.primerVertice(), gCopia);
 
 //    grafo* g = new grafo;
 //    vertice v;

@@ -137,7 +137,7 @@ void Diccionario<T>::agregar(T e){
  
     if (ultimoLleno != 0) {
         Nodo<T> *aux = primero;
-        while (aux != NULL && !existe) {
+        while (aux != nullptr && !existe) {
             if (aux->elemento == e) {
                 existe = true;
             }
@@ -156,12 +156,18 @@ void Diccionario<T>::agregar(T e){
 template <typename T>
 void Diccionario<T>::eliminar(T e){
      Nodo<T> *temp = primero;
-    while(temp->siguiente->elemento != e && temp != NULL){
+     if(primero->elemento==e){
+         primero=primero->siguiente;
+     }else{
+     while((temp->siguiente != nullptr)&&(temp->siguiente->elemento != e)){
         temp = temp->siguiente;
     }
+     if(temp->siguiente!=nullptr){
     if(temp->siguiente->elemento == e){
         temp->siguiente = temp->siguiente->siguiente;
     }
+     }
+     }
     ultimoLleno--;
 }
 
