@@ -168,7 +168,7 @@ int main(int argc, char** argv) {
                         cout << "No existe adyacencia entre ambos vertices";
                     break;
                 case 12:
-                    if(g->primerVertice() != nullptr)
+                    if (g->primerVertice() != nullptr)
                         cout << "El primer vertice del grafo es: " << g->Etiqueta(g->primerVertice());
                     else
                         cout << "El grafo no tiene vertices";
@@ -176,8 +176,8 @@ int main(int argc, char** argv) {
                 case 13:
                     cout << "Escriba la etiqueta del vertice: ";
                     cin >> etiqueta;
-                    v = algoritmos->buscarEtiq(etiqueta,g);
-                    if(v!= nullptr)
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    if (v != nullptr)
                         cout << "El Siguiente vertice de " << etiqueta << " Es: " << g->Etiqueta(g->sigVertice(v));
                     else
                         cout << "El vertice " << etiqueta << " no tiene vertice adyacente";
@@ -185,9 +185,9 @@ int main(int argc, char** argv) {
                 case 14:
                     cout << "Escriba la etiqueta del vertice: ";
                     cin >> etiqueta;
-                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    v = algoritmos->buscarEtiq(etiqueta, g);
                     vAdy = g->primerVerticeAdy(v);
-                    if(vAdy != nullptr)
+                    if (vAdy != nullptr)
                         cout << "El primer vertice Adyacente de " << etiqueta << " Es: " << g->Etiqueta(v);
                     else
                         cout << "El vertice no tiene adyacencias";
@@ -199,8 +199,8 @@ int main(int argc, char** argv) {
                     cout << "Escriba la etiqueta del vertice adyacente: ";
                     cin >> etiqueta;
                     vAdy = algoritmos->buscarEtiq(etiqueta, g);
-                    if(g->sigVerticeAdy(v,vAdy) != nullptr)
-                        cout << "El siguiente vertice adyacente de " << g->Etiqueta(v) << " y " << g->Etiqueta(vAdy) << "Es " g->Etiqueta(g->sigVerticeAdy(v,vAdy));
+                    if (g->sigVerticeAdy(v, vAdy) != nullptr)
+                        cout << "El siguiente vertice adyacente de " << g->Etiqueta(v) << " y " << g->Etiqueta(vAdy) << "Es " g->Etiqueta(g->sigVerticeAdy(v, vAdy));
                     else
                         cout << "no hay siguiente adyacente entre " << g->Etiqueta(v) << " y " << g->Etiqueta(vAdy);
                     break;
@@ -221,7 +221,26 @@ int main(int argc, char** argv) {
             cin >> caso;
         } else if (!salir && caso == 2) {
             switch (segundoCaso) {
-
+                case 1:
+                    cout << "Escriba la etiqueta del vertice a utilizar: " << "\n";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq();
+                    algoritmos->Dijkstra(v,g);
+                    break:
+                case 2:
+                    algoritmos->Floyd(g);
+                    break;
+                case 3:
+                    algoritmos->Kruskal(g);
+                    break;
+                case 4:
+                    algoritmos->Prim(g);
+                    break;
+                case 5:
+                    algoritmos->vendedor(g);
+                    break;
+                case 6:
+                    break;
             }
             cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
             cout << "Presione la tecla 2 para usar algoritmos." << "\n";
