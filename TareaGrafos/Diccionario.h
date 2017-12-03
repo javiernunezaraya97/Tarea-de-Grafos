@@ -23,54 +23,54 @@ template <class T>
 class Diccionario {
 public:
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Constructor estandar del diccionario
+  REQ: diccionario no inicializado
+  MOD: diccionario
 */
     Diccionario();
  
     void iniciar();
     
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Destructor estandar del diccionario
+  REQ: Diccionario inicializado
+  MOD: Diccionario
 */
     virtual ~Diccionario();
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: vacia el diccionario
+  REQ: diccionario inicializado
+  MOD: diccionario
 */
     void vaciar();
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna true o false dependiendo si el diccionario esta vacio o no respectivamente
+  REQ: diccionario inicializado
+  MOD: ---
 */
     bool vacio();
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: agrega un elemento de tipo T al diccionario
+  REQ: diccionario inicializado
+  MOD: diccionario
 */
     void agregar(T elemento);
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: elemina el elemento T del diccionario
+  REQ: diccionario inicializado y T existente en el grafo
+  MOD: diccionario
 */
     void eliminar(T elemento);
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna true o false dependiendo si el elemento pertenece o no respectivamente
+  REQ: diccionario inicializado
+  MOD: ---
 */
     bool pertenece(T elemento);
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna el total de elementos del diccionario en forma de int
+  REQ: diccionario inicializado
+  MOD: ---
 */
     int numElem();
     
