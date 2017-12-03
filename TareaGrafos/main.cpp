@@ -280,7 +280,7 @@ int main(int argc, char** argv) {
                     algoritmos->Dijkstra(v, *g);
                     break;
                 case 2:
-                   // algoritmos->Floyd(*g);
+                    algoritmos->Floyd(*g);
                     break;
                 case 3:
                     algoritmos->Kruskal(*g);
