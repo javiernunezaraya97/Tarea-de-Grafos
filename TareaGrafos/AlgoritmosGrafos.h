@@ -29,14 +29,14 @@ using namespace std;
 class AlgoritmosGrafos {
 public:
     /*
-      EFE:
+      EFE: constructor estandar, ignorar
       REQ:
       MOD:
      */
     AlgoritmosGrafos();
     //AlgoritmosGrafos(const AlgoritmosGrafos& orig);
     /*
-      EFE:
+      EFE: destructor estandar, ignorar
       REQ:
       MOD:
      */
@@ -44,40 +44,42 @@ public:
 
 
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: Encuentro el camino mas corto de un vertice dado a todos los demas de un grafo
+  REQ: g inicializado y no vacio, v pertenece a g
+  MOD: ---
      */
     void Dijkstra(vertice v, const grafo& g);
 
     /*
-      EFE:
-      REQ:
-      MOD:
-     */
-    void Floyd(const grafo& grf);
+
+      EFE: Busca el mejor camino entre todos los vertices del grafo(equivalente a dijstra n veces)
+      REQ: grafo inicializado
+      MOD: ---
+     */ 
+    void Floyd(const grafo& );
+
     /*
-      EFE:
-      REQ:
-      MOD:
+      EFE: encuentra y despliega el arbol de minimo costo de un grafo utilizando prim
+      REQ: grafo inicializado y no vacio, que contenga al menos una arista.
+      MOD: ---
      */
     void Prim(const grafo& grf);
     /*
-      EFE:
+      EFE:encuentra y despliega el arbol de minimo costo de un grafo utilizando kruskal
       REQ: grafo inicializado y no vacio, que contenga al menos una arista.
-      MOD:
+      MOD: ---
      */
     void Kruskal(const grafo& g);
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna una copia del grafo original
+  REQ: grafo inicializado
+  MOD: ---
      */
     grafo Copiar(const grafo& grf);
     /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna true o false dependiendo si los grafos son iguales o no respectivamente
+  REQ: g1 y g2 inicializados
+  MOD: ----
      */
 
     bool Iguales(const grafo& g1,const grafo& g2);
