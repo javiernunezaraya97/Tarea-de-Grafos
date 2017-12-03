@@ -122,32 +122,32 @@ public:
     vertice primerVertice ();
 /*
   EFE: retorna el siguiente vertice del grafo con v como referencia
-  REQ: 
-  MOD:
+  REQ: grafo inicializado
+  MOD: ---
 */
     vertice sigVertice(vertice v);
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna el primer vertice adyacente de V
+  REQ: v en el vertice, grafo inicializado
+  MOD: ---
 */
     vertice primerVerticeAdy (vertice v);
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna el siguiente vertice adyacente de V usando a vAdy copmo referencia
+  REQ: v en el vertice, grafo inicializado
+  MOD: ---
 */
     vertice sigVerticeAdy (vertice v, vertice vAdy);
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna el numero de vertices en el grafo    
+  REQ: grafo inicializado
+  MOD: ---
 */
     int numVertices ();
 /*
-  EFE:
-  REQ:
-  MOD:
+  EFE: retorna el numero de Vertices Adyacentes de V
+  REQ: v existe en el grafo
+  MOD: ---
 */
     int numVerticesAdy(vertice v);
     
