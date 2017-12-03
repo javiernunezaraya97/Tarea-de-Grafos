@@ -21,6 +21,7 @@
 #include "ConjuntoDeConj.h"
 #include "AlgoritmosGrafos.h"
 #include <string>
+#include <ctime>
 using namespace std;
 
 /*
@@ -225,8 +226,8 @@ int main(int argc, char** argv) {
                     cout << "Escriba la etiqueta del vertice a utilizar: " << "\n";
                     cin >> etiqueta;
                     v = algoritmos->buscarEtiq();
-                    algoritmos->Dijkstra(v,g);
-                    break:
+                    algoritmos->Dijkstra(v, g);
+                    break;
                 case 2:
                     algoritmos->Floyd(g);
                     break;
@@ -249,9 +250,9 @@ int main(int argc, char** argv) {
         }
         if (caso == 3) {
             salir = true;
-            cout << "adios";
+            cout << "adios";     
         }
+
     }
     return 0;
 }
-

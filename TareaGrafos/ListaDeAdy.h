@@ -62,7 +62,7 @@ struct Vertice {
 };
 typedef Arista* arista;
 typedef Vertice* vertice;
-
+typedef Vertice verticeNulo;
 class ListaDeAdy {
 public:
     int cantVert;
@@ -128,7 +128,7 @@ public:
      * Requiere: Vértice válido.
      * Modifica: 
      */
-    string Etiqueta(vertice v);
+    string Etiqueta(vertice v)const;
     /**
      * AgregarArista
      * @param vertice
@@ -167,7 +167,7 @@ public:
      * Requiere: Vértices válidos.
      * Modifica: 
      */
-    int Peso(vertice v1, vertice v2);
+    int Peso(vertice v1, vertice v2)const;
     /**
      * Adyacentes
      * @param vertice
@@ -177,7 +177,7 @@ public:
      * Requiere: Vértices válidos.
      * Modifica: 
      */
-    bool adyacentes(vertice v1, vertice v2);
+    bool adyacentes(vertice v1, vertice v2)const;
     /**
      * PrimerVertice
      * @return vertice
@@ -185,7 +185,7 @@ public:
      * Requiere: Grafo inicializado.
      * Modifica: 
      */
-    vertice primerVertice();
+     vertice primerVertice()const;
     /**
      * SiguienteVertice
      * @param vertice
@@ -194,7 +194,7 @@ public:
      * Requiere: Vértice válido.
      * Modifica: 
      */
-    vertice sigVertice(vertice v);
+    vertice sigVertice(vertice v)const;
     /**
      * PrimerVerticeAdyacente
      * @param vertice
@@ -203,7 +203,7 @@ public:
      * Requiere: Vértice válido.
      * Modifica: 
      */
-    vertice primerVerticeAdy(vertice v);
+    vertice primerVerticeAdy(vertice v)const;
     /**
      * SiguienteVerticeAdyacente
      * @param vertice
@@ -213,7 +213,7 @@ public:
      * Requiere: Vértices válidos.
      * Modifica:
      */
-    vertice sigVerticeAdy(vertice v, vertice vAdy);
+    vertice sigVerticeAdy(vertice v, vertice vAdy)const;
     /**
      * NumVertices
      * @return int
@@ -221,7 +221,7 @@ public:
      * Requiere: Grafo inicializado.
      * Modifica:
      */
-    int numVertices();
+    int numVertices()const;
     /**
      * NumVerticesAdyacentes
      * @param vertice
@@ -230,7 +230,7 @@ public:
      * Requiere: Vértice válido.
      * Modifica:
      */
-    int numVerticesAdy(vertice v);
+    int numVerticesAdy(vertice v)const;
 
 
 private:
