@@ -14,8 +14,8 @@
 #include <iostream>
 //#define SIZE 10
 //#include "AlgoritmosGrafos.h"
-#include "MatrizDeAdy.h"
-//#include "ListaDeAdy.h"
+//#include "MatrizDeAdy.h"
+#include "ListaDeAdy.h"
 #include "Diccionario.h"
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
@@ -29,50 +29,6 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    srand(10042017);
-    
-//    grafo* g= new grafo;
-//    AlgoritmosGrafos AG;
-//    vertice vj;
-////    for (int i = 0; i <= 50; ++i) {
-////        vj = g->agregarVertice(to_string(i));
-////        if (i > 0 && i < 50) {
-////            g->agregarArista(g->primerVertice(), g->sigVertice(vj), 3);
-////        }
-////    }
-//    vertice v1;
-//    vertice v2;
-//    int n=6;
-//    int p;
-//    for (int i = 0; i < n; ++i){
-//        g->agregarVertice(to_string(i));
-//    }
-//
-//    for (int i = 0; i < n; ++i){
-//         
-//        v1 = AG.buscarEtiq(to_string(i),*g);
-//        for (int j = 0; j < n/3; ++j)
-//        {  
-//            p = (rand()%20) + 1;
-//            v2 = AG.buscarEtiq(to_string(rand()%(n-1)), *g);
-//            while ((g->adyacentes(v1, v2)) || (v1 == v2))
-//            {   
-//                v2 = AG.buscarEtiq(to_string(rand()%n), *g);
-//            }
-//            g->agregarArista(v1,v2, p);
-//        }
-//    }
-//    
-//    grafo gCopia= AG.Copiar(*g);
-//    bool igual= AG.Iguales(*g, gCopia);
-//    
-//    AG.Kruskal(gCopia);
-//    
-//    AG.Prim(gCopia);
-//    
-//    AG.Floyd(*g);
-   // AG.vendedor(gCopia);
-   // AG.Dijkstra(gCopia.primerVertice(), gCopia);
 
 
     grafo* g = new grafo;

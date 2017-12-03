@@ -21,9 +21,9 @@
 #include "ColaDePrioridad.h"
 #include "ConjuntoDeConj.h"
 #include "Diccionario.h"
-//#include "ListaDeAdy.h"
+#include "ListaDeAdy.h"
 #include <limits>
-#include "MatrizDeAdy.h"
+//#include "MatrizDeAdy.h"
 using namespace std;
 
 class AlgoritmosGrafos {
