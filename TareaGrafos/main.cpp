@@ -27,9 +27,10 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    grafo g = new grafo;
-    vertice v;
+    grafo* g = new grafo;
+    vertice v, vAdy;
     string etiqueta;
+    int peso;
     AlgoritmosGrafos* algoritmos = new AlgoritmosGrafos();
     int caso = 0;
     cout << "Saludos, ¿que desea utilizar?" << "\n";
@@ -69,7 +70,7 @@ int main(int argc, char** argv) {
                 cout << "Presione 4 para Kruskal()" << "\n";
                 cout << "Presione 5 para Copiar()" << "\n";
                 cout << "Presione 6 para Iguales()" << "\n";
-                cout << "Presione 7 para Vendedor()"<< "\n";
+                cout << "Presione 7 para Vendedor()" << "\n";
                 cin >> segundoCaso;
                 break;
             case 3:
@@ -84,10 +85,10 @@ int main(int argc, char** argv) {
                     g.vaciar();
                     break;
                 case 2:
-                    if(g.vacio())
+                    if (g.vacio())
                         cout << "El grafo esta vacio" << "\n";
                     else
-                        cout << "El grafo no esta vacio"<< "\n";
+                        cout << "El grafo no esta vacio" << "\n";
                     break;
                 case 3:
                     cout << "Escriba la etiqueta del vertice: ";
@@ -97,24 +98,123 @@ int main(int argc, char** argv) {
                 case 4:
                     cout << "Escriba la etiqueta del vertice: ";
                     cin >> etiqueta;
-                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    v = algoritmos->buscarEtiq(etiqueta, g);
                     g.eliminarVertice(v);
                     break;
                 case 5:
                     cout << "Escriba la etiqueta del vertice: ";
                     cin >> etiqueta;
-                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    v = algoritmos->buscarEtiq(etiqueta, g);
                     cout << "Escriba la nueva etiqueta del vertice: ";
                     cin >> etiqueta;
-                    g.modificarEtiqueta(v,etiqueta);
+                    g.modificarEtiqueta(v, etiqueta);
                     break;
                 case 6:
                     cout << "Escriba la etiqueta del vertice: ";
                     cin >> etiqueta;
-                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    v = algoritmos->buscarEtiq(etiqueta, g);
                     cout << g.Etiqueta(v);
                     break;
+                case 7:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice para crear adyacencia: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba el peso de la arista: ";
+                    cin >> peso;
+                    g->agregarArista(v, vAdy, peso);
+                    break;
+                case 8:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice para crear adyacencia: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    g->eliminarArista(v, vAdy);
+                    break;
+                case 9:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice adyacente: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba el nuevo peso de la arista: ";
+                    cin >> peso;
+                    g->agregarArista(v, vAdy, peso);
+                    break;
+                case 10:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice adyacente: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "\n" << g->Peso(v, vAdy);
+                    break;
+                case 11:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice adyacente: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    if (g->adyacentes(v, vAdy))
+                        cout << "Existe adyacencia entre ambos vertices";
+                    else
+                        cout << "No existe adyacencia entre ambos vertices";
+                    break;
+                case 12:
+                    if(g->primerVertice() != nullptr)
+                        cout << "El primer vertice del grafo es: " << g->Etiqueta(g->primerVertice());
+                    else
+                        cout << "El grafo no tiene vertices";
+                    break;
+                case 13:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    if(v!= nullptr)
+                        cout << "El Siguiente vertice de " << etiqueta << " Es: " << g->Etiqueta(g->sigVertice(v));
+                    else
+                        cout << "El vertice " << etiqueta << " no tiene vertice adyacente";
+                    break;
+                case 14:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta,g);
+                    vAdy = g->primerVerticeAdy(v);
+                    if(vAdy != nullptr)
+                        cout << "El primer vertice Adyacente de " << etiqueta << " Es: " << g->Etiqueta(v);
+                    else
+                        cout << "El vertice no tiene adyacencias";
+                    break;
+                case 15:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "Escriba la etiqueta del vertice adyacente: ";
+                    cin >> etiqueta;
+                    vAdy = algoritmos->buscarEtiq(etiqueta, g);
+                    if(g->sigVerticeAdy(v,vAdy) != nullptr)
+                        cout << "El siguiente vertice adyacente de " << g->Etiqueta(v) << " y " << g->Etiqueta(vAdy) << "Es " g->Etiqueta(g->sigVerticeAdy(v,vAdy));
+                    else
+                        cout << "no hay siguiente adyacente entre " << g->Etiqueta(v) << " y " << g->Etiqueta(vAdy);
+                    break;
+                case 16:
+                    cout << "El grafo tiene " << g->numVertices() << " vertices";
+                    break;
+                case 17:
+                    cout << "Escriba la etiqueta del vertice: ";
+                    cin >> etiqueta;
+                    v = algoritmos->buscarEtiq(etiqueta, g);
+                    cout << "\n" << "El vertice " << etiqueta << " Tiene " << g->numVerticesAdy(v) << " adyacencias";
+                    break;
             }
+            cout << "\n";
             cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
             cout << "Presione la tecla 2 para usar algoritmos." << "\n";
             cout << "Presione la tecla 3 para salir." << "\n";
@@ -128,7 +228,7 @@ int main(int argc, char** argv) {
             cout << "Presione la tecla 3 para salir." << "\n";
             cin >> caso;
         }
-        if(caso == 3){
+        if (caso == 3) {
             salir = true;
             cout << "adios";
         }
