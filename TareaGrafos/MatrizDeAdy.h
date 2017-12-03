@@ -83,7 +83,7 @@ public:
   REQ: v existe en grafo
   MOD: ---
 */
-    string Etiqueta(vertice v);
+    string Etiqueta(vertice v)const;
 /*
   EFE: agrega una arista entre v1 y v2 con peso recibido por parametro
   REQ: v1 y v2 en el grafo
@@ -107,53 +107,53 @@ public:
   REQ: v1 y v2 en el grafo
   MOD: ---
 */
-    int Peso (vertice v1, vertice v2);
+    int Peso (vertice v1, vertice v2)const;
 /*
   EFE: retorna true o false si existe adyacencia entre v1 y v2
   REQ: v1 y v2 en grafo
   MOD: ---
 */
-    bool adyacentes(vertice v1, vertice v2);
+    bool adyacentes(vertice v1, vertice v2)const;
 /*
   EFE: retorn el primer vertice del grafo
   REQ: grafo inicializaod y no vacio
   MOD: ---
 */
-    vertice primerVertice ();
+    vertice primerVertice ()const;
 /*
   EFE: retorna el siguiente vertice del grafo con v como referencia
   REQ: 
   MOD:
 */
-    vertice sigVertice(vertice v);
+    vertice sigVertice(vertice v)const;
 /*
   EFE:
   REQ:
   MOD:
 */
-    vertice primerVerticeAdy (vertice v);
+    vertice primerVerticeAdy (vertice v)const;
 /*
   EFE:
   REQ:
   MOD:
 */
-    vertice sigVerticeAdy (vertice v, vertice vAdy);
+    vertice sigVerticeAdy (vertice v, vertice vAdy)const;
 /*
   EFE:
   REQ:
   MOD:
 */
-    int numVertices ();
+    int numVertices ()const;
 /*
   EFE:
   REQ:
   MOD:
 */
-    int numVerticesAdy(vertice v);
+    int numVerticesAdy(vertice v)const;
     
     
 private:
-    Vertice vertices[10];
+    vertice vertices[10];
     int matrizAdyacencia[10][10];
     int ultimo = -1;
     int numVertice;
