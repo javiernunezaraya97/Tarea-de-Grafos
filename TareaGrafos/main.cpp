@@ -76,6 +76,7 @@ int main(int argc, char** argv) {
 
 
     grafo* g = new grafo;
+    grafo gCopiado;
     vertice v, vAdy;
     string etiqueta;
     int peso;
@@ -87,9 +88,11 @@ int main(int argc, char** argv) {
     cout << "Presione la tecla 2 para algoritmos." << "\n";
     cout << "Presione la tecla 3 para salir." << "\n";
     bool salir = false;
+
     cin >> caso;
     while (!salir) {
         
+
         int segundoCaso = 0;
         switch (caso) {
             case 1:
@@ -118,10 +121,10 @@ int main(int argc, char** argv) {
                 cout << "Presione 2 para Floyd()" << "\n";
                 cout << "Presione 3 para Prim()" << "\n";
                 cout << "Presione 4 para Kruskal()" << "\n";
-                cout << "Presione 5 para Copiar()" << "\n";
-                cout << "Presione 6 para Iguales()" << "\n";
 
-                cout << "Presione 7 para Vendedor()" << "\n";
+                cout << "Presione 5 para Copiar() e iguales()" << "\n";
+                cout << "Presione 6 para Vendedor()" << "\n";
+
                 cin >> segundoCaso;
                 break;
             case 3:
@@ -280,7 +283,7 @@ int main(int argc, char** argv) {
                     algoritmos->Dijkstra(v, *g);
                     break;
                 case 2:
-                    algoritmos->Floyd(*g);
+                   // algoritmos->Floyd(*g);
                     break;
                 case 3:
                     algoritmos->Kruskal(*g);
@@ -289,9 +292,17 @@ int main(int argc, char** argv) {
                     algoritmos->Prim(*g);
                     break;
                 case 5:
-                    algoritmos->vendedor(*g);
+
+                    gCopiado = algoritmos->Copiar(*g);
+                    if(algoritmos->Iguales(*g,gCopiado))
+                        cout << "el grafo se copio correcta" ;
+                    else
+                        cout << "el grafo no se copio correctamente";
                     break;
                 case 6:
+                    algoritmos->vendedor(*g);
+                    break;
+                default:
                     break;
             }
             cout << "Presione la tecla 1 para seguir con operadores basicos." << "\n";
@@ -299,7 +310,7 @@ int main(int argc, char** argv) {
             cout << "Presione la tecla 3 para salir." << "\n";
             cin >> caso;
         }
-        if (caso == 3) {
+        if (caso == 3 && salir == false) {
             salir = true;
             cout << "adios";     
         }
