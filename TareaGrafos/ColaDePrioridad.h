@@ -8,7 +8,7 @@
 
 #ifndef COLADEPRIORIDAD_H
 #define COLADEPRIORIDAD_H
-#define SIZE 20
+#define SIZE 100
 #include <string.h>
 #include <string>
 #include <sstream>
@@ -132,7 +132,7 @@ void ColaDePrioridad<A>::agregar(A elemento, int prioridad) {
     arreglo[ultimo] = *nuevo;
     //cout<<arreglo[ultimo].elemento<<"\n";
     int agregado = ultimo;
-    while ((agregado > 0) && (arreglo[agregado].prioridad < arreglo[agregado / 2].prioridad)) {
+    while ((agregado > 0) && (agregado/2>0)&&(arreglo[agregado].prioridad < arreglo[agregado / 2].prioridad)) {
         padre = arreglo[agregado / 2];
         arreglo[agregado / 2] = arreglo[agregado];
         arreglo[agregado] = padre;
