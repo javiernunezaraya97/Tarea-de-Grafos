@@ -310,8 +310,8 @@ void AlgoritmosGrafos::Kruskal(const grafo& g) {
     CP.~ColaDePrioridad();
 }
 
-grafo AlgoritmosGrafos::Copiar(const grafo& original) {
-    grafo copia;
+grafo* AlgoritmosGrafos::Copiar(const grafo& original) {
+    grafo* copia= new grafo;
     string etiqueta = "";
     vertice v = original.primerVertice();
     int tamOriginal = original.numVertices();
@@ -319,7 +319,7 @@ grafo AlgoritmosGrafos::Copiar(const grafo& original) {
     //Copia todos los vertices de original a la copia
     for (int i = 0; i < tamOriginal; i++) {
         etiqueta = original.Etiqueta(v);
-        copia.agregarVertice(etiqueta);
+        copia->agregarVertice(etiqueta);
         v = original.sigVertice(v);
     }
     //
@@ -329,7 +329,7 @@ grafo AlgoritmosGrafos::Copiar(const grafo& original) {
     vertice adyacente;
     while (v != nullptr) {
         etiqueta = original.Etiqueta(v);
-        vCopia = buscarEtiq(etiqueta, copia);
+        vCopia = buscarEtiq(etiqueta, *copia);
         adyacente = original.primerVerticeAdy(v);
 
         while (adyacente != nullptr) {
@@ -338,9 +338,9 @@ grafo AlgoritmosGrafos::Copiar(const grafo& original) {
                 aristasVisitadas.agregar({v, adyacente});
                 //Conecta los vertices en la copia
                 etiqueta = original.Etiqueta(adyacente);
-                vCopiaAdy = buscarEtiq(etiqueta, copia);
+                vCopiaAdy = buscarEtiq(etiqueta, *copia);
                 peso = original.Peso(v, adyacente);
-                copia.agregarArista(vCopia, vCopiaAdy, peso);
+                copia->agregarArista(vCopia, vCopiaAdy, peso);
                 //
             }
             adyacente = original.sigVerticeAdy(v, adyacente);
@@ -418,12 +418,14 @@ void AlgoritmosGrafos::vendedor(const grafo& g) {
     solActual[1] = g.primerVertice();
     diccVertVisitados.agregar(g.primerVertice());
     visitarVertRec(g, 2);
-    cout << "Se obtuvieron: " << numSoluciones << " soluciones factibles. \nLa solucion con el menor costo obtenida fue: ";
-    for (int i = 1; i <= g.numVertices(); ++i) {
-        cout << g.Etiqueta(mejorSol[i]) << ", ";
-    }
-    cout << "\ncon un costo de: " << menorCosto << endl;
-
+    cout << "Se obtuvieron: " << numSoluciones << " soluciones factibles. \n";
+      if(numSoluciones>0){     
+        cout<< "La solucion con el menor costo obtenida fue: ";
+        for (int i = 1; i <= g.numVertices(); ++i) {
+            cout << g.Etiqueta(mejorSol[i]) << ", ";
+        }
+        cout << "\ncon un costo de: " << menorCosto << endl;
+      }
     diccVertVisitados.~Diccionario();
 }
 

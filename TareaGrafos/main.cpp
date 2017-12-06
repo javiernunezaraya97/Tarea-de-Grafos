@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
 
     grafo* g = new grafo;
-    grafo gCopiado;
+    grafo* gCopiado=new grafo;
     vertice v, vAdy;
     string etiqueta;
     int peso;
@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
                     v = algoritmos->buscarEtiq(etiqueta, *g);
                     vAdy = g->primerVerticeAdy(v);
                     if (vAdy != nullptr)
-                        cout << "El primer vertice Adyacente de " << etiqueta << " Es: " << g->Etiqueta(v);
+                        cout << "El primer vertice Adyacente de " << etiqueta << " Es: " << g->Etiqueta(vAdy);
                     else
                         cout << "El vertice no tiene adyacencias";
                     break;
@@ -250,7 +250,7 @@ int main(int argc, char** argv) {
                 case 5:
 
                     gCopiado = algoritmos->Copiar(*g);
-                    if(algoritmos->Iguales(*g,gCopiado))
+                    if(algoritmos->Iguales(*g, *gCopiado))
                         cout << "el grafo se copio correcta" ;
                     else
                         cout << "el grafo no se copio correctamente";

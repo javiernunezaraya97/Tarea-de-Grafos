@@ -108,15 +108,7 @@ void Diccionario<T>::iniciar(){
 
 template < typename T >
 Diccionario<T>::~Diccionario(){
-     Nodo<T> *temp = primero;
-    Nodo<T> *aux = nullptr;
-    while (temp != nullptr) {
-        aux = temp->siguiente;
-        delete temp;
-        temp = aux;
-    }
-    delete aux;
-    delete temp;
+
 }
 
 

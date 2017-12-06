@@ -75,7 +75,7 @@ public:
   REQ: grafo inicializado
   MOD: ---
      */
-    grafo Copiar(const grafo& grf);
+    grafo* Copiar(const grafo& grf);
     /*
   EFE: retorna true o false dependiendo si los grafos son iguales o no respectivamente
   REQ: g1 y g2 inicializados
