@@ -57,79 +57,73 @@ AlgoritmosGrafos::~AlgoritmosGrafos() {
 }
 
 void AlgoritmosGrafos::Dijkstra(vertice v, const grafo& grf) {
-    Distancia.clear();
-    Caminos.clear();
-    Diccionario <vertice> VerticesRevisados;
-    vertice actual = grf.primerVertice();
-    vertice pivote;
-    vertice AdyacentePivote;
+    vector<int> VectorPesos(grf.numVertices());
+    vector<string> VectorCaminos(grf.numVertices());
+    map<vertice,int> R11VertInd;
+    map<int,vertice> R11IndVert;
+    vertice v1=grf.primerVertice();
+    int indice=0;
+    while(v1!=nullptr){
+        if(v1!=v){
+            R11VertInd[v1]=indice;
+            R11IndVert[indice]=v1;
+            indice++;
+        }
+        v1=grf.sigVertice(v1);
+    }
+    
+    indice++;
+    v1=grf.primerVertice();
+    while(v1!=nullptr){
+        if(v1!=v){
+            if (grf.Peso(v,v1)!=-1){
+                VectorPesos[R11VertInd[v1]]=grf.Peso(v,v1);
+            } else{
+                VectorPesos[R11VertInd[v1]]=numeric_limits<int>::max();
+            }
+            VectorCaminos[R11VertInd[v1]]=grf.Etiqueta(v1);
+        }
+        v1=grf.sigVertice(v1);
+    }
+    
+    Diccionario<vertice> DVV;
+    DVV.iniciar();
+    DVV.agregar(v);
     int menor;
-    int n = grf.numVertices();
-    while (actual != nullptr) {
-        if (grf.adyacentes(v, actual)) {
-            Distancia.insert(make_pair(grf.Etiqueta(actual), grf.Peso(v, actual)));
-            Caminos.insert(make_pair(grf.Etiqueta(actual), grf.Etiqueta(v) + "-> " + grf.Etiqueta(actual)));
-        } else if (v == actual) {
-            Distancia.insert(make_pair(grf.Etiqueta(actual), 0));
-            Caminos.insert(make_pair(grf.Etiqueta(actual), ""));
-        } else {
-            Distancia.insert(make_pair(grf.Etiqueta(actual), -1));
-            Caminos.insert(make_pair(grf.Etiqueta(actual), ""));
+    int menorPeso;
+    int cont;
+    vertice pivote;
+    while (DVV.numElem()<indice){
+        menorPeso=numeric_limits<int>::max();
+        cont=0;
+        while (cont<indice-1){
+            if((VectorPesos[cont]<menorPeso)&&(!DVV.pertenece(R11IndVert[cont]))){
+                menor=cont;
+                menorPeso=VectorPesos[cont];
+            }
+            cont++;
         }
-        actual = grf.sigVertice(actual);
-    }
-    v=grf.primerVertice();
-    VerticesRevisados.agregar(v);
-    while (n != VerticesRevisados.numElem()) {
-        menor = -1;
-        for (it = Distancia.begin(); it != Distancia.end(); ++it) //Busca el menor camino que no esté listo.
-        {
-            if ((it ->second < menor && it ->second >= 0) || menor < 0) {
-                //Buscar Vertice en grafo
-                vertice resultado = nullptr;
-                vertice actual = grf.primerVertice();
-                while (actual != nullptr && resultado == nullptr) {
-                    if (grf.Etiqueta(actual) == it->first) {
-                        resultado = actual;
-                    }
-                    actual = grf.sigVertice(actual);
-                }
-                //
-                if (!VerticesRevisados.pertenece(actual)) {
-                    menor = it ->second;
-                    //Buscar Vertice en grfrafo
-                    resultado = nullptr;
-                    actual = grf.primerVertice();
-                    while (actual != nullptr && resultado == nullptr) {
-                        if (grf.Etiqueta(actual) == it->first) {
-                            resultado = actual;
-                        }
-                        actual = grf.sigVertice(actual);
-                    }
-                    //
-
-                    pivote = actual;
+        
+        pivote=R11IndVert[menor];
+        DVV.agregar(pivote);
+        v1=grf.primerVerticeAdy(pivote);
+        while(v1!=nullptr){
+            if(v1!=v){
+                if(VectorPesos[R11VertInd[v1]]>(grf.Peso(pivote,v1)+VectorPesos[R11VertInd[pivote]])){
+                    VectorPesos[R11VertInd[v1]]=grf.Peso(pivote,v1)+VectorPesos[R11VertInd[pivote]];
+                    VectorCaminos[R11VertInd[v1]]=VectorCaminos[R11VertInd[v1]]+" - "+ grf.Etiqueta(pivote);
                 }
             }
-        }
-        if(pivote!=nullptr){
-        VerticesRevisados.agregar(pivote);
-        AdyacentePivote = grf.primerVerticeAdy(pivote);
-        while (AdyacentePivote != nullptr) {
-            it = Distancia.find(grf.Etiqueta(AdyacentePivote));
-            if (!VerticesRevisados.pertenece(AdyacentePivote) && (it ->second > (Distancia.find(grf.Etiqueta(pivote))-> second) + grf.Peso(pivote, AdyacentePivote) || it ->second < 0)) {
-                it ->second = Distancia.find(grf.Etiqueta(pivote))-> second + grf.Peso(pivote, AdyacentePivote);
-                itCaminos = Caminos.find(grf.Etiqueta(AdyacentePivote));
-                itCaminos ->second = Caminos.find(grf.Etiqueta(pivote))-> second + "-> " + grf.Etiqueta(AdyacentePivote);
-            }
-            AdyacentePivote = grf.sigVerticeAdy(pivote, AdyacentePivote);
-        }
-        }
+            v1=grf.sigVerticeAdy(pivote,v1);
+        }        
     }
-    for (itCaminos = Caminos.begin(); itCaminos != Caminos.end(); ++itCaminos) {
-        cout << "El camino mas corto de " << grf.Etiqueta(v) << " a " << itCaminos ->first << ": " << itCaminos ->second;
-        cout << ". Su costo es de: " << Distancia.find(itCaminos->first)->second << endl;
+    
+    for(int j=0; j<VectorCaminos.size()-1;j++){
+        cout<< "El camino mas corto del vert "<< grf.Etiqueta(v)<< " hasta el vert "<< grf.Etiqueta(R11IndVert[j])<< " es: "<< VectorCaminos[j];
+        cout<< " con un peso de: "<< VectorPesos[j]<<"\n";
     }
+    
+    DVV.~Diccionario();
 }
 
 void Floyd(const grafo& grf) {
@@ -398,7 +392,7 @@ void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
             solActual[i] = va;
             costoActual += g.Peso(solActual[i - 1], va);
             if (i == g.numVertices()) {
-                if (g.adyacentes(solActual[i], solActual[i])) {
+                if (g.adyacentes(solActual[1], solActual[i])) {
                     costoActual += g.Peso(solActual[1], solActual[i]);
                     if (menorCosto > costoActual) {
                         menorCosto = costoActual;
@@ -414,6 +408,7 @@ void AlgoritmosGrafos::visitarVertRec(const grafo& g, int i) {
             diccVertVisitados.eliminar(va);
             costoActual -= g.Peso(solActual[i - 1], va);
         }
+        va=g.sigVerticeAdy(solActual[i-1],va);
     }
 
 }

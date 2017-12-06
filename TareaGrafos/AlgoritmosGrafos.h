@@ -51,11 +51,13 @@ public:
     void Dijkstra(vertice v, const grafo& g);
 
     /*
+
       EFE: Busca el mejor camino entre todos los vertices del grafo(equivalente a dijstra n veces)
       REQ: grafo inicializado
       MOD: ---
      */ 
     void Floyd(const grafo& );
+
     /*
       EFE: encuentra y despliega el arbol de minimo costo de un grafo utilizando prim
       REQ: grafo inicializado y no vacio, que contenga al menos una arista.
